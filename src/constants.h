@@ -1,4 +1,3 @@
-
 /// * default parameter values *
 #define _AVG_NUMBER_ 10.
 #define _AVG_PROP_ 0.8.
