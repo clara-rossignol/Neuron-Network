@@ -9,7 +9,7 @@ set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -W -Wall -Wextra")
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 option(test "Build tests." ON)
 
-set(SOURCE_FILES src/Random.cpp src/Neuron.cpp src/Simulation.cpp src/NeuronNetwork.cpp)
+set(SOURCE_FILES src/Random.cpp src/Neuron.cpp src/Simulation.cpp src/Network.cpp)
 set(PROG_NAME "NeuronNetwork")
 
 include_directories("/usr/local/include" ${CMAKE_SOURCE_DIR}/include) 
