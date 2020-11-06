@@ -24,6 +24,7 @@ public:
 */
 ///@{
     double uniform_double(double lower, double upper);
+    int uniform_int(double lower, double upper);
     double normal(double mean, double sd);
     int poisson(double mean);
 ///@}

@@ -1,5 +1,6 @@
 #include "constants.h"
 #include "Simulation.h"
+#include "Random.h"
 
 Simulation::Simulation(int argc, char **argv) {
     try {

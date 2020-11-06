@@ -51,3 +51,4 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 //useful ?
 #define _OUTPUT_TEXT_ "Output file name (default is output to screen)"
 #define _CFILE_TEXT_ "Configuration file name"
+

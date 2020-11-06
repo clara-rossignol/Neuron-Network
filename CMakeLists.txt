@@ -26,7 +26,7 @@ if (test)
   endif(NOT GTEST_FOUND)
     include_directories(${GTEST_INCLUDE_DIRS} ${CMAKE_SOURCE_DIR}/src)
     add_executable(test${PROG_NAME} ${SOURCE_FILES})
-    target_link_libraries(testNTW ${GTEST_BOTH_LIBRARIES} pthread)
+    #target_link_libraries(testNTW ${GTEST_BOTH_LIBRARIES} pthread)
     add_test(NeuronNetwork test${PROG_NAME})
 endif(test)
 
