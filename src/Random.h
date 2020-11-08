@@ -5,7 +5,7 @@
 #include <vector>
 #include <algorithm>
 
-/*!
+/*! \class RandomNumbers
   This is a random number class based on standard c++-11 generators.
 */
 
@@ -28,6 +28,8 @@ public:
     double normal(double mean, double sd);
     int poisson(double mean);
 ///@}
+
+//might need to add functions that fill a vector, we'll see
 
 private:
     std::mt19937 rng;
