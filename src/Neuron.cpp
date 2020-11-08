@@ -30,7 +30,7 @@ void Neuron::newConnection(const Connection & c)
 double Neuron::currentCalculation()
 {
 	double current(0);
-	for(auto c : connections)
+	for(auto c : connections) //maybe a better way to optimize it
     {
 	    if(c.sender->isInhibitor())
             current -=c.intensity;
