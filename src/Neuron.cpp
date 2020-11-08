@@ -2,8 +2,6 @@
 #include "Random.h"
 #include <cmath>
 
-
-
 Neuron::Neuron(Type t) : firing(false),  nparams(NeuronTypes.at(t))
 {
     membrane_potential = nparams.c;
