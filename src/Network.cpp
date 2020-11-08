@@ -12,7 +12,7 @@ void Network::setConnections(double meanIntensity, double meanConnectivity)
     for(auto neuron :neurons)
     {
         int number(-1);
-        while (number<0 or number > neurons.size())
+        while (number < 0 or number > neurons.size()) //maybe there is a more optimal solution
             number = _RNG->poisson(meanConnectivity);
 
         for(size_t i(0);i<number ;++i)
