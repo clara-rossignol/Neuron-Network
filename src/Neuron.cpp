@@ -1,7 +1,7 @@
 #include "Neuron.h"
 #include "Random.h"
 #include <cmath>
-
+#include "constants.h"
 
 
 Neuron::Neuron(Type t) : firing(false),  nparams(NeuronTypes.at(t))
