@@ -1,8 +1,11 @@
 #include "Neuron.h"
 #include "Random.h"
 #include <cmath>
+<<<<<<< HEAD
 #include "constants.h"
 
+=======
+>>>>>>> 8368f135cc0423cc3adeb99cdb25a9479adc8c8a
 
 Neuron::Neuron(Type t) : firing(false),  nparams(NeuronTypes.at(t))
 {
@@ -32,7 +35,7 @@ void Neuron::newConnection(const Connection & c)
 double Neuron::currentCalculation()
 {
 	double current(0);
-	for(auto c : connections)
+	for(auto c : connections) //maybe a better way to optimize it
     {
 	    if(c.sender->isInhibitor())
             current -=c.intensity;

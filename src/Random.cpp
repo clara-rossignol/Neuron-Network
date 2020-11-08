@@ -32,5 +32,3 @@ int RandomNumbers::poisson(double mean)
 	std::poisson_distribution<> poiss(mean);
 	return poiss(rng);
 }
-
-

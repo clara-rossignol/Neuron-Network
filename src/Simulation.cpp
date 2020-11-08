@@ -34,13 +34,19 @@ Simulation::Simulation(int argc, char **argv) {
         _endtime = maxt.getValue();
         _connectivity = connectivity.getValue();
         _intensity = intensity.getValue();
+
 }catch(TCLAP::ArgException &e) {
         throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
     }
 }
-void Simulation::run() {
+ 
+
+void Simulation::run(){
 	//to be written
+	
+
 }
 
 Simulation::~Simulation() {
+
 }

@@ -9,6 +9,7 @@
 #include <vector>
 
 /*!
+  \class SimulError
   A base class for errors thrown in this program.
   Each error type has a specific exit code.
   Error messages will be passed by the exception caller.
@@ -22,6 +23,7 @@ protected:
     const int code;
 };
 
+/*
 #define _SIMULERR_(_N, _id) class _N : public SimulError { \
     public: _N(const char *c) : SimulError(c,_id) {} \
             _N(const std::string &s) : SimulError(s,_id) {} };
@@ -33,10 +35,11 @@ _SIMULERR_(CFILE_ERROR, 20)
 _SIMULERR_(OUTPUT_ERROR, 30)
 
 #undef _SIMULERR_
+*/
 
 /// * default parameter values *
 #define _AVG_NUMBER_ 100
-#define _AVG_PROP_ 0.8.
+#define _AVG_PROP_ 0.8
 #define _TIME_ 10
 #define _AVG_CNNCT_ 3 //am really not sure about this one, pretty much invented 
 #define _AVG_INTENSITY_ 2 //same thing with this one

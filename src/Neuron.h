@@ -25,9 +25,8 @@ struct Connection
 
 enum Type {RS, FS};
 
-
-class Neuron {
-
+class Neuron
+{
 
 public:
     /*!
