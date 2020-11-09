@@ -18,10 +18,10 @@ Simulation::Simulation(int argc, char **argv) {
         cmd.add(connectivity);
         TCLAP::ValueArg<double> intensity("L", "intensity", _INTENSITY_TEXT_, false, _AVG_INTENSITY_, "double");
         cmd.add(intensity);
-        /*
+        
          TCLAP::ValueArg<std::string> ofile("o", "outptut", _OUTPUT_TEXT_, false, "", "string");
         cmd.add(ofile);
-        */
+        
         //not sure if this is needed
         TCLAP::ValueArg<long> seed("S", "seed", "Random seed", false, 0, "long");
         cmd.add(seed);
@@ -34,7 +34,8 @@ Simulation::Simulation(int argc, char **argv) {
         _endtime = maxt.getValue();
         _connectivity = connectivity.getValue();
         _intensity = intensity.getValue();
-
+        std::string outfname = ofile.getValue();
+        if (outfname.length()) outfile.open(outfname, std::ios_base::out);
 }catch(TCLAP::ArgException &e) {
         throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
     }
