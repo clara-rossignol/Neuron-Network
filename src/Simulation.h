@@ -30,6 +30,11 @@ public:
 
     void run();
 
+/*!
+* Write on the output document at every steps, called in ru 
+*/
+    void print();
+
     ~Simulation();
 ///@}
 
@@ -41,5 +46,6 @@ private:
     size_t _size;
     int _endtime;
     double _pE, _connectivity, _intensity;
+    std::ofstream outfile;
     //other to add ?
 };

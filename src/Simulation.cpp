@@ -42,11 +42,19 @@ Simulation::Simulation(int argc, char **argv) {
  
 
 void Simulation::run(){
-	//to be written
 	
+
+}
+
+void Simulation::print() {
 
 }
 
 Simulation::~Simulation() {
 
 }
+
+/*!
+*   On va devoir coder run, header, print, mettre en place un fichier d'output,
+*   faire une matrice de n colonnes et t lignes
+*/
