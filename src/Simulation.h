@@ -35,8 +35,6 @@ public:
 
 
 private: 
-<<<<<<< HEAD
-     
 
     //Network _net;
 
