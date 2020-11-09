@@ -1,8 +1,9 @@
 #ifndef NEURONNETWORK_NETWORK_H
 #define NEURONNETWORK_NETWORK_H
 
-#include <vector>
+
 #include "Neuron.h"
+#include "constants.h"
 
 /*!
    This is a Network class which stores all the neurons

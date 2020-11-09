@@ -23,18 +23,23 @@ public:
  * Constructor based on user inputs, takes command-line arguments.
  */ 
     Simulation(int, char**);
-    
+
 /*!
- * Runs the simulation through a loop with \ref endtime steps.
+* Runs the simulation through a loop with \ref endtime steps.
 */
+
     void run();
-    
+
     ~Simulation();
 ///@}
 
 
 private: 
-    Network _net; 
+<<<<<<< HEAD
+     
+
+    //Network _net;
+
     size_t _size;
     int _endtime;
     double _pE, _connectivity, _intensity;

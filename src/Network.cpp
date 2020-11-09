@@ -1,6 +1,7 @@
 #include "Network.h"
 #include "Random.h"
 
+
 void Network::update()
 {
     for(auto neuron : neurons)
