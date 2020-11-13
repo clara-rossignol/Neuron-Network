@@ -39,6 +39,7 @@ Simulation::Simulation(int argc, char **argv) {
 }catch(TCLAP::ArgException &e) {
         throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
     }
+    header();
 }
  
 
@@ -47,12 +48,23 @@ void Simulation::run(){
 
 }
 
+void Simulation::header() {
+    std::ostream *outstr = &std::cout;
+    if (outfile.is_open()) outstr = &outfile;
+    *outstr << "Type";
+        *outstr << "\ta" << "\tb" << "\tc" << "\td"<< "\tInhibitory"<< "\tdegree "<<"\tvalence";
+    *outstr << std::endl;
+}
 void Simulation::print() {
-
+  
+    //print if (outf2.is_open()) header1;
+    //out1, out2,out3
 }
 
 Simulation::~Simulation() {
-
+ if(outfile.is_open())
+ outfile.close();
+ std::cout.flush();
 }
 
 /*!

@@ -34,6 +34,7 @@ public:
 * Write on the output document at every steps, called in ru 
 */
     void print();
+    void header();
 
     ~Simulation();
 ///@}
