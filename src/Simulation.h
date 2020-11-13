@@ -28,7 +28,8 @@ public:
 * Runs the simulation through a loop with \ref endtime steps.
 */
 
-    void run();
+    void run() {run(_endtime);}
+    void run(const double);
 
 /*!
 * Write on the output document at every steps, called in ru 
@@ -42,11 +43,11 @@ public:
 
 private: 
 
-    //Network _net;
+  Network _net;
 
-    size_t _size;
-    int _endtime;
-    double _pE, _connectivity, _intensity;
-    std::ofstream outfile;
-    //other to add ?
+  size_t _size;
+  int _endtime;
+  double _pE, _connectivity, _intensity;
+  std::ofstream outfile;
+  //other to add ? un pointeur sur Network ?
 };

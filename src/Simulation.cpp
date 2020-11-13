@@ -42,10 +42,27 @@ Simulation::Simulation(int argc, char **argv) {
     header();
 }
  
+ /*
+Structure imaginée
+do {(TCLAP::ValueArg... variable...)}
+    while (CONDITION on variable)
+N : MAX_NEURONS = 100000
+    MIN_NEURONS = 2
+t : MAX_TIME = 10^12 pas de temps ?
+pE: MIN_PE = 0
+    MAX_PE =1 
+(because it is a proportion)
+c : MIN_CONNECTIVITY = 0
+    MAX_CONNECTIVITY = MAX_NEURON -1 ?
+L : MIN_INTENSITY = 0
+    MAX_INTENSITY = ?
+ */
 
-void Simulation::run(){
-	
-
+void Simulation::run(const double _endtime){
+    this->header();
+    for (size_t i(0); i < _endtime; ++i) { // il faudra changer ća car comparaison size_t et double
+        _net.update();
+    }
 }
 
 void Simulation::header() {
