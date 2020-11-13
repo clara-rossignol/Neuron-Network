@@ -1,5 +1,6 @@
 #include "Network.h"
 #include <tclap/CmdLine.h>
+//#include "Neuron.h"
 
 /*!
   The Simulation class is the main class in this program. It constructs neuron network according to user-specified parameters, and @ref run "runs" the simulation.
@@ -22,6 +23,8 @@ public:
 /*!
  * Constructor based on user inputs, takes command-line arguments.
  */ 
+    Simulation(const int _s, const int _t)
+        :  _size(_s),_endtime(_t){}
     Simulation(int, char**);
 
 /*!
@@ -43,11 +46,13 @@ public:
 
 private: 
 
-  Network _net;
+  //Network _net;
 
   size_t _size;
   int _endtime;
   double _pE, _connectivity, _intensity;
   std::ofstream outfile;
+  //std::vector<Neuron*> neurons;
+  
   //other to add ? un pointeur sur Network ?
 };
