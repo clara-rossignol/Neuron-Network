@@ -28,7 +28,6 @@ void Neuron::newConnection(const Connection & c)
     connections.push_back(c);
 }
 
-
 double Neuron::currentCalculation()
 {
 	double current(0);
