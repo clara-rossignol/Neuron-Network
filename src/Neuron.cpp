@@ -1,6 +1,5 @@
 #include "Neuron.h"
 #include "Random.h"
-#include <cmath>
 #include "constants.h"
 
 
@@ -12,7 +11,7 @@ Neuron::Neuron(Type t) : firing(false),  nparams(NeuronTypes.at(t))
     double coeff(_RNG->uniform_double(0,1));
     if (NeuronTypes.at(t).inhib)
     {
-        nparams.a *= 1-0.8*coeff; //maybe make them constants in constants.h
+        nparams.a *= 1-0.8*coeff;
         nparams.b *= 1+0.25*coeff;
     }
     else
@@ -45,7 +44,7 @@ double Neuron::currentCalculation()
 
 void Neuron::update()
 {
-    firing = membrane_potential>30;
+    firing = membrane_potential>_FIRING_TRESHOLD_;
     if(isFiring())
         reset();
     else
@@ -63,12 +62,11 @@ void Neuron::reset()
 
 void Neuron::setMembranePotential()
 {
-    membrane_potential += (0.04*pow(membrane_potential, 2) + 5*membrane_potential + 140 - recovery_variable +
-                           currentCalculation())*1; //define constants ?
+    membrane_potential += (0.04*pow(membrane_potential, 2) + 5*membrane_potential + 140 - recovery_variable + currentCalculation())*1;
 }
 void Neuron::setRecoveryVariable()
 {
-    recovery_variable += nparams.a*(nparams.b*membrane_potential - recovery_variable)*0.5; //define constants ?
+    recovery_variable += nparams.a*(nparams.b*membrane_potential - recovery_variable)*0.5;
 }
 
 bool Neuron::isFiring() const
@@ -89,9 +87,3 @@ Neuron::~Neuron()
         c.sender = nullptr;
     }
 }
-
-
-
-
-
-
