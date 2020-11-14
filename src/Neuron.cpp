@@ -62,11 +62,11 @@ void Neuron::reset()
 
 void Neuron::setMembranePotential()
 {
-    membrane_potential += (0.04*pow(membrane_potential, 2) + 5*membrane_potential + 140 - recovery_variable + currentCalculation())*1;
+    membrane_potential += (0.04*pow(membrane_potential, 2) + 5*membrane_potential + 140 - recovery_variable + currentCalculation())*_DELTA_MBRN_;
 }
 void Neuron::setRecoveryVariable()
 {
-    recovery_variable += nparams.a*(nparams.b*membrane_potential - recovery_variable)*0.5;
+    recovery_variable += (nparams.a*(nparams.b*membrane_potential - recovery_variable))*_DELTA_RECV_;
 }
 
 bool Neuron::isFiring() const

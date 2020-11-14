@@ -43,7 +43,11 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 #define _TIME_ 10
 #define _AVG_CNNCT_ 3 //am really not sure about this one, pretty much invented 
 #define _AVG_INTENSITY_ 2 //same thing with this one
+
 #define _FIRING_TRESHOLD_ 30
+#define _DELTA_MBRN_ 1
+#define _DELTA_RECV_ 0.5
+
 
 /// * text messages *
 #define _PRGRM_TEXT_ "Simulation of the Izhikevich neuron model"
