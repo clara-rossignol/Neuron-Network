@@ -7,33 +7,20 @@
  * \class Neuron
   This is a neuron class in which we create neurons. 
   By default a neuron is *RS* type, which is excitatory.
+  A neuron is defined by 4 parameters \p a, \p b, \p c, \p d and its inhibitory or excitatory quality.
 */
-
-class Neuron;
-
-struct NParams
-{
-    double a, b, c, d;
-    const bool inhib;
-};
-
-struct Connection
-{
-    const Neuron* sender;
-    const double intensity;
-};
-
-enum Type {RS, FS};
 
 class Neuron
 {
 
 public:
     /*!
-    The constructor initilize the neuron
+    The constructor initializes the neuron
     */
     Neuron(Type t);
+    
     void newConnection(const Connection& connection);
+    
     /*!
     The current is calculated for each neuron
     */
@@ -66,6 +53,7 @@ public:
 
 private:
     bool firing;
+    
     /*! @name Dynamic variables
  */
 ///@{
@@ -77,16 +65,12 @@ private:
     \p a, \p b, \p c, \p d, and the boolean \p inhib if neuron is inhibitory.
     */
     NParams nparams;
+    
      /*! @name Connections
       * A vector of connections : \p sender, a pointer to a neuron and \p intensity
     */
     std::vector<Connection> connections;
 
-};
-
-const std::map<Type, NParams> NeuronTypes{
-        {Type::RS,  {.02, .2,  -65, 8,   false}},
-        {Type::FS,  {.1,  .2,  -65, 2,   true }}
 };
 
 #endif //NEURON_H

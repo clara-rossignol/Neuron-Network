@@ -9,6 +9,7 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+#include <cmath>
 
 /*!
   A base class for errors thrown in this program.
@@ -42,6 +43,7 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 #define _TIME_ 10
 #define _AVG_CNNCT_ 3 //am really not sure about this one, pretty much invented 
 #define _AVG_INTENSITY_ 2 //same thing with this one
+#define _FIRING_TRESHOLD_ 30
 
 /// * text messages *
 #define _PRGRM_TEXT_ "Simulation of the Izhikevich neuron model"
@@ -53,5 +55,26 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 //useful ?
 #define _OUTPUT_TEXT_ "Output file name (default is output to screen)"
 #define _CFILE_TEXT_ "Configuration file name"
+
+struct NParams
+{
+    double a, b, c, d;
+    bool inhib;
+};
+
+class Neuron;
+
+struct Connection
+{
+    const Neuron* sender;
+    const double intensity;
+};
+
+enum Type {RS, FS};
+
+const std::map<Type, NParams> NeuronTypes{
+        {RS,  {.02, .2,  -65, 8,   false}},
+        {FS,  {.1,  .2,  -65, 2,   true }}
+};
 
 #endif //GLOBALS_H
