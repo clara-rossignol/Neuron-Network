@@ -18,10 +18,14 @@ Simulation::Simulation(int argc, char **argv) {
         cmd.add(connectivity);
         TCLAP::ValueArg<double> intensity("L", "intensity", _INTENSITY_TEXT_, false, _AVG_INTENSITY_, "double");
         cmd.add(intensity);
-        /*
+        
          TCLAP::ValueArg<std::string> ofile("o", "outptut", _OUTPUT_TEXT_, false, "", "string");
         cmd.add(ofile);
-        */
+        //add different types of neurons
+        /* */
+        TCLAP::ValueArg<std::string> typesArg("T", "neurontypes", _TYPES_TEXT_,  false, "", "string");
+        cmd.add(typesArg);
+        
         //not sure if this is needed
         TCLAP::ValueArg<long> seed("S", "seed", "Random seed", false, 0, "long");
         cmd.add(seed);
@@ -34,19 +38,64 @@ Simulation::Simulation(int argc, char **argv) {
         _endtime = maxt.getValue();
         _connectivity = connectivity.getValue();
         _intensity = intensity.getValue();
-
+        std::string outfname = ofile.getValue();
+        if (outfname.length()) outfile.open(outfname, std::ios_base::out);
+        std::string types(typesArg.getValue());
+        
 }catch(TCLAP::ArgException &e) {
         throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
     }
+   
 }
  
+ /*
+Structure imaginée
+do {(TCLAP::ValueArg... variable...)}
+    while (CONDITION on variable)
+N : MAX_NEURONS = 100000
+    MIN_NEURONS = 2
+t : MAX_TIME = 10^12 pas de temps ?
+pE: MIN_PE = 0
+    MAX_PE =1 
+(because it is a proportion)
+c : MIN_CONNECTIVITY = 0
+    MAX_CONNECTIVITY = MAX_NEURON -1 ?
+L : MIN_INTENSITY = 0
+    MAX_INTENSITY = ?
+ */
 
-void Simulation::run(){
-	//to be written
-	
+void Simulation::run(const double _endtime){
+    this->header();
+    for (size_t i(0); i < _endtime; ++i) { // il faudra changer ća car comparaison size_t et double
+        //_net.update();
+        this->print();
+    }
+}
 
+void Simulation::header() {
+    std::ostream *outstr = &std::cout;
+    if (outfile.is_open()) outstr = &outfile;
+    *outstr << "Type";
+        *outstr << "\ta" << "\tb" << "\tc" << "\td"<< "\tInhibitory"<< "\tdegree "<<"\tvalence";
+    *outstr << std::endl;
+}
+void Simulation::print() {
+  
+    //here I have to add the parameters of a neuron type: a,b,c,d; maybe we can make a method get_params in neuron, so we print them
+    std::ostream *outstr = &std::cout;
+    if (outfile.is_open()) outstr = &outfile;
+    //for (auto n : neurons) 
+       // *outstr << "\t" << n->get_params(); 
+    *outstr << std::endl;
 }
 
 Simulation::~Simulation() {
-
+ if(outfile.is_open())
+ outfile.close();
+ std::cout.flush();
 }
+
+/*!
+*   On va devoir coder run, header, print, mettre en place un fichier d'output,
+*   faire une matrice de n colonnes et t lignes
+*/
