@@ -56,6 +56,7 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 #define _TIME_TEXT_ "Number of time-steps"
 #define _CNNCT_TEXT_ "Average connectivity"
 #define _INTENSITY_TEXT_ "Average connections' intensity"
+#define _TYPES_TEXT_ "Proportions of each type of neurons as a list like 'IB:0.4,CH:0.35'. If total is less than 1, it will be completed with RS neurons"
 //useful ?
 #define _OUTPUT_TEXT_ "Output file name (default is output to screen)"
 #define _CFILE_TEXT_ "Configuration file name"
