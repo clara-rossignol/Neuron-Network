@@ -49,6 +49,9 @@ public:
     Check if a neuron is inhibitory or not
     */
     bool isInhibitor() const;
+
+    std::vector<Connection> getConnections() const;
+
     ~Neuron();
 
 private:
@@ -56,7 +59,7 @@ private:
     
     /*! @name Dynamic variables
  */
-///@{
+    ///@{
     double membrane_potential;
     double recovery_variable;
     ///@}

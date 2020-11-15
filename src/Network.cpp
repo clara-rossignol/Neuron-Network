@@ -25,6 +25,10 @@ void Network::setConnections(double meanIntensity, double meanConnectivity)
 
 }
 
+const std::vector<Neuron> &Network::getNeurons() const {
+    return neurons;
+}
+
 
 
 

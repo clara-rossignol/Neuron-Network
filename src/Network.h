@@ -17,6 +17,7 @@ public :
         @param neurons all neurons that will form the whole network
      */
    Network(const std::vector<Neuron>& neurons ) : neurons(neurons){};
+
 ///@}
 
 ///@{
@@ -35,6 +36,8 @@ public :
 
 private :
     std::vector<Neuron> neurons;
+public:
+    const std::vector<Neuron> &getNeurons() const;
 };
 
 #endif //NEURONNETWORK_NETWORK_H

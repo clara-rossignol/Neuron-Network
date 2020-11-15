@@ -78,11 +78,16 @@ bool Neuron::isInhibitor() const
     return nparams.inhib;
 }
 
+std::vector<Connection> Neuron::getConnections() const {
+    return connections;
+}
+
 Neuron::~Neuron()
 {
     for(auto& c : connections)
     {
-        delete c.sender;
         c.sender = nullptr;
     }
 }
+
+
