@@ -16,7 +16,7 @@ void Network::setConnections(double meanIntensity, double meanConnectivity)
         while (number < 0 or number > neurons.size())
             number = _RNG->poisson(meanConnectivity);
 
-        for(size_t i(0);i<number ;++i)
+        for(size_t i(0);i < number ;++i)
         {
             neuron.newConnection({ &neurons[_RNG->uniform_int(0, neurons.size())],
                                       _RNG ->uniform_double(0,2*meanIntensity) });

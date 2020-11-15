@@ -2,21 +2,34 @@
 #include "Simulation.h"
 #include "Random.h"
 
+/// * error handling for TCLAP
+/*!
+* 0 : "The number of neurons should be between " << _MIN_NEURONS << "and " << _MAX_NEURONS << endl;
+* 1 : "The number of steps should be between " << _MIN_TIME_ << "and " << _MAX_TIME_ << endl;
+* 2 : "The proportion of excitatory neurons should be between 0 and 1" << endl;
+* 3 : "The maximum number of connectivity should be between " << _MIN_CONNECTIVITY_ << "and " << _MAX_CONNECTIVITY_ << endl;
+* 4 : "The intensity of a connection should be between " << _MIN_INTENSITY_ << "and " << _MAX_INTENSITY_ << endl;
+*/
 
 Simulation::Simulation(int argc, char **argv) {
    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
         TCLAP::ValueArg<int> total_n("N", "neurons", _NUMBER_TEXT_, false, _AVG_NUMBER_, "int");
+            // if (total_n > _MAX_TIME_ || total_n < _MIN_TIME_) throw 0;
         cmd.add(total_n);
         TCLAP::ValueArg<double> pE("p", "excitatory_neurons", _PROP_TEXT_, false, _AVG_PROP_, "double");
         //here I got an error: Argument flag can only be one character long Argument. That is why I changed pE to p.
+            // if (pE < 0 || pE > 1) throw 2;
         cmd.add(pE);
         TCLAP::ValueArg<int> maxt("t", "time", _TIME_TEXT_, false, _TIME_, "int");
+            // if (maxt < _MIN_TIME_ || maxt > _MAX_TIME_) throw 1;
         cmd.add(maxt);
         TCLAP::ValueArg<double> connectivity("c", "connectivity", _CNNCT_TEXT_, false, _AVG_CNNCT_, "double");
-        //here i got the same error that is why I changed it to c.         
+        //here i got the same error that is why I changed it to c.
+            // if (connectivity < _MIN_CONNECTIVITY_ || connectivity > _MAX_CONNECTIVITY_) throw 3;         
         cmd.add(connectivity);
         TCLAP::ValueArg<double> intensity("L", "intensity", _INTENSITY_TEXT_, false, _AVG_INTENSITY_, "double");
+            // if (intensity < _MIN_INTENSITY_ || intensity > _MAX_INTENSITY_) throw 4;
         cmd.add(intensity);
         
          TCLAP::ValueArg<std::string> ofile("o", "outptut", _OUTPUT_TEXT_, false, "", "string");
@@ -42,27 +55,15 @@ Simulation::Simulation(int argc, char **argv) {
         if (outfname.length()) outfile.open(outfname, std::ios_base::out);
         std::string types(typesArg.getValue());
         
-}catch(TCLAP::ArgException &e) {
+} catch(TCLAP::ArgException &e) {
         throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
     }
+/*catch(int n){
+   How to manage the error without if loop that could slow the program ?   
+  }
+*/ 
    
 }
- 
- /*
-Structure imaginée
-do {(TCLAP::ValueArg... variable...)}
-    while (CONDITION on variable)
-N : MAX_NEURONS = 100000
-    MIN_NEURONS = 2
-t : MAX_TIME = 10^12 pas de temps ?
-pE: MIN_PE = 0
-    MAX_PE =1 
-(because it is a proportion)
-c : MIN_CONNECTIVITY = 0
-    MAX_CONNECTIVITY = MAX_NEURON -1 ?
-L : MIN_INTENSITY = 0
-    MAX_INTENSITY = ?
- */
 
 void Simulation::run(const double _endtime){
     this->header();
@@ -90,9 +91,9 @@ void Simulation::print() {
 }
 
 Simulation::~Simulation() {
- if(outfile.is_open())
- outfile.close();
- std::cout.flush();
+    if(outfile.is_open())
+    outfile.close();
+    std::cout.flush();
 }
 
 /*!
