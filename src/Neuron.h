@@ -33,12 +33,18 @@ public:
     After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
     */
     void reset();
+	/*! \ref membrane_potential getter
+	*/
+	double getMembranePotential() const;
+	/*! \ref recovery_variable getter
+	*/
+	double getRecoveryVariable() const;
     /*!
-    OThe \ref membrane_potential is updated according to the Izhikevich equations.
+    The \ref membrane_potential is updated according to the Izhikevich equations.
     */
     void setMembranePotential();
     /*!
-    OThe \ref recovery_variable is updated according to the Izhikevich equations.
+    The \ref recovery_variable is updated according to the Izhikevich equations.
     */
     void setRecoveryVariable();
     /*!
