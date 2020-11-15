@@ -1,3 +1,6 @@
+#ifndef SIMULATION_H
+#define SIMULATION_H
+
 #include "Network.h"
 #include <tclap/CmdLine.h>
 //#include "Neuron.h"
@@ -56,3 +59,5 @@ private:
   
   //other to add ? un pointeur sur Network ?
 };
+
+#endif // SIMULATION_H

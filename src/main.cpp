@@ -1,6 +1,8 @@
 #include "constants.h"
 #include "Random.h"
 #include "Simulation.h"
+#include "Neuron.h"
+#include "Network.h"
 #include <tclap/CmdLine.h>
 /*!
   \mainpage Neuron Network
@@ -25,6 +27,7 @@ int main(int argc, char **argv) {
         std::cerr << e.what() << std::endl;
         return e.value();
     }
+
     if (_RNG) delete _RNG;
     return 0;
 }

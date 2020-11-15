@@ -27,7 +27,6 @@ void Neuron::newConnection(const Connection & c)
     connections.push_back(c);
 }
 
-
 double Neuron::currentCalculation()
 {
 	double current(0);
@@ -89,11 +88,16 @@ bool Neuron::isInhibitor() const
     return nparams.inhib;
 }
 
+std::vector<Connection> Neuron::getConnections() const {
+    return connections;
+}
+
 Neuron::~Neuron()
 {
     for(auto& c : connections)
     {
-        delete c.sender;
         c.sender = nullptr;
     }
 }
+
+

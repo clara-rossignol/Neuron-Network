@@ -6,13 +6,14 @@
 #include "../src/Random.h"
 #include "../src/Network.h"
 
-
-RandomNumbers *_RNG = new RandomNumbers(23947810923);
+RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
 TEST(Neuron, create_neuron)
 {
 	Neuron n1(RS);
 	EXPECT_FALSE(n1.isFiring());
+    Neuron n(RS);
+    EXPECT_FALSE(n.isFiring());
 }
 
 TEST(Neuron, neuron_types)
