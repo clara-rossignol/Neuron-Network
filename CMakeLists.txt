@@ -9,7 +9,7 @@ SET(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -O3")
 option(test "Build tests." ON)
 link_directories(${CMAKE_SOURCE_DIR}/lib)
 
-set(SOURCE_FILES src/Random.cpp src/Neuron.cpp src/Network.cpp)
+set(SOURCE_FILES src/Random.cpp src/Neuron.cpp src/Network.cpp src/Simulation.cpp)
 set(PROG_NAME "NeuronNetwork")
 
 add_executable(${PROG_NAME} src/main.cpp ${SOURCE_FILES})
