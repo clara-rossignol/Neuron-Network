@@ -28,35 +28,22 @@ TEST(Neuron, update)
 {
 	Neuron n1(RS);
 	n1.update();
-	/*
-	EXPECT_NEAR(? ,getMembranePotential(), ?)
-	EXPECT_EQ(n1.getRecoveryVariable(), (-13+(0.02*(0.2*getMembranePotential +13))*_DELTA_RECV_));
-	* */
+	EXPECT_EQ(n1.getRecoveryVariable(), -13);
 }
 
-/*
-TEST(neuron, connection)
-{
-	Neuron n1(RS);
-	Neuron n2(RS);
-	
-	Connection c;
-	c.sender = *n2;
-	c.intensity = ???;
-	n1.newConnection(c);
-}
-*/
-/*
+
 TEST(Neuron, current_calculation)
 {
 	Neuron n1(RS);
 	Neuron n2(RS);
+	/*
 	Connection c;
 	//etc.
 	n1.newConnection(c);
 	EXPECT_EQ(currentCalculation(), ???);
+	* */
 }
-*/
+
 
 TEST(Network, setConnections)
 {
