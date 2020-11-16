@@ -67,6 +67,7 @@ Simulation::Simulation(int argc, char **argv) {
 
 void Simulation::run(const double _endtime){
     this->header();
+
     for (size_t i(0); i < _endtime; ++i) { // il faudra changer ća car comparaison size_t et double
         //_net.update();
         this->print();

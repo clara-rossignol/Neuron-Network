@@ -34,14 +34,18 @@ TEST(Neuron, update)
 
 TEST(Neuron, current_calculation)
 {
-	Neuron n1(RS);
-	Neuron n2(RS);
-	/*
-	Connection c;
-	//etc.
-	n1.newConnection(c);
-	EXPECT_EQ(currentCalculation(), ???);
-	* */
+    double meanCurrent(0);
+    for(size_t i(0); i<100; ++i)
+    {
+        Neuron n(FS);
+        Neuron n1(RS);
+        Neuron n2(RS);
+        n.newConnection({&n1,10});
+        n.newConnection({&n2, 10});
+        meanCurrent += n.currentCalculation();
+    }
+    meanCurrent /= 100;
+	EXPECT_NEAR(meanCurrent, 10, 0.5);
 }
 
 
