@@ -59,7 +59,7 @@ Simulation::Simulation(int argc, char **argv) {
         throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
     }
 /*catch(int n){
-   How to manage the error without if loop that could slow the program ?   
+    How to manage the error without if loop that could slow the program ?
   }
 */ 
    
