@@ -45,7 +45,7 @@ TEST(Neuron, current_calculation)
         meanCurrent += n.currentCalculation();
     }
     meanCurrent /= 100;
-	EXPECT_NEAR(meanCurrent, 10, 1);
+	EXPECT_NEAR(meanCurrent, 10, 0.5);
 }
 
 

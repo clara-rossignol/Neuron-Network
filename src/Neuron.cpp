@@ -38,7 +38,7 @@ double Neuron::currentCalculation()
             current +=c.intensity*0.5;
     }
     int w(isInhibitor() ? 2 : 5);
-	return current +    w*_RNG->normal(0,1);
+	return current +  w*_RNG->normal(0,1);
 }
 
 void Neuron::update()
