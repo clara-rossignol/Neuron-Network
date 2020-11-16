@@ -28,12 +28,10 @@ TEST(Neuron, update)
 {
 	Neuron n1(RS);
 	n1.update();
-	//not sure how to calculate between what and what the potential and the recovery variables are supposed to be
-	/*EXPECT_NEAR(, n1.getMembranePotential(),-);
-	EXPECT_NEAR(, n1.getRecoveryVariable(),);*/
-
-	//to be completed
-	
+	/*
+	EXPECT_NEAR(? ,getMembranePotential(), ?)
+	EXPECT_EQ(n1.getRecoveryVariable(), (-13+(0.02*(0.2*getMembranePotential +13))*_DELTA_RECV_));
+	* */
 }
 
 /*
@@ -46,6 +44,17 @@ TEST(neuron, connection)
 	c.sender = *n2;
 	c.intensity = ???;
 	n1.newConnection(c);
+}
+*/
+/*
+TEST(Neuron, current_calculation)
+{
+	Neuron n1(RS);
+	Neuron n2(RS);
+	Connection c;
+	//etc.
+	n1.newConnection(c);
+	EXPECT_EQ(currentCalculation(), ???);
 }
 */
 
