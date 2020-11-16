@@ -38,7 +38,7 @@ double Neuron::currentCalculation()
             current +=c.intensity*0.5;
     }
     int w(isInhibitor() ? 2 : 5);
-	return current +w*_RNG->normal(0,1);
+	return current +    w*_RNG->normal(0,1);
 }
 
 void Neuron::update()
@@ -48,8 +48,9 @@ void Neuron::update()
         reset();
     else
     {
+        double potential(membrane_potential);
         setMembranePotential();
-        setRecoveryVariable();
+        setRecoveryVariable(potential);
     }
 }
 
@@ -73,9 +74,9 @@ void Neuron::setMembranePotential()
 {
     membrane_potential += (0.04*pow(membrane_potential, 2) + 5*membrane_potential + 140 - recovery_variable + currentCalculation())*_DELTA_MBRN_;
 }
-void Neuron::setRecoveryVariable()
+void Neuron::setRecoveryVariable(double potential)
 {
-    recovery_variable += (nparams.a*(nparams.b*membrane_potential - recovery_variable))*_DELTA_RECV_;
+    recovery_variable += (nparams.a*(nparams.b*potential - recovery_variable))*_DELTA_RECV_;
 }
 
 bool Neuron::isFiring() const
@@ -88,7 +89,8 @@ bool Neuron::isInhibitor() const
     return nparams.inhib;
 }
 
-std::vector<Connection> Neuron::getConnections() const {
+std::vector<Connection> Neuron::getConnections() const
+{
     return connections;
 }
 

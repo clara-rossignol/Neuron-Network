@@ -46,7 +46,7 @@ public:
     /*!
     The \ref recovery_variable is updated according to the Izhikevich equations.
     */
-    void setRecoveryVariable();
+    void setRecoveryVariable(double potential);
     /*!
     A neuron is firing if its membrane potential exceeds the T, the firing treshold, 30 mV
     */
