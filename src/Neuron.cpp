@@ -60,16 +60,6 @@ void Neuron::reset()
     recovery_variable+=nparams.d;
 }
 
-double Neuron::getMembranePotential() const
-{
-	return membrane_potential;
-}
-
-double Neuron::getRecoveryVariable() const
-{
-	return recovery_variable;
-}
-
 void Neuron::setMembranePotential()
 {
     membrane_potential += (0.04*pow(membrane_potential, 2) + 5*membrane_potential + 140 - recovery_variable + currentCalculation())*_DELTA_MBRN_;
@@ -87,6 +77,16 @@ bool Neuron::isFiring() const
 bool Neuron::isInhibitor() const
 {
     return nparams.inhib;
+}
+
+double Neuron::getMembranePotential() const
+{
+    return membrane_potential;
+}
+
+double Neuron::getRecoveryVariable() const
+{
+    return recovery_variable;
 }
 
 std::vector<Connection> Neuron::getConnections() const
