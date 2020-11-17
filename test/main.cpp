@@ -29,8 +29,11 @@ TEST(Neuron, update)
 	Neuron n1(RS);
 	n1.update();
 	EXPECT_EQ(n1.getRecoveryVariable(), -13);
+	Neuron n2(FS, true);
+	n2.update();
+	EXPECT_EQ(n2.getMembranePotential(), -65);
+	EXPECT_EQ(n2.getRecoveryVariable(), -11);
 }
-
 
 TEST(Neuron, current_calculation)
 {
@@ -73,7 +76,7 @@ TEST(Network, setConnections)
 
     average /=(N);
 
-    EXPECT_NEAR(meanIntensity, average, 0.007);
+    EXPECT_NEAR(meanIntensity, average, 0.01);
     EXPECT_NEAR(N/(10000*100), 100, 1);
 }
 
