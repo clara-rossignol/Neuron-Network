@@ -73,8 +73,8 @@ TEST(Network, setConnections)
 
     average /=(N);
 
-    EXPECT_NEAR(meanIntensity, average, 0.01);
-    EXPECT_NEAR((double)N/(10000*100), 100, 1);
+    EXPECT_NEAR(meanIntensity, average, 0.007);
+    EXPECT_NEAR(N/(10000*100), 100, 1);
 }
 
 int main(int argc, char **argv) {

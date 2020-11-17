@@ -17,7 +17,7 @@ public:
     /*!
     The constructor initializes the neuron
     */
-    Neuron(Type t);
+    Neuron(Type t, bool isfiring = false);
     
     void newConnection(const Connection& connection);
     

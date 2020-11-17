@@ -3,7 +3,7 @@
 #include "constants.h"
 
 
-Neuron::Neuron(Type t) : firing(false),  nparams(NeuronTypes.at(t))
+Neuron::Neuron(Type t, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(t))
 {
     membrane_potential = nparams.c;
     recovery_variable = nparams.b*membrane_potential;
@@ -46,14 +46,15 @@ double Neuron::currentCalculation()
 
 void Neuron::update()
 {
-    firing = membrane_potential>_FIRING_TRESHOLD_;
-    if(isFiring())
+    if(isFiring()) {
         reset();
+}
     else
     {
         double potential(membrane_potential);
         setMembranePotential();
         setRecoveryVariable(potential);
+        firing = (membrane_potential > _FIRING_TRESHOLD_);
     }
 }
 
