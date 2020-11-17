@@ -29,6 +29,10 @@ TEST(Neuron, update)
 	Neuron n1(RS);
 	n1.update();
 	EXPECT_EQ(n1.getRecoveryVariable(), -13);
+    Neuron n2(FS, true);
+    n2.update();
+    EXPECT_EQ(n2.getMembranePotential(), -65);
+    EXPECT_EQ(n2.getRecoveryVariable(), -11);
 }
 
 
