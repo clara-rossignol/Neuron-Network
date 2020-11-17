@@ -8,17 +8,20 @@ Neuron::Neuron(Type t) : firing(false),  nparams(NeuronTypes.at(t))
     membrane_potential = nparams.c;
     recovery_variable = nparams.b*membrane_potential;
 
-    double coeff(_RNG->uniform_double(0,1));
-    if (NeuronTypes.at(t).inhib)
+    if(t==RS or t==FS)
     {
-        nparams.a *= 1-0.8*coeff;
-        nparams.b *= 1+0.25*coeff;
-    }
-    else
-    {
-        coeff *= coeff;
-        nparams.c *= 1 - 3. / 13 * coeff;
-        nparams.d *= 1 - 0.75 * coeff;
+        double coeff(_RNG->uniform_double(0, 1));
+        if (NeuronTypes.at(t).inhib)
+        {
+            nparams.a *= 1 - 0.8 * coeff;
+            nparams.b *= 1 + 0.25 * coeff;
+        }
+        else
+        {
+            coeff *= coeff;
+            nparams.c *= 1 - 3. / 13 * coeff;
+            nparams.d *= 1 - 0.75 * coeff;
+        }
     }
 }
 

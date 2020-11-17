@@ -27,6 +27,7 @@ public:
     int uniform_int(double lower, double upper);
     double normal(double mean, double sd);
     int poisson(double mean);
+    double exponential(double rate);
 ///@}
 
 //might need to add functions that fill a vector, we'll see

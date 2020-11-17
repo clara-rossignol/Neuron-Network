@@ -32,3 +32,8 @@ int RandomNumbers::poisson(double mean)
 	std::poisson_distribution<> poiss(mean);
 	return poiss(rng);
 }
+
+double RandomNumbers::exponential(double rate) {
+    std::exponential_distribution<double> exp(rate);
+    return exp(rng);
+}

@@ -101,11 +101,14 @@ struct Connection
     const double intensity;
 };
 
-enum Type {RS, FS};
+enum Type {RS, FS, IB, CH, LTS};
 
 const std::map<Type, NParams> NeuronTypes{
         {RS,  {.02, .2,  -65, 8,   false}},
-        {FS,  {.1,  .2,  -65, 2,   true }}
+        {IB,  {.02, .2,  -55, 4,   false}},
+        {CH,  {.02, .2,  -50, 2,   false}},
+        {FS,  {.1,  .2,  -65, 2,   true }},
+        {LTS, {.02, .25, -65, 2,   true }},
 };
 
 #endif //GLOBALS_H

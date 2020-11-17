@@ -16,7 +16,7 @@ public :
     /*!
         @param neurons all neurons that will form the whole network
      */
-   Network(const std::vector<Neuron>& neurons ) : neurons(neurons){};
+   Network(const std::vector<Neuron>& neurons );
 
 ///@}
 
@@ -28,16 +28,18 @@ public :
      */
     void setConnections(double meanIntensity, double meanConnectivity);
 
+    void setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron);
+
     /*!
      * *update* sets all neurons behavior during the simulation
      */
     void update();
+
+    const std::vector<Neuron> &getNeurons() const;
 ///@}
 
-private :
+protected :
     std::vector<Neuron> neurons;
-public:
-    const std::vector<Neuron> &getNeurons() const;
 };
 
 #endif //NEURONNETWORK_NETWORK_H
