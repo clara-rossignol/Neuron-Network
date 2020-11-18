@@ -5,8 +5,7 @@
 
 /*!
  * \class Neuron
-  This is a neuron class in which we create neurons. 
-  By default a neuron is *RS* type, which is excitatory.
+  This is a neuron class in which we create neurons.
   A neuron is defined by 4 parameters \p a, \p b, \p c, \p d and its inhibitory or excitatory quality.
 */
 
