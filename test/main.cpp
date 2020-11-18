@@ -5,6 +5,8 @@
 #include "../src/Neuron.h"
 #include "../src/Random.h"
 #include "../src/Network.h"
+#include "../src/ConstNetwork.h"
+#include "../src/DispNetwork.h"
 
 RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
@@ -66,7 +68,7 @@ TEST(Network, setConnections)
         net.setConnections(meanIntensity, meanConnectivity);
         double sum(0);
 
-        for(auto& n : net.getNeurons())
+        for(const auto& n : net.getNeurons())
         {
             for(auto c : n.getConnections())
                 sum += c.intensity;
@@ -79,6 +81,24 @@ TEST(Network, setConnections)
 
     EXPECT_NEAR(meanIntensity, average, 0.007);
     EXPECT_NEAR(N/(10000*100), 100, 1);
+}
+
+TEST(ConstNetwork, setConnections)
+{
+    double meanIntensity(100);
+    double meanConnectivity(100);
+    ConstNetwork net(std::vector<Neuron>(3, Neuron(RS)));
+    net.setConnections(meanIntensity, meanConnectivity);
+    for(const auto& n : net.getNeurons() )
+    {
+        EXPECT_EQ(n.getConnections().size(), meanConnectivity);
+    }
+
+}
+
+TEST(DispNetwork, setConnections)
+{
+
 }
 
 int main(int argc, char **argv) {
