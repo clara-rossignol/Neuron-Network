@@ -79,7 +79,7 @@ TEST(Network, setConnections)
 
     average /=(N);
 
-    EXPECT_NEAR(meanIntensity, average, 0.007);
+    EXPECT_NEAR(meanIntensity, average, 0.01);
     EXPECT_NEAR(N/(10000*100), 100, 1);
 }
 
@@ -93,12 +93,22 @@ TEST(ConstNetwork, setConnections)
     {
         EXPECT_EQ(n.getConnections().size(), meanConnectivity);
     }
-
 }
 
 TEST(DispNetwork, setConnections)
 {
+    double meanIntensity(100);
+    double meanConnectivity(100);
+    std::size_t N = 0;
+    for (size_t i(0); i<100; ++i)
+    {
+        DispNetwork net(std::vector<Neuron>(10000, Neuron(RS)));
+        net.setConnections(meanIntensity, meanConnectivity);
 
+        for(const auto& n : net.getNeurons())
+            N += n.getConnections().size();
+    }
+    EXPECT_NEAR(N/(10000*100), 100, 1);
 }
 
 int main(int argc, char **argv) {
