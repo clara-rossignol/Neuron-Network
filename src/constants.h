@@ -11,12 +11,14 @@
 #include <vector>
 #include <cmath>
 
+#include "Error.h"
 /*!
   A base class for errors thrown in this program.
   Each error type has a specific exit code.
   Error messages will be passed by the exception caller.
 */
-class SimulError : public std::runtime_error 
+
+/*class SimulError : public std::runtime_error 
 {
 public:
     SimulError(const char *c, int v=0) : std::runtime_error(c), code(v) {}
@@ -24,11 +26,11 @@ public:
     int value() const {return code;}
 protected:
     const int code;
-};
+};*/
 
-#define _SIMULERR_(_N, _id) class _N : public SimulError { \
-    public: _N(const char *c) : SimulError(c,_id) {} \
-            _N(const std::string &s) : SimulError(s,_id) {} };
+#define _SIMULERR_(_N, _id) class _N : public Error { \
+    public: _N(const char *c) : Error(c,_id) {} \
+            _N(const std::string &s) : Error(s,_id) {} };
 
 
 /// *Specific error codes*

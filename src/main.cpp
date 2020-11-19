@@ -4,6 +4,7 @@
 #include "Neuron.h"
 #include "Network.h"
 #include <tclap/CmdLine.h>
+
 /*!
   \mainpage Neuron Network
 This is an implementation of the model of E.M. Izhikevich
@@ -21,10 +22,14 @@ RandomNumbers *_RNG;
 
 int main(int argc, char **argv) 
 {    
+  /*
+  / This is for the programm to write the errors that happened 
+  */
+  std::atexit(&Error::write);
     try {
         Simulation s(argc, argv);
        s.run();
-    } catch(SimulError &e) {
+    } catch(Error &e) {
         std::cerr << e.what() << std::endl;
         return e.value();
     }

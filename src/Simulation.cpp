@@ -15,7 +15,7 @@ Simulation::Simulation(int argc, char **argv) {
    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
         TCLAP::ValueArg<int> total_n("N", "neurons", _NUMBER_TEXT_, false, _AVG_NUMBER_, "int");
-            // if (total_n > _MAX_NEURONS_ || total_n < _MIN_NEURONS_) throw 0;
+            
         cmd.add(total_n);
         TCLAP::ValueArg<double> pE("p", "excitatory_neurons", _PROP_TEXT_, false, _AVG_PROP_, "double");
             // if (pE < 0 || pE > 1) throw 2;
@@ -41,6 +41,12 @@ Simulation::Simulation(int argc, char **argv) {
         TCLAP::ValueArg<long> seed("S", "seed", "Random seed", false, 0, "long");
         cmd.add(seed);
         cmd.parse(argc, argv);
+
+
+        /* if (total_n.getValue() > _MAX_NEURONS_ || total_n.getValue() < _MIN_NEURONS_) Error::set("msg", 9);
+        /                                           set(msg, v, bool autoThrow = true);
+        */
+
         //not sure if this is needed
         _RNG = new RandomNumbers(seed.getValue());
         
@@ -49,6 +55,7 @@ Simulation::Simulation(int argc, char **argv) {
         _endtime = maxt.getValue();
         _connectivity = connectivity.getValue();
         _intensity = intensity.getValue();
+
         std::string outfname = ofile.getValue();
         if (outfname.length()) outfile.open(outfname, std::ios_base::out);
         std::string types(typesArg.getValue());
