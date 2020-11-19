@@ -15,7 +15,7 @@ Simulation::Simulation(int argc, char **argv) {
    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
         TCLAP::ValueArg<int> total_n("N", "neurons", _NUMBER_TEXT_, false, _AVG_NUMBER_, "int");
-            // if (total_n > _MAX_TIME_ || total_n < _MIN_TIME_) throw 0;
+            // if (total_n > _MAX_NEURONS_ || total_n < _MIN_NEURONS_) throw 0;
         cmd.add(total_n);
         TCLAP::ValueArg<double> pE("p", "excitatory_neurons", _PROP_TEXT_, false, _AVG_PROP_, "double");
             // if (pE < 0 || pE > 1) throw 2;
