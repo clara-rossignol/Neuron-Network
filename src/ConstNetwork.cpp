@@ -3,7 +3,8 @@
 
 ConstNetwork::ConstNetwork(const std::vector<Neuron> &neurons) : Network(neurons) {}
 
-void ConstNetwork::setConnections(double meanIntensity, double meanConnectivity) {
+void ConstNetwork::setConnections(double meanIntensity, double meanConnectivity) 
+{
     for(auto& neuron : neurons)
     {
         setNeuronConnections(meanIntensity, meanConnectivity, neuron);

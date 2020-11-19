@@ -16,7 +16,8 @@
   Each error type has a specific exit code.
   Error messages will be passed by the exception caller.
 */
-class SimulError : public std::runtime_error {
+class SimulError : public std::runtime_error 
+{
 public:
     SimulError(const char *c, int v=0) : std::runtime_error(c), code(v) {}
     SimulError(const std::string &s, int v=0) : std::runtime_error(s), code(v) {}

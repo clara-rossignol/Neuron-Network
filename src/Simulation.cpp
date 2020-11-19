@@ -18,14 +18,12 @@ Simulation::Simulation(int argc, char **argv) {
             // if (total_n > _MAX_TIME_ || total_n < _MIN_TIME_) throw 0;
         cmd.add(total_n);
         TCLAP::ValueArg<double> pE("p", "excitatory_neurons", _PROP_TEXT_, false, _AVG_PROP_, "double");
-        //here I got an error: Argument flag can only be one character long Argument. That is why I changed pE to p.
             // if (pE < 0 || pE > 1) throw 2;
         cmd.add(pE);
         TCLAP::ValueArg<int> maxt("t", "time", _TIME_TEXT_, false, _TIME_, "int");
             // if (maxt < _MIN_TIME_ || maxt > _MAX_TIME_) throw 1;
         cmd.add(maxt);
         TCLAP::ValueArg<double> connectivity("c", "connectivity", _CNNCT_TEXT_, false, _AVG_CNNCT_, "double");
-        //here i got the same error that is why I changed it to c.
             // if (connectivity < _MIN_CONNECTIVITY_ || connectivity > _MAX_CONNECTIVITY_) throw 3;         
         cmd.add(connectivity);
         TCLAP::ValueArg<double> intensity("L", "intensity", _INTENSITY_TEXT_, false, _AVG_INTENSITY_, "double");
@@ -65,7 +63,8 @@ Simulation::Simulation(int argc, char **argv) {
    
 }
 
-void Simulation::run(const double _endtime){
+void Simulation::run(const double _endtime)
+{
     this->header();
 
     for (size_t i(0); i < _endtime; ++i) { // il faudra changer ća car comparaison size_t et double
@@ -74,15 +73,16 @@ void Simulation::run(const double _endtime){
     }
 }
 
-void Simulation::header() {
+void Simulation::header() 
+{
     std::ostream *outstr = &std::cout;
     if (outfile.is_open()) outstr = &outfile;
     *outstr << "Type";
         *outstr << "\ta" << "\tb" << "\tc" << "\td"<< "\tInhibitory"<< "\tdegree "<<"\tvalence";
     *outstr << std::endl;
 }
-void Simulation::print() {
-  
+void Simulation::print() 
+{
     //here I have to add the parameters of a neuron type: a,b,c,d; maybe we can make a method get_params in neuron, so we print them
     std::ostream *outstr = &std::cout;
     if (outfile.is_open()) outstr = &outfile;
@@ -91,7 +91,8 @@ void Simulation::print() {
     *outstr << std::endl;
 }
 
-Simulation::~Simulation() {
+Simulation::~Simulation() 
+{
     if(outfile.is_open())
     outfile.close();
     std::cout.flush();

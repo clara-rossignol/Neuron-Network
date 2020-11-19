@@ -111,7 +111,8 @@ TEST(DispNetwork, setConnections)
     EXPECT_NEAR(N/(10000*100), 100, 1);
 }
 
-int main(int argc, char **argv) {
+int main(int argc, char **argv) 
+{
     ::testing::InitGoogleTest(&argc, argv);
     return RUN_ALL_TESTS();
 }

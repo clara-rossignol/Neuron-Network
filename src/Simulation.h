@@ -12,7 +12,8 @@
 
 */
 
-class Simulation {
+class Simulation 
+{
 public:
 /*! @name Initialization
   Simulation takes the command-line options and extracts the following parameters from them:

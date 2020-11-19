@@ -19,7 +19,8 @@ This is an implementation of the model of E.M. Izhikevich
 //to be modified/completed
 RandomNumbers *_RNG;
 
-int main(int argc, char **argv) {    
+int main(int argc, char **argv) 
+{    
     try {
         Simulation s(argc, argv);
        s.run();
