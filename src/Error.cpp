@@ -18,7 +18,7 @@ void Error::write()
 {
     std::ofstream file;
     file.open("error.txt", std::ofstream::out | std::ofstream::trunc);
-
+    file << std::string("Errors count: ") + std::to_string(count()) << std::endl << std::endl;
     for (size_t i(0); i < err.size(); ++i)
     {
         file << err[i] << std::endl;
