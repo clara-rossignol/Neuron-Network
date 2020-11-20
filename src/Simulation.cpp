@@ -77,9 +77,6 @@ Simulation::Simulation(int argc, char **argv) {
         / string("... ")
         /
         */
-
-        //not sure if this is needed
-        _RNG = new RandomNumbers(seed.getValue());
         
         _size = total_n.getValue();
         _pE = pE.getValue();
