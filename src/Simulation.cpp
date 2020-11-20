@@ -18,19 +18,15 @@ Simulation::Simulation(int argc, char **argv) {
             
         cmd.add(total_n);
         TCLAP::ValueArg<double> pE("p", "excitatory_neurons", _PROP_TEXT_, false, _AVG_PROP_, "double");
-            // if (pE < 0 || pE > 1) throw 2;
         cmd.add(pE);
         TCLAP::ValueArg<int> maxt("t", "time", _TIME_TEXT_, false, _TIME_, "int");
-            // if (maxt < _MIN_TIME_ || maxt > _MAX_TIME_) throw 1;
         cmd.add(maxt);
-        TCLAP::ValueArg<double> connectivity("c", "connectivity", _CNNCT_TEXT_, false, _AVG_CNNCT_, "double");
-            // if (connectivity < _MIN_CONNECTIVITY_ || connectivity > _MAX_CONNECTIVITY_) throw 3;         
+        TCLAP::ValueArg<double> connectivity("c", "connectivity", _CNNCT_TEXT_, false, _AVG_CNNCT_, "double");        
         cmd.add(connectivity);
         TCLAP::ValueArg<double> intensity("L", "intensity", _INTENSITY_TEXT_, false, _AVG_INTENSITY_, "double");
-            // if (intensity < _MIN_INTENSITY_ || intensity > _MAX_INTENSITY_) throw 4;
         cmd.add(intensity);
         
-         TCLAP::ValueArg<std::string> ofile("o", "outptut", _OUTPUT_TEXT_, false, "", "string");
+        TCLAP::ValueArg<std::string> ofile("o", "outptut", _OUTPUT_TEXT_, false, "", "string");
         cmd.add(ofile);
         //add different types of neurons
         /* */
@@ -42,9 +38,44 @@ Simulation::Simulation(int argc, char **argv) {
         cmd.add(seed);
         cmd.parse(argc, argv);
 
+        if (total_n.getValue() > _MAX_NEURONS_ || total_n.getValue() < _MIN_NEURONS_)
+        {
+            Error::set("Invalid data entered", 1);
+            std::cerr << "The number of neurons should be between " << _MIN_NEURONS_ << "and " << _MAX_NEURONS_ << std::endl;
+        }
 
-        /* if (total_n.getValue() > _MAX_NEURONS_ || total_n.getValue() < _MIN_NEURONS_) Error::set("msg", 9);
-        /                                           set(msg, v, bool autoThrow = true);
+        if (pE.getValue() < 0 || pE.getValue() > 1)
+        {
+            Error::set("Invalid data entered", 1);
+            std::cerr << "The proportion of excitatory neurons should be between 0 and 1" << std::endl;
+        }
+        
+        if ((maxt.getValue() < _MIN_TIME_) || (maxt.getValue() > _MAX_TIME_))
+        {
+            Error::set("Invalid data entered", 1);
+            std::cerr << "The number of steps should be between " << _MIN_TIME_ << "and " << _MAX_TIME_ << std::endl;
+        }
+
+        if (connectivity.getValue() < _MIN_CONNECTIVITY_ || connectivity.getValue() > _MAX_CONNECTIVITY_)
+        {
+            Error::set("Invalid data entered", 1);
+            std::cerr << "The maximum number of connectivity should be between " << _MIN_CONNECTIVITY_ << "and " << _MAX_CONNECTIVITY_ << std::endl;
+        }
+        
+        if (intensity.getValue() < _MIN_INTENSITY_ || intensity.getValue() > _MAX_INTENSITY_)
+        {
+            Error::set("Invalid data entered", 1);
+            std::cerr << "The intensity of a connection should be between " << _MIN_INTENSITY_ << "and " << _MAX_INTENSITY_ << std::endl;
+        }
+
+
+        /* Gestion des erreurs : plusieurs facons de faire :
+        / Error::set(type d'erreur, indication d'erreur, code d'erreur)
+        / Error::set(type d'erreur + indication d'erreur, code d'erreur) [risque d'être long]
+        / Error::set(type d'erreur, code d'erreur) puis cerr << indication d'erreur
+        / std::to_string()
+        / string("... ")
+        /
         */
 
         //not sure if this is needed

@@ -54,19 +54,19 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 
 /// * parameter limits
 #define _MIN_NEURONS_ 2
-#define _MAX_NEURONS_ 100000000 // need verification
+#define _MAX_NEURONS_ 100000000 // should not be bigger than 2147483647 
 
-#define _MIN_TIME_ = 0
-#define _MAX_TIME_ = 100000000000000 // need verification
+#define _MIN_TIME_ 0
+#define _MAX_TIME_ 1000000000 // need verification
 
-#define _MIN_PE_ = 0
-#define _MAX_PE_ = 1
+#define _MIN_PE_ 0
+#define _MAX_PE_ 1
 
-#define _MIN_CONNECTIVITY_ = 0
-#define _MAX_CONNECTIVITY_ = _MAX_NEURONS_ - 1 // can i do that ?
+#define _MIN_CONNECTIVITY_ 0
+#define _MAX_CONNECTIVITY_ _MAX_NEURONS_ - 1 // can i do that ?
 
-#define _MIN_INTENSITY_ = 0
-#define _MAX_INTENSITY_ = ? // To define
+#define _MIN_INTENSITY_ 0
+#define _MAX_INTENSITY_ 100000 // To define
 
 
 /// * error handling for TCLAP
