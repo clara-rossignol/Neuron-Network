@@ -88,13 +88,15 @@ Simulation::Simulation(int argc, char **argv) {
         if (outfname.length()) outfile.open(outfname, std::ios_base::out);
         std::string types(typesArg.getValue());
         
-} catch(TCLAP::ArgException &e) {
-        throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
-    }
-/*catch(int n){
-    How to manage the error without if loop that could slow the program ?
-  }
-*/ 
+} catch(TCLAP::ArgException &e) 
+{
+    throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
+}
+catch(std::runtime_error const& e)
+{
+    // Decision de si on fait qqchose là
+}
+
    
 }
 
