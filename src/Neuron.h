@@ -32,6 +32,10 @@ public:
     After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
     */
     void reset();
+    
+    std::string print_params() const;
+	std::string print_spikes() const;
+    
 	/*! \ref membrane_potential getter
 	*/
 	double getMembranePotential() const;
@@ -73,6 +77,8 @@ private:
     \p a, \p b, \p c, \p d, and the boolean \p inhib if neuron is inhibitory.
     */
     NParams nparams;
+    
+    Type type;
     
      /*! @name Connections
       * A vector of connections : \p sender, a pointer to a neuron and \p intensity

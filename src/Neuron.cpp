@@ -1,9 +1,10 @@
 #include "Neuron.h"
 #include "Random.h"
 #include "constants.h"
+#include <sstream>
 
 
-Neuron::Neuron(Type t, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(t))
+Neuron::Neuron(Type t, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(t)), type(t)
 {
     membrane_potential = nparams.c;
     recovery_variable = nparams.b*membrane_potential;
@@ -63,6 +64,29 @@ void Neuron::reset()
     membrane_potential=nparams.c;
     recovery_variable+=nparams.d;
 }
+
+
+std::string Neuron::print_params() const
+{
+	std::stringstream ss;
+    ss << type << '\t'
+       << nparams.a << '\t'
+       << nparams.b << '\t'
+       << nparams.c << '\t'
+       << nparams.d << '\t'
+       << nparams.inhib;
+    return ss.str();
+}
+
+std::string Neuron::print_spikes() const 
+{
+	if(this->isFiring()) {
+		return "1";
+	} else {
+		return "0";
+	}
+}
+
 
 void Neuron::setMembranePotential()
 {

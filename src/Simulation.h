@@ -50,11 +50,10 @@ public:
 private: 
 
   Network _net;
-
   size_t _size;
   int _endtime;
   double _pE, _connectivity, _intensity;
-  std::ofstream outfile;
+  std::string outfile;
 };
 
 #endif // SIMULATION_H

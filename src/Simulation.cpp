@@ -83,9 +83,8 @@ Simulation::Simulation(int argc, char **argv) {
         _endtime = maxt.getValue();
         _connectivity = connectivity.getValue();
         _intensity = intensity.getValue();
-
+        
         std::string outfname = ofile.getValue();
-        if (outfname.length()) outfile.open(outfname, std::ios_base::out);
         std::string types(typesArg.getValue());
         
         _net = Network(_size, _pE);
@@ -107,41 +106,40 @@ catch(std::runtime_error const& e)
 
 void Simulation::run(const double _endtime)
 {
-    this->header();
-
-    for (size_t i(0); i < _endtime; ++i) { // il faudra changer ća car comparaison size_t et double
-        //_net.update();
-        this->print();
-    }
+    std::ofstream outf1, outf2, outf3;
+    outf1.open(outfile+"spikes");
+    if(outf1.bad()) 
+    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+outfile+"spikes"));
+    
+    std::ostream *_outf = &std::cout;
+    
+    if(outf1.is_open()) _outf = &outf1;
+    
+    outf2.open(outfile+"params");
+    if(outf2.bad())
+    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+outfile+"params"));
+    
+    outf3.open(outfile+"sample_neurons");
+    if(outf3.bad())
+    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+outfile+"sample_neurons"));
+    
+    for(size_t i(0); i < _endtime; ++i) {
+		_net.update();
+		_net.print_spikes(_outf);
+		(*_outf) << i;
+		}
+		
+	_net.print_params(&outf2);
+	if(outf2.is_open()) outf2.close();	
+		
+			/*
+	_net.print_sample(&outf3);*/
+	if(outf3.is_open()) outf3.close();
 }
 
-void Simulation::header() 
+Simulation::~Simulation()
 {
-    std::ostream *outstr = &std::cout;
-    if (outfile.is_open()) outstr = &outfile;
-    *outstr << "Type";
-        *outstr << "\ta" << "\tb" << "\tc" << "\td"<< "\tInhibitory"<< "\tdegree "<<"\tvalence";
-    *outstr << std::endl;
-}
-void Simulation::print() 
-{
-    //here I have to add the parameters of a neuron type: a,b,c,d; maybe we can make a method get_params in neuron, so we print them
-    std::ostream *outstr = &std::cout;
-    if (outfile.is_open()) outstr = &outfile;
-    //for (auto n : neurons) 
-       // *outstr << "\t" << n->get_params(); 
-    *outstr << std::endl;
-}
-
-
-Simulation::~Simulation() 
-{
-    if(outfile.is_open())
-    outfile.close();
     std::cout.flush();
 }
 
-/*!
-*   On va devoir coder run, header, print, mettre en place un fichier d'output,
-*   faire une matrice de n colonnes et t lignes
-*/
+

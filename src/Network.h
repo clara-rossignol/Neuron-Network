@@ -35,6 +35,11 @@ public:
      * *update* sets all neurons behavior during the simulation
      */
     void update();
+    
+     
+    void print_params(std::ostream *_outstr);
+    /*void print_sample(std::ostream *_outstr);*/
+    void print_spikes(std::ostream *_outstr);
 
     const std::vector<Neuron> &getNeurons() const;
 ///@}
