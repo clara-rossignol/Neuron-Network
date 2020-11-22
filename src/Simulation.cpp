@@ -1,6 +1,7 @@
 #include "constants.h"
 #include "Simulation.h"
 #include "Random.h"
+#include "Neuron.h"
 
 /// * error handling for TCLAP
 /*!
