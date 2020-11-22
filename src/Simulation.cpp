@@ -88,6 +88,10 @@ Simulation::Simulation(int argc, char **argv) {
         if (outfname.length()) outfile.open(outfname, std::ios_base::out);
         std::string types(typesArg.getValue());
         
+        _net = Network(_size, _pE);
+        _net.setConnections(_intensity, _connectivity);
+ 
+        
 } catch(TCLAP::ArgException &e) 
 {
     throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
@@ -99,6 +103,7 @@ catch(std::runtime_error const& e)
 
    
 }
+
 
 void Simulation::run(const double _endtime)
 {
@@ -127,6 +132,7 @@ void Simulation::print()
        // *outstr << "\t" << n->get_params(); 
     *outstr << std::endl;
 }
+
 
 Simulation::~Simulation() 
 {

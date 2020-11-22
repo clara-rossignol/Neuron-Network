@@ -10,13 +10,14 @@
  */
 class Network
 {
-public :
+public:
 
 ///@{
     /*!
         @param neurons all neurons that will form the whole network
      */
-   Network(const std::vector<Neuron>& neurons );
+   Network(const std::vector<Neuron>& neurons);
+   Network(size_t s = 1000, double pE = 0.8);
 
 ///@}
 
@@ -38,7 +39,7 @@ public :
     const std::vector<Neuron> &getNeurons() const;
 ///@}
 
-protected :
+protected:
     std::vector<Neuron> neurons;
 };
 
