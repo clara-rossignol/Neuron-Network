@@ -77,7 +77,7 @@ Simulation::Simulation(int argc, char **argv) {
         / string("... ")
         /
         */
-        
+
         _size = total_n.getValue();
         _pE = pE.getValue();
         _endtime = maxt.getValue();
@@ -89,6 +89,7 @@ Simulation::Simulation(int argc, char **argv) {
         
         _net = Network(_size, _pE);
         _net.setConnections(_intensity, _connectivity);
+
  
         
 } catch(TCLAP::ArgException &e) 

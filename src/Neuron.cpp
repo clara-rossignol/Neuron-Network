@@ -80,13 +80,13 @@ std::string Neuron::print_params() const
 
 std::string Neuron::print_spikes() const 
 {
+    // suggestion : faire un to_string (isFIring())
 	if(this->isFiring()) {
 		return "1";
 	} else {
 		return "0";
 	}
 }
-
 
 void Neuron::setMembranePotential()
 {
