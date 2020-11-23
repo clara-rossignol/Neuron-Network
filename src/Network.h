@@ -18,7 +18,7 @@ public:
      */
    Network(const std::vector<Neuron>& neurons);
 
-   Network(size_t s = 1000, double pE = 0.8);
+   Network(size_t s, double pE);
 
 ///@}
 
