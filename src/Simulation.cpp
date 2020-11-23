@@ -12,7 +12,8 @@
 * 4 : "The intensity of a connection should be between " << _MIN_INTENSITY_ << "and " << _MAX_INTENSITY_ << endl;
 */
 
-Simulation::Simulation(int argc, char **argv) :       _net(Network(_size, _pE)) {
+Simulation::Simulation(int argc, char **argv)
+{
    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
         TCLAP::ValueArg<int> total_n("N", "neurons", _NUMBER_TEXT_, false, _AVG_NUMBER_, "int");
@@ -87,8 +88,8 @@ Simulation::Simulation(int argc, char **argv) :       _net(Network(_size, _pE)) 
         
         std::string outfname = ofile.getValue();
         std::string types(typesArg.getValue());
-        
 
+        _net =Network(_size, _pE);
         _net.setConnections(_intensity, _connectivity);
 
  
