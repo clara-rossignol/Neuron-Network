@@ -46,11 +46,20 @@ public:
     ~Simulation();
 ///@}
 
+    template<typename N>
+    void checkInBound(N x, N min, N max, std::string message)
+    {
+        if (x > max or x <min)
+        {
+            Error::set("Invalid data entered", 1);
+            std::cerr << message <<" should be between " << min << "and " << max << std::endl;
+        }
+    }
 
 private: 
 
   Network _net;
-  size_t _size;
+  int _size;
   int _endtime;
   double _pE, _connectivity, _intensity;
   std::string outfile;

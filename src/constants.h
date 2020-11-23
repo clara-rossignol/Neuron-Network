@@ -62,11 +62,11 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 #define _MIN_PE_ 0
 #define _MAX_PE_ 1
 
-#define _MIN_CONNECTIVITY_ 0
+#define _MIN_CONNECTIVITY_ 0.
 #define _MAX_CONNECTIVITY_ _MAX_NEURONS_ - 1 // can i do that ?
 
-#define _MIN_INTENSITY_ 0
-#define _MAX_INTENSITY_ 100000 // To define
+#define _MIN_INTENSITY_ 0.
+#define _MAX_INTENSITY_ 100000. // To define
 
 
 /// * error handling for TCLAP
@@ -85,10 +85,7 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 #define _TIME_TEXT_ "Number of time-steps"
 #define _CNNCT_TEXT_ "Average connectivity"
 #define _INTENSITY_TEXT_ "Average connections' intensity"
-#define _TYPES_TEXT_ "Proportions of each type of neurons as a list like 'IB:0.4,CH:0.35'. If total is less than 1, it will be completed with RS neurons"
-//useful ?
-#define _OUTPUT_TEXT_ "Output file name (default is output to screen)"
-#define _CFILE_TEXT_ "Configuration file name"
+#define _TYPES_TEXT_ "Proportions of each type of neurons as a list like 'IB:0.2,FS:0.3,CH:0.2'. If total is less than 1, it will be completed with RS neurons"
 
 struct NParams
 {
