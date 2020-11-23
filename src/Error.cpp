@@ -9,10 +9,10 @@
 std::vector<std::string> Error::err;
 
 
- std::string Error::last()
- {
-     return (err.size() == 0) ? std::string("") : err[err.size() - 1];
- }
+std::string Error::last()
+{
+    return (err.size() == 0) ? std::string("") : err[err.size() - 1];
+}
 
 void Error::write()
 {
