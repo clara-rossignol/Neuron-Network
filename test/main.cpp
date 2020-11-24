@@ -12,26 +12,26 @@ RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
 TEST(Neuron, create_neuron)
 {
-	Neuron n1(RS);
+	Neuron n1("RS");
 	EXPECT_FALSE(n1.isFiring());
-    Neuron n(RS);
+    Neuron n("RS");
     EXPECT_FALSE(n.isFiring());
 }
 
 TEST(Neuron, neuron_types)
 {
-	Neuron n1(RS);
+	Neuron n1("RS");
 	EXPECT_FALSE(n1.isInhibitor());
-	Neuron n2(FS);
+	Neuron n2("FS");
 	EXPECT_TRUE(n2.isInhibitor());
 }
 
 TEST(Neuron, update)
 {
-	Neuron n1(RS);
+	Neuron n1("RS");
 	n1.update();
 	EXPECT_EQ(n1.getRecoveryVariable(), -13);
-    Neuron n2(FS, true);
+    Neuron n2("FS", true);
     n2.update();
     EXPECT_EQ(n2.getMembranePotential(), -65);
     EXPECT_EQ(n2.getRecoveryVariable(), -11);
@@ -43,9 +43,9 @@ TEST(Neuron, current_calculation)
     double meanCurrent(0);
     for(size_t i(0); i<100; ++i)
     {
-        Neuron n(FS);
-        Neuron n1(RS);
-        Neuron n2(RS);
+        Neuron n("FS");
+        Neuron n1("RS");
+        Neuron n2("RS");
         n.newConnection({&n1,10});
         n.newConnection({&n2, 10});
         meanCurrent += n.currentCalculation();
@@ -64,7 +64,7 @@ TEST(Network, setConnections)
     std::size_t N = 0;
     for (size_t i(0); i<100; ++i)
     {
-        Network net(std::vector<Neuron>(10000, Neuron(RS)));
+        Network net(std::vector<Neuron>(10000, Neuron("RS")));
         net.setConnections(meanIntensity, meanConnectivity);
         double sum(0);
 
@@ -87,7 +87,7 @@ TEST(ConstNetwork, setConnections)
 {
     double meanIntensity(100);
     double meanConnectivity(100);
-    ConstNetwork net(std::vector<Neuron>(3, Neuron(RS)));
+    ConstNetwork net(std::vector<Neuron>(3, Neuron("RS")));
     net.setConnections(meanIntensity, meanConnectivity);
     for(const auto& n : net.getNeurons() )
     {
@@ -102,7 +102,7 @@ TEST(DispNetwork, setConnections)
     std::size_t N = 0;
     for (size_t i(0); i<100; ++i)
     {
-        DispNetwork net(std::vector<Neuron>(10000, Neuron(RS)));
+        DispNetwork net(std::vector<Neuron>(10000, Neuron("RS")));
         net.setConnections(meanIntensity, meanConnectivity);
 
         for(const auto& n : net.getNeurons())

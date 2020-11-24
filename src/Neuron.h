@@ -16,7 +16,7 @@ public:
     /*!
     The constructor initializes the neuron
     */
-    Neuron(Type t, bool isfiring = false);
+    Neuron(std::string type, bool isfiring = false);
     
     void newConnection(const Connection& connection);
     
@@ -78,7 +78,7 @@ private:
     */
     NParams nparams;
     
-    Type type;
+    std::string type;
     
      /*! @name Connections
       * A vector of connections : \p sender, a pointer to a neuron and \p intensity

@@ -47,7 +47,7 @@ public:
 ///@}
 
     template<typename N>
-    void checkInBound(N x, N min, N max, std::string message)
+    void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
     {
         if (x > max or x <min)
         {
@@ -61,8 +61,11 @@ private:
   Network _net;
   int _size;
   int _endtime;
-  double _pE, _connectivity, _intensity;
+  double _degree, _strength;
   std::string outfile;
+
+    static void checkTypes(std::map<std::string, double>::iterator beg, std::map<std::string, double>::iterator end,
+                    const std::map<std::string, double>::iterator &def, double max_sum);
 };
 
 #endif // SIMULATION_H

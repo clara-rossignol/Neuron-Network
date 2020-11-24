@@ -4,15 +4,15 @@
 #include <sstream>
 
 
-Neuron::Neuron(Type t, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(t)), type(t)
+Neuron::Neuron(std::string type, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(type)), type(type)
 {
     membrane_potential = nparams.c;
     recovery_variable = nparams.b*membrane_potential;
 
-    if(t==RS or t==FS)
+    if(type == "RS" or type =="FS")
     {
         double coeff(_RNG->uniform_double(0, 1));
-        if (NeuronTypes.at(t).inhib)
+        if (NeuronTypes.at(type).inhib)
         {
             nparams.a *= 1 - 0.8 * coeff;
             nparams.b *= 1 + 0.25 * coeff;

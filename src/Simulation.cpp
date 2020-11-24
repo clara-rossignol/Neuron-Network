@@ -12,52 +12,65 @@
 * 4 : "The intensity of a connection should be between " << _MIN_INTENSITY_ << "and " << _MAX_INTENSITY_ << endl;
 */
 
+/* Gestion des erreurs : plusieurs facons de faire :
+       / Error::set(type d'erreur, indication d'erreur, code d'erreur)
+       / Error::set(type d'erreur + indication d'erreur, code d'erreur) [risque d'être long]
+       / Error::set(type d'erreur, code d'erreur) puis cerr << indication d'erreur
+       / std::to_string()
+       / string("... ")
+       /
+       */
+
+typedef  std::map<std::string, double>::iterator Iterator ;
 
 Simulation::Simulation(int argc, char **argv)
 {
    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
-        TCLAP::ValueArg<int> total_n("N", "neurons", _NUMBER_TEXT_, false, _AVG_NUMBER_, "int");
+        TCLAP::ValueArg<int> total_n("N", "neurons", _NUMBER_TEXT_, true, _AVG_NUMBER_, "int");
         cmd.add(total_n);
-        TCLAP::ValueArg<int> maxt("t", "time", _TIME_TEXT_, false, _TIME_, "int");
+        TCLAP::ValueArg<int> maxt("t", "time", _TIME_TEXT_, true, _TIME_, "int");
         cmd.add(maxt);
-        TCLAP::ValueArg<double> connectivity("c", "connectivity", _CNNCT_TEXT_, false, _AVG_CNNCT_, "double");        
-        cmd.add(connectivity);
-        TCLAP::ValueArg<double> intensity("L", "intensity", _INTENSITY_TEXT_, false, _AVG_INTENSITY_, "double");
-        cmd.add(intensity);
-
-        TCLAP::ValueArg<double> pE("p", "excitatory_neurons", _PROP_TEXT_, true, _AVG_PROP_, "double");
-        TCLAP::ValueArg<std::string> typesArg("T", "neurontypes", _TYPES_TEXT_,  true, "", "string");
-        cmd.xorAdd(typesArg, pE);
-
+        TCLAP::ValueArg<double> degree("c", "degree", _CNNCT_TEXT_, false, _AVG_CNNCT_, "double");
+        cmd.add(degree);
+        TCLAP::ValueArg<double> strength("L", "strength", _INTENSITY_TEXT_, false, _AVG_INTENSITY_, "double");
+        cmd.add(strength);
+        TCLAP::ValueArg<double> pE("p", "excitatory_neurons", _PROP_TEXT_, false, _AVG_PROP_, "double");
+        cmd.add(pE);
+        TCLAP::ValueArg<std::string> typesProp("T", "neurontypes", _TYPES_TEXT_, false, "", "string");
+        cmd.add(typesProp);
         cmd.parse(argc, argv);
 
-        /* Gestion des erreurs : plusieurs facons de faire :
-        / Error::set(type d'erreur, indication d'erreur, code d'erreur)
-        / Error::set(type d'erreur + indication d'erreur, code d'erreur) [risque d'être long]
-        / Error::set(type d'erreur, code d'erreur) puis cerr << indication d'erreur
-        / std::to_string()
-        / string("... ")
-        /
-        */
-
         _size = total_n.getValue();
-        checkInBound(_size,_MIN_NEURONS_, _MAX_NEURONS_, "The number of neurons");
-        _pE = pE.getValue();
-        checkInBound(_pE,0.,1., "The proportion of excitatory neurons");
+        checkInBound("The number of neurons", _size,_MIN_NEURONS_);
+        double _pE = pE.getValue();
+        checkInBound("The proportion of excitatory neurons",_pE,_MIN_PE_,_MAX_PE_ );
         _endtime = maxt.getValue();
-        checkInBound(_endtime, _MIN_TIME_, _MAX_TIME_, "The number of steps" );
-        _connectivity = connectivity.getValue();
-        checkInBound(_connectivity, _MIN_CONNECTIVITY_, (double)_MAX_CONNECTIVITY_, "The mean number of connections");
-        _intensity = intensity.getValue();
-        checkInBound(_intensity, _MIN_INTENSITY_, _MAX_INTENSITY_, "The mean intensity of a connection" );
+        checkInBound("The number of steps" , _endtime, _MIN_TIME_);
+       _degree = degree.getValue();
+        checkInBound("The mean number of connections", _degree, _MIN_CONNECTIVITY_);
+       _strength = strength.getValue();
+        checkInBound("The mean strength of a connection", _strength, _MIN_INTENSITY_);
 
-        std::string types(typesArg.getValue());
+        std::string types(typesProp.getValue());
+        std::string key, p;
+        std::map<std::string, double> prop{{"RS",0}, {"IB",0}, {"CH",0}, {"FS",0}, {"LTS", 0}};
+
+        std::stringstream ss(types);
+
+        while (std::getline(ss, key, ':'))
+        {
+            std::getline(ss, p, ',');
+            prop.at(key) = stoi(p);
+        }
+
+        if(pE.isSet())
+            checkTypes(prop.find("FS"), prop.find("LTS"), prop.find("LTS"), _pE);
+        checkTypes(prop.begin(), prop.end(), prop.find("RS"), 1);
 
         _net =Network(_size, _pE);
-        _net.setConnections(_intensity, _connectivity);
-
-
+        _net.setConnections(_strength, _degree);
+        //faire un switch pour choisir le Network
 
 } catch(TCLAP::ArgException &e) 
 {
@@ -108,6 +121,17 @@ void Simulation::run(const double _endtime)
 Simulation::~Simulation()
 {
     std::cout.flush();
+}
+
+void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, double max_sum)
+{
+    double sum (0);
+    for (auto p = beg;  p != end ; p++) {
+        sum += p->second;
+    }
+    if(sum <= max_sum and (sum >= max_sum or def->second ==0))
+        def->second += max_sum - sum;
+    else throw (TCLAP_ERROR(std::string("error with type proportions")));
 }
 
 

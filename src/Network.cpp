@@ -7,9 +7,9 @@ Network::Network(size_t s, double pE) {
 
 	for(size_t i(0); i < s; ++i) {
 		if(i < (s*pE)){
-			neurons.push_back(Neuron(RS));
+			neurons.push_back(Neuron("RS"));
 			} else {
-				neurons.push_back(Neuron(FS));
+				neurons.push_back(Neuron("FS"));
 			}
 	}
 }

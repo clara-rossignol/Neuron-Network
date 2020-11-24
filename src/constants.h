@@ -54,19 +54,19 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 
 /// * parameter limits
 #define _MIN_NEURONS_ 2
-#define _MAX_NEURONS_ 100000000 // should not be bigger than 2147483647 
+//#define _MAX_NEURONS_ 100000000 // should not be bigger than 2147483647
 
 #define _MIN_TIME_ 0
 #define _MAX_TIME_ 1000000000 // need verification
 
-#define _MIN_PE_ 0
-#define _MAX_PE_ 1
+#define _MIN_PE_ 0.
+#define _MAX_PE_ 1.
 
 #define _MIN_CONNECTIVITY_ 0.
-#define _MAX_CONNECTIVITY_ _MAX_NEURONS_ - 1 // can i do that ?
+//#define _MAX_CONNECTIVITY_ _MAX_NEURONS_ - 1 // can i do that ?
 
 #define _MIN_INTENSITY_ 0.
-#define _MAX_INTENSITY_ 100000. // To define
+//#define _MAX_INTENSITY_ 100000. // To define
 
 
 /// * error handling for TCLAP
@@ -101,14 +101,12 @@ struct Connection
     const double intensity;
 };
 
-enum Type {RS, FS, IB, CH, LTS};
-
-const std::map<Type, NParams> NeuronTypes{
-        {RS,  {.02, .2,  -65, 8,   false}},
-        {IB,  {.02, .2,  -55, 4,   false}},
-        {CH,  {.02, .2,  -50, 2,   false}},
-        {FS,  {.1,  .2,  -65, 2,   true }},
-        {LTS, {.02, .25, -65, 2,   true }},
+const std::map<std::string, NParams> NeuronTypes{
+        {"RS",  {.02, .2,  -65, 8,   false}},
+        {"IB",  {.02, .2,  -55, 4,   false}},
+        {"CH",  {.02, .2,  -50, 2,   false}},
+        {"FS",  {.1,  .2,  -65, 2,   true }},
+        {"LTS", {.02, .25, -65, 2,   true }},
 };
 
 #endif //GLOBALS_H
