@@ -51,7 +51,6 @@ Simulation::Simulation(int argc, char **argv)
        _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         std::string types(typesProp.getValue());
-        //readTypesProportions(types, inhib.isSet(), _inhib);
 
         //_net =Network(_size, 1-_inhib);
         _net = Network(_size, readTypesProportions(types, inhib.isSet(), _inhib));
