@@ -18,6 +18,7 @@ public:
      */
    Network(const std::vector<Neuron>& neurons);
    Network(size_t s, double pE);
+   Network(size_t s, TypesProportions prop);
    Network() = default;
 
 ///@}

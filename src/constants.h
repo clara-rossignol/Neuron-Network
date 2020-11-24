@@ -42,7 +42,7 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 
 /// * default parameter values *
 #define _AVG_NUMBER_ 100
-#define _AVG_PROP_ 0.8
+#define _AVG_PROP_ 0.2
 #define _TIME_ 10
 #define _AVG_CNNCT_ 3 //am really not sure about this one, pretty much invented 
 #define _AVG_INTENSITY_ 2 //same thing with this one
@@ -81,9 +81,9 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 /// * text messages *
 #define _PRGRM_TEXT_ "Simulation of the Izhikevich neuron model"
 #define _NUMBER_TEXT_ "Number of neurons"
-#define _PROP_TEXT_ "Proportion of excitatory neurons"
+#define _PROP_TEXT_ "Proportion of inhibitor neurons"
 #define _TIME_TEXT_ "Number of time-steps"
-#define _CNNCT_TEXT_ "Average connectivity"
+#define _CNNCT_TEXT_ "Average connectivity of a neuron"
 #define _INTENSITY_TEXT_ "Average connections' intensity"
 #define _TYPES_TEXT_ "Proportions of each type of neurons as a list like 'IB:0.2,FS:0.3,CH:0.2'. If total is less than 1, it will be completed with RS neurons"
 
@@ -108,5 +108,7 @@ const std::map<std::string, NParams> NeuronTypes{
         {"FS",  {.1,  .2,  -65, 2,   true }},
         {"LTS", {.02, .25, -65, 2,   true }},
 };
+
+typedef  std::map<std::string, double> TypesProportions;
 
 #endif //GLOBALS_H

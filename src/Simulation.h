@@ -10,6 +10,7 @@
   Simulation results are ?? //not sure how to explain this part, will write it later when better understood
 
 */
+typedef  std::map<std::string, double>::iterator Iterator ;
 
 class Simulation 
 {
@@ -46,6 +47,16 @@ public:
     ~Simulation();
 ///@}
 
+private: 
+
+  Network _net;
+  int _size;
+  int _endtime;
+  double _degree, _strength;
+  std::string outfile;
+
+    static void checkTypes(Iterator beg, Iterator end, const Iterator& def, double max_sum);
+
     template<typename N>
     void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
     {
@@ -56,16 +67,7 @@ public:
         }
     }
 
-private: 
-
-  Network _net;
-  int _size;
-  int _endtime;
-  double _degree, _strength;
-  std::string outfile;
-
-    static void checkTypes(std::map<std::string, double>::iterator beg, std::map<std::string, double>::iterator end,
-                    const std::map<std::string, double>::iterator &def, double max_sum);
+    TypesProportions readTypesProportions(std::string types, bool inhibSet, double inhib);
 };
 
 #endif // SIMULATION_H
