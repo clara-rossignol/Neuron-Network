@@ -68,9 +68,9 @@ void Network::print_sample(std::ostream *_outstr) {
 void Network::print_spikes(std::ostream *_outstr) {
 	for(size_t n(0); n < neurons.size(); n++) {
 
-		(*_outstr)  << neurons[n].print_spikes()
-					<< std::endl;
+		(*_outstr)  << neurons[n].print_spikes() << ' ';
 }
+		(*_outstr) << std::endl;
 }
 
 const std::vector<Neuron> &Network::getNeurons() const
