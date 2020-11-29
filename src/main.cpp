@@ -10,10 +10,11 @@
 This is an implementation of the model of E.M. Izhikevich
 ([Simple Model of Spiking Neuron, IEE Trans. Neural Net., 2003] (https://www.izhikevich.org/publications/spikes.pdf)).
 
- The given command is 
+ The given command is: 
   \verbatim
-  ./NeuronNetwork -t 500 -N 10000 -T ’IB:0.2,FS:0.3,CH:0.2’
+  ./NeuronNetwork -T 'FS:0.2,IB:0.15,CH:0.15,RS:0.5' -t 500 -N 10000
   \endverbatim
+  
   
 
 */

@@ -5,8 +5,10 @@
 
 /*!
  * \class Neuron
-  This is a neuron class in which we create neurons.
-  A neuron is defined by 4 parameters \p a, \p b, \p c, \p d and its inhibitory or excitatory quality.
+   \brief This is a Neuron class in which we create neurons.
+  
+    A neuron is defined by 4 parameters \p a, \p b, \p c, \p d and its inhibitory or excitatory quality.
+    The Neuron types are provided in \ref NeuronTypes and identified by a 2 or 3-letter string.
 */
 
 class Neuron
@@ -17,7 +19,9 @@ public:
     The constructor initializes the neuron
     */
     Neuron(std::string type, bool isfiring = false);
-    
+    /*!
+    The constructor initializes the neuron
+    */
     void newConnection(const Connection& connection);
     
     /*!
@@ -32,10 +36,16 @@ public:
     After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
     */
     void reset();
-    
+    /*!
+    In order to print the output files, all parametrs will be returned as a string.
+    * 
+    */
+    ///@{
+   /** It will print the parameters of each neuron*/
     std::string print_params() const;
+    /** It will print the spikes: i.e 1 if the neuron is firing, 0 if it is not.*/
 	std::string print_spikes() const;
-    
+    ///@}
 	/*! \ref membrane_potential getter
 	*/
 	double getMembranePotential() const;
@@ -58,7 +68,9 @@ public:
     Check if a neuron is inhibitory or not
     */
     bool isInhibitor() const;
-
+    /*!
+    It returns  the connections
+    */
     std::vector<Connection> getConnections() const;
 
     ~Neuron();
@@ -67,7 +79,7 @@ private:
     bool firing;
     
     /*! @name Dynamic variables
- */
+    */
     ///@{
     double membrane_potential;
     double recovery_variable;
@@ -80,7 +92,7 @@ private:
     
     std::string type;
     
-     /*! @name Connections
+    /*! @name Connections
       * A vector of connections : \p sender, a pointer to a neuron and \p intensity
     */
     std::vector<Connection> connections;

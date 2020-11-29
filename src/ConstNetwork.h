@@ -2,7 +2,13 @@
 #define NEURONNETWORK_CONSTNETWORK_H
 
 #include "Network.h"
-
+/*!
+ * \class ConstNetwork
+   \brief This is another type of \ref Network. 
+   
+   This is an extension, representing a constant network.
+   Here each neuron has exactly c connections.
+ */
 class ConstNetwork : public Network
 {
 public:

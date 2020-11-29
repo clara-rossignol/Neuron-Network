@@ -3,7 +3,11 @@
 
 #include <string>
 #include <vector>
-
+/*!
+ * \class Error
+   \brief This is a class that deals with the errors 
+   
+ */
 class Error : public std::runtime_error 
 {
     public:

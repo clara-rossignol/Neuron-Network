@@ -2,7 +2,13 @@
 #define NEURONNETWORK_DISPNETWORK_H
 
 #include "Network.h"
-
+/*!
+ * \class DispNetwork
+   \brief This is another type of \ref Network.
+   
+   This is an extension, representing an overdispersed network:
+   for each neuron the connection will be set to an exponential(1/connectivity), where exponential is a method of \ref Random.
+ */
 class DispNetwork : public Network
 {
 public:

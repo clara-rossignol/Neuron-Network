@@ -6,7 +6,8 @@
 #include <algorithm>
 
 /*! \class RandomNumbers
-  This is a random number class based on standard c++-11 generators.
+    \brief It generates random numbers
+    This is a random number class based on standard c++-11 generators.
 */
 
 class RandomNumbers {

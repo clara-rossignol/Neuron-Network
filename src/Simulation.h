@@ -4,11 +4,12 @@
 #include "Network.h"
 #include <tclap/CmdLine.h>
 
-/*!
-  The Simulation class is the main class in this program. It constructs neuron network according to user-specified parameters, and @ref run "runs" the simulation.
-
-  Simulation results are ?? //not sure how to explain this part, will write it later when better understood
-
+/*! \class Simulation
+    \brief The Simulation class is the main class in this program. 
+    
+    It constructs the \ref NeuronNetwork net \n  according to user-specified parameters, and @ref run "runs" the simulation.
+    Simulation results are three  output files that //not sure how to explain this part, will write it later when better understood
+    
 */
 typedef  std::map<std::string, double>::iterator Iterator ;
 
@@ -20,8 +21,9 @@ public:
   * @param _size The total number of neurons in the network
   * @param _pE The proportion of excitatory neurons
   * @param _endtime The duration of the simulation (in number of steps)
-  * @param _connectivity The average connectivity
+  * @param _degree The average connectivity
   * @param _intensity The average intensity of connections
+  * @param _strength: average intensity of connections
 */
 ///@{
 /*!
@@ -39,7 +41,7 @@ public:
     void run(const double);
 
 /*!
-* Write on the output document at every steps, called in ru 
+* Write on the output document at every steps, called in run 
 */
     void print();
     void header();
@@ -55,19 +57,23 @@ private:
   double _degree, _strength;
   std::string outfile;
 
-    static void checkTypes(Iterator beg, Iterator end, const Iterator& def, double max_sum);
-
-    template<typename N>
-    void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
-    {
-        if (x > max or x <min)
-        {
+  static void checkTypes(Iterator beg, Iterator end, const Iterator& def, double max_sum);
+  /*!
+  Constraint function for a TCLAP argument to restrict a double to [0,1].
+  */
+  template<typename N>
+  void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
+  {
+     if (x > max or x <min)
+       {
             Error::set("Invalid data entered", 1);
             std::cerr << message <<" should be between " << min << "and " << max << std::endl;
         }
     }
-
-    TypesProportions readTypesProportions(std::string types, bool inhibSet, double inhib);
+  /*!
+   Read the proportions for different types of neurons. The neuron types are found in \ref Neuron::NeuronTypes.
+  */
+  TypesProportions readTypesProportions(std::string types, bool inhibSet, double inhib);
 };
 
 #endif // SIMULATION_H
