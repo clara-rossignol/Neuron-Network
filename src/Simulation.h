@@ -34,6 +34,7 @@ public:
     Simulation(int, char**);
 
 
+
     /*!
       Read a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type.
       By default, all proportions are set to 0.
@@ -50,7 +51,7 @@ public:
      * @param inhib inhibitor proportion will be used only if *inhibSet* is true
      * @return the recording of all type proportions
      */
-    TypesProportions readTypesProportions(std::string types, bool inhibSet, double inhib);
+     static TypesProportions readTypesProportions(std::string types, bool inhibSet, double inhib);
 
     /*!
       if *max_sum* is too big compared to all types proportions saved between *beg* and *end*, the proportion of *def*
