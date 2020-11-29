@@ -17,7 +17,6 @@ public:
 
 ///@{
   /*! Constructors:
-    /**
    @param neurons: all neurons that will form the whole network
    */
    Network(const std::vector<Neuron>& neurons);
