@@ -109,12 +109,12 @@ void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, boo
     for (auto p = beg;  p != end ; p++) {
         sum += p->second;
     }
-    if(sum <= max_sum and (sum >= max_sum or setDef))
+    if(abs(sum - max_sum) <= 0.0001  or  (sum - max_sum <= 0.0001 and !setDef))
         def->second += max_sum - sum;
     else
     {
-       // throw (TCLAP_ERROR(std::string("error with type proportions")));
-       throw;
+       throw (TCLAP_ERROR(std::string("error with type proportions")));
+       //throw;
     }
 }
 
@@ -131,8 +131,8 @@ TypesProportions Simulation::readTypesProportions(std::string types, bool inhibS
     }
 
     if(inhibSet)
-        checkTypes(prop.find("FS"), prop.find("LTS"), prop.find("FS"), types.find("FS"),inhib);
-    checkTypes(prop.begin(), prop.end(), prop.find("RS"),types.find("FS") ,1);
+        checkTypes(prop.find("FS"), prop.find("LTS"), prop.find("FS"), types.find("FS") != std::string::npos, inhib);
+    checkTypes(prop.begin(), prop.end(), prop.find("RS"),types.find("RS") != std::string::npos,1);
     return prop;
 }
 
