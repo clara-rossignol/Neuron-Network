@@ -45,6 +45,8 @@ public:
     std::string print_params() const;
     /** It will print the spikes: i.e 1 if the neuron is firing, 0 if it is not.*/
 	std::string print_spikes() const;
+	/**It will print the membrane potential, the recovery variable and the input of a sample neuron. */
+	std::string print_sample();
     ///@}
 	/*! \ref membrane_potential getter
 	*/
@@ -96,7 +98,6 @@ private:
       * A vector of connections : \p sender, a pointer to a neuron and \p intensity
     */
     std::vector<Connection> connections;
-
 };
 
 #endif //NEURON_H

@@ -17,7 +17,6 @@ public:
 
 ///@{
   /*! Constructors:
-    /**
    @param neurons: all neurons that will form the whole network
    */
    Network(const std::vector<Neuron>& neurons);
@@ -57,7 +56,7 @@ public:
     */
     ///@{
     void print_params(std::ostream *_outstr);
-    /*void print_sample(std::ostream *_outstr);*/
+    void print_sample(std::ostream *_outstr, size_t n);
     void print_spikes(std::ostream *_outstr);
     ///@}
     const std::vector<Neuron> &getNeurons() const;

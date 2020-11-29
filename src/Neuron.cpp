@@ -68,13 +68,20 @@ void Neuron::reset()
 
 std::string Neuron::print_params() const
 {
+	double valence(0);
+	for (auto connect : connections) {
+		valence += connect.intensity;
+	}
+		
 	std::stringstream ss;
     ss << type << '\t'
        << nparams.a << '\t'
        << nparams.b << '\t'
        << nparams.c << '\t'
        << nparams.d << '\t'
-       << nparams.inhib;
+       << nparams.inhib << '\t'
+       << connections.size() << '\t'
+       << valence;
     return ss.str();
 }
 
@@ -86,6 +93,15 @@ std::string Neuron::print_spikes() const
 	} else {
 		return "0";
 	}
+}
+
+std::string Neuron::print_sample()
+{
+	std::stringstream ss;
+	ss  << membrane_potential << '\t'
+		<< recovery_variable << '\t'
+		<< currentCalculation();
+	return ss.str();
 }
 
 void Neuron::setMembranePotential()

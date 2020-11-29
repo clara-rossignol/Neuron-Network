@@ -73,34 +73,42 @@ catch(std::runtime_error const& e)
 void Simulation::run(const double _endtime)
 {
     std::ofstream outf1, outf2, outf3;
-    outf1.open(outfile+"spikes");
+    outf1.open(_OUTFILE_1_);
     if(outf1.bad()) 
-    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+outfile+"spikes"));
+    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_1_));
     
     std::ostream *_outf = &std::cout;
     
     if(outf1.is_open()) _outf = &outf1;
     
-    outf2.open(outfile+"params");
+    outf2.open(_OUTFILE_2_);
     if(outf2.bad())
-    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+outfile+"params"));
+    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_2_));
     
-    outf3.open(outfile+"sample_neurons");
+    outf3.open(_OUTFILE_3_);
     if(outf3.bad())
-    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+outfile+"sample_neurons"));
+    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_3_));
+
+	sample_header(&outf3);
+	int num(_RNG->uniform_int(0, _size));
     
     for(size_t i(0); i < _endtime; ++i) {
 		_net.update();
 		_net.print_spikes(_outf);
-		(*_outf) << i;
+		(*_outf) << i << ' ';
+		(*&outf3) << (i+1) << '\t';
+		_net.print_sample(&outf3, num);
 		}
 		
 	_net.print_params(&outf2);
-	if(outf2.is_open()) outf2.close();	
-		
-			/*
-	_net.print_sample(&outf3);*/
+	
+	if(outf1.is_open()) outf1.close();	
+	if(outf2.is_open()) outf2.close();				
 	if(outf3.is_open()) outf3.close();
+}
+
+void Simulation::sample_header(std::ostream *_outstr) {
+	(*_outstr) << "\t\tv\tu\tI" << std::endl;
 }
 
 void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)

@@ -87,6 +87,10 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 #define _INTENSITY_TEXT_ "Average connections' intensity"
 #define _TYPES_TEXT_ "Proportions of each type of neurons as a list like 'IB:0.2,FS:0.3,CH:0.2'. If total is less than 1, it will be completed with RS neurons"
 
+#define _OUTFILE_1_ "spikes"
+#define _OUTFILE_2_ "parameters"
+#define _OUTFILE_3_ "sample_neurons"
+
 struct NParams
 {
     double a, b, c, d;

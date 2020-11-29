@@ -50,24 +50,22 @@ void Network::setNeuronConnections(double meanIntensity, double meanConnectivity
 
 
 void Network::print_params(std::ostream *_outstr) {
-    (*_outstr) << "Type\ta\tb\tc\td\tInhibitory" << std::endl;
+    (*_outstr) << "Type\ta\tb\tc\td\tInhibitory\tdegree\tvalence" << std::endl;
     for (size_t n(0); n < neurons.size(); n++) {
         (*_outstr) 	<< neurons[n].print_params()	 
 					<< std::endl;
     }
 }
 
-/*
-void Network::print_sample(std::ostream *_outstr) {
-	for (size_t n(0); n < neurons.size(); n++) {
+
+void Network::print_sample(std::ostream *_outstr, size_t n) {
         (*_outstr) 	<< neurons[n].print_sample()	 
 					<< std::endl;	
 }
-*/
+
 
 void Network::print_spikes(std::ostream *_outstr) {
 	for(size_t n(0); n < neurons.size(); n++) {
-
 		(*_outstr)  << neurons[n].print_spikes() << ' ';
 }
 		(*_outstr) << std::endl;

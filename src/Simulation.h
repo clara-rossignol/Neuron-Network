@@ -66,17 +66,12 @@ public:
     static void checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef,  double max_sum);
 
     /*!
-* Runs the simulation through a loop with \ref endtime steps.
+* Runs the simulation through a loop with \ref endtime steps. Writes on the 3 different output files.
 */
-
     void run() {run(_endtime);}
     void run(const double);
-
-/*!
-* Write on the output document at every steps, called in run 
-*/
-    void print();
-    void header();
+    
+    void sample_header(std::ostream *_outstr);
 
     ~Simulation();
 ///@}
@@ -87,7 +82,6 @@ private:
   int _size;
   int _endtime;
   double _degree, _strength;
-  std::string outfile;
  /*!
      *
      * @tparam N
