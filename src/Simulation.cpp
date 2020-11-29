@@ -103,13 +103,13 @@ void Simulation::run(const double _endtime)
 	if(outf3.is_open()) outf3.close();
 }
 
-void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, double max_sum)
+void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)
 {
     double sum (0);
     for (auto p = beg;  p != end ; p++) {
         sum += p->second;
     }
-    if(sum <= max_sum and (sum >= max_sum or def->second ==0))
+    if(sum <= max_sum and (sum >= max_sum or setDef))
         def->second += max_sum - sum;
     else
     {
@@ -131,8 +131,8 @@ TypesProportions Simulation::readTypesProportions(std::string types, bool inhibS
     }
 
     if(inhibSet)
-        checkTypes(prop.find("FS"), prop.find("LTS"), prop.find("FS"), inhib);
-    checkTypes(prop.begin(), prop.end(), prop.find("RS"), 1);
+        checkTypes(prop.find("FS"), prop.find("LTS"), prop.find("FS"), types.find("FS"),inhib);
+    checkTypes(prop.begin(), prop.end(), prop.find("RS"),types.find("FS") ,1);
     return prop;
 }
 
