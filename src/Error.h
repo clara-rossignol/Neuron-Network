@@ -5,7 +5,9 @@
 #include <vector>
 /*!
  * \class Error
-   \brief This is a class that deals with the errors 
+   \brief This is a class that deals with the errors
+  
+  Error with specific code and message can be thrown
    
  */
 class Error : public std::runtime_error 
@@ -17,16 +19,9 @@ class Error : public std::runtime_error
 
     static void set(const std::string& msg, bool autoThrow = true);
     static void set(const std::string& msg, int v, bool autoThrow = true);
-    static std::string last();
-    static void write();
-    static size_t count();
 
     protected:
     const int code;
-
-    private:
-    static std::vector<std::string> err;
 };
-
 
 #endif
