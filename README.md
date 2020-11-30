@@ -1,8 +1,5 @@
 # Neuron Network
 
-
-# Project in Informatics
-
 ## README
 
 ### group 12 (Bardel Lola Maia Lou,De Trogroff Coatallio Constance Laure Marie Géraldine Gabrielle, Preda Alexandra-Elena,Rossignol Clara)
