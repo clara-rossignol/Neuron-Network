@@ -26,10 +26,7 @@ RandomNumbers *_RNG;
 
 int main(int argc, char **argv) 
 {    
-  /*
-  / This is for the programm to write the errors that happened 
-  */
-  std::atexit(&Error::write);
+
     _RNG = new RandomNumbers();
 
     try {
