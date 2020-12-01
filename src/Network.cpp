@@ -5,7 +5,7 @@ Network::Network(const std::vector<Neuron>& neurons) : neurons(neurons){}
 
 Network::Network(size_t s, TypesProportions prop)
 {
-   for(auto type : prop)
+   for(const auto& type : prop)
    {
        for(size_t i(0); i<s*type.second; ++i)
            neurons.push_back(Neuron(type.first));

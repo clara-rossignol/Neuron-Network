@@ -9,7 +9,7 @@
 #include "../src/DispNetwork.h"
 #include "../src/Simulation.h"
 
-RandomNumbers *_RNG = new RandomNumbers(23948710923);
+RandomNumbers *_RNG = new RandomNumbers();
 
 TEST(Neuron, create_neuron)
 {

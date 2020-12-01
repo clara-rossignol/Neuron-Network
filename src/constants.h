@@ -44,8 +44,8 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 #define _AVG_NUMBER_ 100
 #define _AVG_PROP_ 0.2
 #define _TIME_ 10
-#define _AVG_CNNCT_ 3 //am really not sure about this one, pretty much invented 
-#define _AVG_INTENSITY_ 2 //same thing with this one
+#define _AVG_CNNCT_ 40
+#define _AVG_INTENSITY_ 4
 
 #define _FIRING_TRESHOLD_ 30
 #define _DELTA_MBRN_ 1
@@ -86,6 +86,9 @@ _SIMULERR_(OUTPUT_ERROR, 30)
 #define _CNNCT_TEXT_ "Average connectivity of a neuron"
 #define _INTENSITY_TEXT_ "Average connections' intensity"
 #define _TYPES_TEXT_ "Proportions of each type of neurons as a list like 'IB:0.2,FS:0.3,CH:0.2'. If total is less than 1, it will be completed with RS neurons"
+#define _BASIC_TEXT_ "Basic model of connections"
+#define _CONSTANT_TEXT "Constant model of connections"
+#define _OVERDISPERSED_TEXT "Overdispersed model of connections"
 
 #define _OUTFILE_1_ "spikes"
 #define _OUTFILE_2_ "parameters"

@@ -48,9 +48,7 @@ double Neuron::currentCalculation()
 void Neuron::update()
 {
     if(isFiring())
-    {
         reset();
-    }
     else
     {
         double potential(membrane_potential);
@@ -142,9 +140,7 @@ std::vector<Connection> Neuron::getConnections() const
 Neuron::~Neuron()
 {
     for(auto& c : connections)
-    {
         c.sender = nullptr;
-    }
 }
 
 

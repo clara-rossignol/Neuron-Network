@@ -4,6 +4,7 @@
 #include "Neuron.h"
 #include "Network.h"
 #include <tclap/CmdLine.h>
+#include <chrono>
 
 /*!
   \mainpage Neuron Network
@@ -25,8 +26,9 @@ This is an implementation of the model of E.M. Izhikevich
 RandomNumbers *_RNG;
 
 int main(int argc, char **argv) 
-{    
+{
 
+    auto t1 = std::chrono::high_resolution_clock::now();
     _RNG = new RandomNumbers();
 
     try {
@@ -38,5 +40,11 @@ int main(int argc, char **argv)
     }
 
     if (_RNG) delete _RNG;
+
+    auto t2 = std::chrono::high_resolution_clock::now();
+    auto duration = std::chrono::duration_cast<std::chrono::seconds>( t2 - t1 ).count();
+
+    std::cout << duration << " s" << std::endl ;
+    std::cout << duration/60 << " min" << std::endl ;
     return 0;
 }

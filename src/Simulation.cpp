@@ -32,9 +32,9 @@ Simulation::Simulation(int argc, char **argv)
         cmd.add(inhib);
         TCLAP::ValueArg<std::string> typesProp("T", "neurontypes", _TYPES_TEXT_, true, "", "string");
         cmd.add(typesProp);
-        TCLAP::SwitchArg basic("B", "basic", "Basic model of connections", false);
-        TCLAP::SwitchArg constant("C", "constant", "Constant model of connections", false);
-        TCLAP::SwitchArg overdispersed("O", "overdispersed", "Overdispersed model of connections", false);
+        TCLAP::SwitchArg basic("B", "basic", _BASIC_TEXT_, false);
+        TCLAP::SwitchArg constant("C", "constant", _CONSTANT_TEXT, false);
+        TCLAP::SwitchArg overdispersed("O", "overdispersed", _OVERDISPERSED_TEXT, false);
         std::vector< TCLAP::Arg *> NetworkModels = {&basic, &constant, &overdispersed};
         cmd.xorAdd(NetworkModels);
         cmd.parse(argc, argv);
