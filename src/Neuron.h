@@ -72,11 +72,17 @@ public:
     std::vector<Connection> getConnections() const;
 
     void setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit);
+
+    bool isGoingToFire() const;
+    void setFiring(bool fire);
+
     ~Neuron();
 
 private:
+
+    bool willFire;
     bool firing;
-    
+
     /*! @name Dynamic variables
     */
     ///@{

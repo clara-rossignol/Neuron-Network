@@ -26,17 +26,15 @@ Neuron::Neuron(std::string type, bool isfiring) : firing(isfiring),  nparams(Neu
     }
 }
 
-
-
 double Neuron::currentCalculation()
 {
 	double current(0);
     for (std::size_t i = 0; i < n_inhibitory; ++i) {
-        current -= connections[i].intensity ;
+        current -= connections[i].intensity * isFiring() ;
     }
 
     for (std::size_t i = n_inhibitory; i < connections.size(); ++i) {
-        current += connections[i].intensity *0.5  ;
+        current += connections[i].intensity * 0.5 * isFiring()  ;
     }
 
     int w(isInhibitor() ? 2 : 5);
@@ -46,14 +44,18 @@ double Neuron::currentCalculation()
 void Neuron::update()
 {
     if(isFiring())
+    {
         reset();
+        firing = false;
+    }
+
     else
     {
         double potential(membrane_potential);
         setMembranePotential();
         setRecoveryVariable(potential);
     }
-    firing = (membrane_potential > _FIRING_TRESHOLD_);
+    willFire = (membrane_potential > _FIRING_TRESHOLD_);
 }
 
 void Neuron::reset()
@@ -66,7 +68,8 @@ void Neuron::reset()
 std::string Neuron::print_params() const
 {
 	double valence(0);
-	for (auto connect : connections) {
+	for (auto connect : connections)
+	{
 		valence += connect.intensity;
 	}
 		
@@ -135,12 +138,6 @@ std::vector<Connection> Neuron::getConnections() const
     return connections;
 }
 
-Neuron::~Neuron()
-{
-    for(auto& c : connections)
-        c.sender = nullptr;
-}
-
 void Neuron::setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit) {
     Neuron::connections.reserve(inhib.size() + excit.size());
     for (auto & i : inhib)
@@ -148,6 +145,22 @@ void Neuron::setConnections(const std::vector<Connection> &inhib, const std::vec
     for (auto & i : excit)
         Neuron::connections.emplace_back(i);
     n_inhibitory = inhib.size();
+}
+
+bool Neuron::isGoingToFire() const
+{
+    return willFire;
+}
+
+void Neuron::setFiring(bool fire)
+{
+    firing = fire;
+}
+
+Neuron::~Neuron()
+{
+    for(auto& c : connections)
+        c.sender = nullptr;
 }
 
 
