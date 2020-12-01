@@ -8,7 +8,7 @@
    \brief This is a Neuron class in which we create neurons.
   
     A neuron is defined by 4 parameters \p a, \p b, \p c, \p d and its inhibitory or excitatory quality.
-    The Neuron types are provided in \ref NeuronTypes and identified by a 2 or 3-letter string.
+    The Neuron types are provided in \ref comstants.h as a map NeuronTypes and identified by a 2 or 3-letter string.
 */
 
 class Neuron
@@ -20,7 +20,8 @@ public:
     */
     Neuron(std::string type, bool isfiring = false);
     /*!
-    The constructor initializes the neuron
+    Makes new connections.
+    *  @param connection: a Connection
     */
     void newConnection(const Connection& connection);
     
@@ -48,10 +49,10 @@ public:
 	/**It will print the membrane potential, the recovery variable and the input of a sample neuron. */
 	std::string print_sample();
     ///@}
-	/*! \ref membrane_potential getter
+	/*! membrane_potential getter
 	*/
 	double getMembranePotential() const;
-	/*! \ref recovery_variable getter
+	/*!  recovery_variable getter
 	*/
 	double getRecoveryVariable() const;
     /*!

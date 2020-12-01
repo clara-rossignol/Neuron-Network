@@ -44,7 +44,7 @@ public:
     virtual void setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron);
 
     /*!
-     *Sets all neurons behavior during the simulation
+     Sets all neurons behavior during the simulation
      */
     void update();
     /*! These methods will print the different output files.
@@ -55,12 +55,18 @@ public:
     void print_sample(std::ostream *_outstr, size_t n);
     void print_spikes(std::ostream *_outstr);
     ///@}
+    /*!
+     It returns the neurons.
+     */
     const std::vector<Neuron> &getNeurons() const;
 ///@}
 
     virtual ~Network() = default;
 
 protected:
+ /*!
+     A set of neurons
+     */
     std::vector<Neuron> neurons;
 };
 
