@@ -19,12 +19,7 @@ public:
     The constructor initializes the neuron
     */
     Neuron(std::string type, bool isfiring = false);
-    /*!
-    Makes new connections.
-    *  @param connection: a Connection
-    */
-    void newConnection(const Connection& connection);
-    
+
     /*!
     The current is calculated for each neuron
     */
@@ -76,6 +71,7 @@ public:
     */
     std::vector<Connection> getConnections() const;
 
+    void setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit);
     ~Neuron();
 
 private:
@@ -99,6 +95,9 @@ private:
       * A vector of connections : \p sender, a pointer to a neuron and \p intensity
     */
     std::vector<Connection> connections;
+
+    size_t n_inhibitory;
+
 };
 
 #endif //NEURON_H

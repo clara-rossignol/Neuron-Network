@@ -49,7 +49,7 @@ public:
      * @param inhib inhibitor proportion will be used only if *inhibSet* is true
      * @return the recording of all type proportions
      */
-     static TypesProportions readTypesProportions(std::string types, bool inhibSet, double inhib);
+     static TypesProportions readTypesProportions(const std::string& types, bool inhibSet, double inhib);
 
     /*!
       if *max_sum* is too big compared to all types proportions saved between *beg* and *end*, the proportion of *def*
@@ -69,7 +69,7 @@ public:
     void run() {run(_endtime);}
     void run(const double);
     
-    void sample_header(std::ostream *_outstr);
+    static void sample_header(std::ostream *_outstr);
 
     ~Simulation();
 ///@}

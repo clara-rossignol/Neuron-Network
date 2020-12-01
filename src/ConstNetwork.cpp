@@ -14,11 +14,21 @@ void ConstNetwork::setConnections(double meanIntensity, double meanConnectivity)
 
 void ConstNetwork::setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron &neuron)
 {
-    for(size_t i(0);i < meanConnectivity ;++i)
+
+    std::vector<Connection> inhib;
+    std::vector<Connection> excit;
+
+    for(size_t i(0);i < meanConnectivity;++i)
     {
-        neuron.newConnection({ &neurons[_RNG->uniform_int(0, (int)neurons.size()-1)],
-                               _RNG ->uniform_double(0,2*meanIntensity) });
+        Neuron* sender = &neurons[_RNG->uniform_int(0, (int)neurons.size()-1)];
+        if (sender->isInhibitor())
+            inhib.push_back({sender, _RNG ->uniform_double(0,2*meanIntensity)  });
+        else
+            excit.push_back({sender, _RNG ->uniform_double(0,2*meanIntensity) });
     }
+
+    neuron.setConnections(inhib, excit);
+
 }
 
 

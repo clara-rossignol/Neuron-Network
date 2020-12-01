@@ -42,9 +42,9 @@ int main(int argc, char **argv)
     if (_RNG) delete _RNG;
 
     auto t2 = std::chrono::high_resolution_clock::now();
-    auto duration = std::chrono::duration_cast<std::chrono::seconds>( t2 - t1 ).count();
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>( t2 - t1 ).count();
 
-    std::cout << duration << " s" << std::endl ;
-    std::cout << duration/60 << " min" << std::endl ;
+    std::cout << duration/1000. << " s" << std::endl ;
+    std::cout << duration/(60. * 1000) << " min" << std::endl ;
     return 0;
 }

@@ -3,19 +3,23 @@
 
 Network::Network(const std::vector<Neuron>& neurons) : neurons(neurons){}
 
-Network::Network(size_t s, TypesProportions prop)
+Network::Network(size_t s, const TypesProportions& prop)
 {
    for(const auto& type : prop)
    {
-       for(size_t i(0); i<s*type.second; ++i)
-           neurons.push_back(Neuron(type.first));
+       for(size_t i(0); i<s*type.second; ++i){
+           neurons.emplace_back(type.first);
+       }
    }
 }
 
 void Network::update()
 {
     for(auto& neuron : neurons)
+    {
         neuron.update();
+    }
+
 }
 
 void Network::setConnections(double meanIntensity, double meanConnectivity)
@@ -29,19 +33,26 @@ void Network::setNeuronConnections(double meanIntensity, double meanConnectivity
     int number(-1);
     while (number < 0 or number > (int)neurons.size())
         number = _RNG->poisson(meanConnectivity);
-
+    std::vector<Connection> inhib;
+    std::vector<Connection> excit;
     for(size_t i(0);i < (unsigned int)number ;++i)
     {
-        neuron.newConnection({ &neurons[_RNG->uniform_int(0, (int)neurons.size()-1)],
-                               _RNG ->uniform_double(0,2*meanIntensity) });
+        Neuron* sender = &neurons[_RNG->uniform_int(0, (int)neurons.size()-1)];
+        if (sender->isInhibitor())
+            inhib.push_back({sender, _RNG ->uniform_double(0,2*meanIntensity) });
+        else
+            excit.push_back({sender, _RNG ->uniform_double(0,2*meanIntensity) });
     }
+
+    neuron.setConnections(inhib, excit);
+
 }
 
 
 void Network::print_params(std::ostream *_outstr) {
     (*_outstr) << "Type\ta\tb\tc\td\tInhibitory\tdegree\tvalence" << std::endl;
-    for (size_t n(0); n < neurons.size(); n++) {
-        (*_outstr) 	<< neurons[n].print_params()	 
+    for (auto & neuron : neurons) {
+        (*_outstr) 	<< neuron.print_params()
 					<< std::endl;
     }
 }
@@ -54,8 +65,8 @@ void Network::print_sample(std::ostream *_outstr, size_t n) {
 
 
 void Network::print_spikes(std::ostream *_outstr) {
-	for(size_t n(0); n < neurons.size(); n++) {
-		(*_outstr)  << neurons[n].print_spikes() << ' ';
+	for(auto & neuron : neurons) {
+		(*_outstr)  << neuron.print_spikes() << ' ';
 }
 		(*_outstr) << std::endl;
 }

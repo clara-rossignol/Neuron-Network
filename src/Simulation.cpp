@@ -73,12 +73,12 @@ catch(std::runtime_error const& e)
 }
 
 
-void Simulation::run(const double _endtime)
+void Simulation::run(const double _time)
 {
     std::ofstream outf1, outf2, outf3;
     outf1.open(_OUTFILE_1_);
     if(outf1.bad()) 
-    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_1_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_1_));
     
     std::ostream *_outf = &std::cout;
     
@@ -86,7 +86,7 @@ void Simulation::run(const double _endtime)
     
     outf2.open(_OUTFILE_2_);
     if(outf2.bad())
-    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_2_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_2_));
     
     outf3.open(_OUTFILE_3_);
     if(outf3.bad())
@@ -95,7 +95,7 @@ void Simulation::run(const double _endtime)
 	sample_header(&outf3);
 	int num(_RNG->uniform_int(0, _size));
     
-    for(size_t i(0); i < _endtime; ++i) {
+    for(size_t i(0); i < _time; ++i) {
 		_net->update();
 		_net->print_spikes(_outf);
 		(*_outf) << i << ' ';
@@ -129,7 +129,7 @@ void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, boo
     }
 }
 
-TypesProportions Simulation::readTypesProportions(std::string types, bool inhibSet, double inhib)
+TypesProportions Simulation::readTypesProportions(const std::string& types, bool inhibSet, double inhib)
 {
     std::string key, p;
     TypesProportions prop{{"RS",0}, {"IB",0}, {"CH",0}, {"FS",0}, {"LTS", 0}};

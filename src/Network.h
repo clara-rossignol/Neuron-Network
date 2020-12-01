@@ -25,7 +25,7 @@ public:
    @param s (size_t), the size of the network
    @param prop (TypesProportions): 
    */
-   Network(size_t s, TypesProportions prop);
+   Network(size_t s, const TypesProportions& prop);
    /**  
    Defaulted default constructor: the compiler will define the implicit default constructor even if other constructors are present.
    */

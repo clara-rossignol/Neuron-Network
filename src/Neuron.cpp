@@ -4,7 +4,7 @@
 #include <sstream>
 
 
-Neuron::Neuron(std::string type, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(type)), type(type)
+Neuron::Neuron(std::string type, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(type)), type(type), n_inhibitory(0)
 {
     membrane_potential = nparams.c;
     recovery_variable = nparams.b*membrane_potential;
@@ -26,21 +26,19 @@ Neuron::Neuron(std::string type, bool isfiring) : firing(isfiring),  nparams(Neu
     }
 }
 
-void Neuron::newConnection(const Connection & c)
-{
-    connections.push_back(c);
-}
+
 
 double Neuron::currentCalculation()
 {
 	double current(0);
-	for(const auto& c : connections) //maybe a better way to optimize it
-    {
-	    if(c.sender->isInhibitor())
-            current -=c.intensity;
-	    else
-            current +=c.intensity*0.5;
+    for (std::size_t i = 0; i < n_inhibitory; ++i) {
+        current -= connections[i].intensity ;
     }
+
+    for (std::size_t i = n_inhibitory; i < connections.size(); ++i) {
+        current += connections[i].intensity *0.5  ;
+    }
+
     int w(isInhibitor() ? 2 : 5);
 	return current +  w*_RNG->normal(0,1);
 }
@@ -142,5 +140,15 @@ Neuron::~Neuron()
     for(auto& c : connections)
         c.sender = nullptr;
 }
+
+void Neuron::setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit) {
+    Neuron::connections.reserve(inhib.size() + excit.size());
+    for (auto & i : inhib)
+        Neuron::connections.emplace_back(i);
+    for (auto & i : excit)
+        Neuron::connections.emplace_back(i);
+    n_inhibitory = inhib.size();
+}
+
 
 
