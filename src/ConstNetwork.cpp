@@ -2,6 +2,7 @@
 #include "Random.h"
 
 ConstNetwork::ConstNetwork(const std::vector<Neuron> &neurons) : Network(neurons) {}
+ConstNetwork::ConstNetwork(size_t s, TypesProportions prop) : Network(s, prop) {}
 
 void ConstNetwork::setConnections(double meanIntensity, double meanConnectivity) 
 {
@@ -19,3 +20,5 @@ void ConstNetwork::setNeuronConnections(double meanIntensity, double meanConnect
                                _RNG ->uniform_double(0,2*meanIntensity) });
     }
 }
+
+

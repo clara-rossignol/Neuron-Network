@@ -2,16 +2,10 @@
 #include "Simulation.h"
 #include "Random.h"
 #include "Neuron.h"
+#include "ConstNetwork.h"
+#include "DispNetwork.h"
 
-/// * error handling for TCLAP
-/*!
-* 0 : "The number of neurons should be between " << _MIN_NEURONS << "and " << _MAX_NEURONS << endl;
-* 1 : "The number of steps should be between " << _MIN_TIME_ << "and " << _MAX_TIME_ << endl;
-* 2 : "The proportion of excitatory neurons should be between 0 and 1" << endl;
-* 3 : "The maximum number of connectivity should be between " << _MIN_CONNECTIVITY_ << "and " << _MAX_CONNECTIVITY_ << endl;
-* 4 : "The intensity of a connection should be between " << _MIN_INTENSITY_ << "and " << _MAX_INTENSITY_ << endl;
-*/
-
+///
 /* Gestion des erreurs : plusieurs facons de faire :
        / Error::set(type d'erreur, indication d'erreur, code d'erreur)
        / Error::set(type d'erreur + indication d'erreur, code d'erreur) [risque d'être long]
@@ -38,6 +32,11 @@ Simulation::Simulation(int argc, char **argv)
         cmd.add(inhib);
         TCLAP::ValueArg<std::string> typesProp("T", "neurontypes", _TYPES_TEXT_, true, "", "string");
         cmd.add(typesProp);
+        TCLAP::SwitchArg basic("B", "basic", "Basic model of connections", false);
+        TCLAP::SwitchArg constant("C", "constant", "Constant model of connections", false);
+        TCLAP::SwitchArg overdispersed("O", "overdispersed", "Overdispersed model of connections", false);
+        std::vector< TCLAP::Arg *> NetworkModels = {&basic, &constant, &overdispersed};
+        cmd.xorAdd(NetworkModels);
         cmd.parse(argc, argv);
 
         _size = total_n.getValue();
@@ -52,10 +51,14 @@ Simulation::Simulation(int argc, char **argv)
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         std::string types(typesProp.getValue());
 
-        //_net =Network(_size, 1-_inhib);
-        _net = Network(_size, readTypesProportions(types, inhib.isSet(), _inhib));
-        _net.setConnections(_strength, _degree);
-        //faire un switch pour choisir le Network
+        if(basic.getValue())
+            _net = new Network(_size, readTypesProportions(types, inhib.isSet(), _inhib));
+        else if (constant.getValue())
+            _net = new ConstNetwork(_size, readTypesProportions(types, inhib.isSet(), _inhib));
+        else
+            _net = new DispNetwork(_size, readTypesProportions(types, inhib.isSet(), _inhib));
+
+        _net->setConnections(_strength, _degree);
 
 } catch(TCLAP::ArgException &e) 
 {
@@ -93,14 +96,14 @@ void Simulation::run(const double _endtime)
 	int num(_RNG->uniform_int(0, _size));
     
     for(size_t i(0); i < _endtime; ++i) {
-		_net.update();
-		_net.print_spikes(_outf);
+		_net->update();
+		_net->print_spikes(_outf);
 		(*_outf) << i << ' ';
 		(*&outf3) << (i+1) << '\t';
-		_net.print_sample(&outf3, num);
+		_net->print_sample(&outf3, num);
 		}
 		
-	_net.print_params(&outf2);
+	_net->print_params(&outf2);
 	
 	if(outf1.is_open()) outf1.close();	
 	if(outf2.is_open()) outf2.close();				
@@ -146,5 +149,7 @@ TypesProportions Simulation::readTypesProportions(std::string types, bool inhibS
 
 Simulation::~Simulation()
 {
+    delete _net;
+    _net = nullptr;
     std::cout.flush();
 }

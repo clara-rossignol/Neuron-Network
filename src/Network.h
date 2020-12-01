@@ -20,13 +20,9 @@ public:
    @param neurons: all neurons that will form the whole network
    */
    Network(const std::vector<Neuron>& neurons);
-   /** The network will be completed with RS neurons if and FS otherwise. 
-   @param s (size_t): the size of the network
-   @param pE (double): the excitatory neurons proportion
-   */
-   Network(size_t s, double pE);
-   /** 
-   @param s (size_t),
+
+   /** The network will be completed with
+   @param s (size_t), the size of the network
    @param prop (TypesProportions): 
    */
    Network(size_t s, TypesProportions prop);
@@ -43,9 +39,9 @@ public:
      @param meanIntensity the mean intensity of a connection
      @param meanConnectivity the mean number of entering connections in one neuron
      */
-    void setConnections(double meanIntensity, double meanConnectivity);
+    virtual void setConnections(double meanIntensity, double meanConnectivity);
 
-    void setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron);
+    virtual void setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron);
 
     /*!
      *Sets all neurons behavior during the simulation
@@ -61,6 +57,8 @@ public:
     ///@}
     const std::vector<Neuron> &getNeurons() const;
 ///@}
+
+    virtual ~Network() = default;
 
 protected:
     std::vector<Neuron> neurons;

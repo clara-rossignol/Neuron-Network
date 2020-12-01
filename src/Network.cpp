@@ -3,17 +3,6 @@
 
 Network::Network(const std::vector<Neuron>& neurons) : neurons(neurons){}
 
-Network::Network(size_t s, double pE)
-{
-	for(size_t i(0); i < s; ++i)
-	{
-		if(i < (s*pE))
-			neurons.push_back(Neuron("RS"));
-		else
-		    neurons.push_back(Neuron("FS"));
-	}
-}
-
 Network::Network(size_t s, TypesProportions prop)
 {
    for(auto type : prop)

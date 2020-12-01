@@ -13,8 +13,9 @@ class ConstNetwork : public Network
 {
 public:
     ConstNetwork(const std::vector<Neuron> &neurons);
-    void setConnections(double meanIntensity, double meanConnectivity);
-    void setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron);
+    ConstNetwork(size_t s, TypesProportions prop);
+    void setConnections(double meanIntensity, double meanConnectivity) override;
+    void setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron) override;
 };
 
 

@@ -12,8 +12,9 @@
 class DispNetwork : public Network
 {
 public:
+    DispNetwork(size_t s, TypesProportions prop);
     DispNetwork(const std::vector<Neuron> &neurons);
-    void setConnections(double meanIntensity, double meanConnectivity);
+    void setConnections(double meanIntensity, double meanConnectivity) override;
 };
 
 

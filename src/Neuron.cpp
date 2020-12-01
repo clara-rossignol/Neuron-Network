@@ -47,16 +47,17 @@ double Neuron::currentCalculation()
 
 void Neuron::update()
 {
-    if(isFiring()) {
+    if(isFiring())
+    {
         reset();
-}
+    }
     else
     {
         double potential(membrane_potential);
         setMembranePotential();
         setRecoveryVariable(potential);
-        firing = (membrane_potential > _FIRING_TRESHOLD_);
     }
+    firing = (membrane_potential > _FIRING_TRESHOLD_);
 }
 
 void Neuron::reset()

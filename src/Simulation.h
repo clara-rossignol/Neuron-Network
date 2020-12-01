@@ -33,8 +33,6 @@ public:
         :  _size(_s),_endtime(_t){}*/ //whhy is this needed ?
     Simulation(int, char**);
 
-
-
     /*!
       Read a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type.
       By default, all proportions are set to 0.
@@ -78,7 +76,7 @@ public:
 
 private: 
 
-  Network _net;
+  Network* _net;
   int _size;
   int _endtime;
   double _degree, _strength;
