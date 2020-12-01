@@ -44,10 +44,7 @@ double Neuron::currentCalculation()
 void Neuron::update()
 {
     if(isFiring())
-    {
         reset();
-        firing = false;
-    }
 
     else
     {
@@ -62,6 +59,7 @@ void Neuron::reset()
 {
     membrane_potential=nparams.c;
     recovery_variable+=nparams.d;
+    firing = false;
 }
 
 
@@ -88,7 +86,7 @@ std::string Neuron::print_params() const
 std::string Neuron::print_spikes() const 
 {
     // suggestion : faire un to_string (isFIring())
-	if(this->isFiring()) {
+	if(isFiring()) {
 		return "1";
 	} else {
 		return "0";
