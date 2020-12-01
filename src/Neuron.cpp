@@ -30,11 +30,11 @@ double Neuron::currentCalculation()
 {
 	double current(0);
     for (std::size_t i = 0; i < n_inhibitory; ++i) {
-        current -= connections[i].intensity * isFiring() ;
+        current -= connections[i].intensity * connections[i].sender->isFiring() ;
     }
 
     for (std::size_t i = n_inhibitory; i < connections.size(); ++i) {
-        current += connections[i].intensity * 0.5 * isFiring()  ;
+        current += connections[i].intensity * 0.5 * connections[i].sender->isFiring();
     }
 
     int w(isInhibitor() ? 2 : 5);

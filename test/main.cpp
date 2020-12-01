@@ -46,7 +46,9 @@ TEST(Neuron, current_calculation)
     {
         Neuron n("FS");
         Neuron n1("RS");
+        n1.setFiring(true);
         Neuron n2("RS");
+        n2.setFiring(true);
         n.setConnections({}, {{&n1,10}, {&n2, 10}});
         meanCurrent += n.currentCalculation();
     }
