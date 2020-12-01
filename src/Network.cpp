@@ -16,9 +16,9 @@ Network::Network(size_t s, const TypesProportions& prop)
 void Network::update()
 {
     for(auto& neuron : neurons)
-        neuron.update();
-    for(auto& neuron : neurons)
         neuron.setFiring(neuron.isGoingToFire());
+    for(auto& neuron : neurons)
+        neuron.update();
 }
 
 void Network::setConnections(double meanIntensity, double meanConnectivity)
