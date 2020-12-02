@@ -114,6 +114,8 @@ const std::map<std::string, NParams> NeuronTypes{
         {"CH",  {.02, .2,  -50, 2,   false}},
         {"FS",  {.1,  .2,  -65, 2,   true }},
         {"LTS", {.02, .25, -65, 2,   true }},
+        {"TC",  {.02, .25, -65, .05, false}},
+        {"RZ",  {.1,  .26, -65, 2,   false}},
 };
 
 typedef  std::map<std::string, double> TypesProportions;

@@ -57,20 +57,21 @@ TEST(Neuron, current_calculation)
 }
 
 TEST(Simulation, readTypesProportions)
-{
-    std::string types1 = "RS:0.5,FS:0.2,CH:0.1,IB:0.1,LTS:0.1";
+{  
+    std::string types1 = "RS:0.3,FS:0.2,CH:0.1,IB:0.1,LTS:0.1,TC:0.1,RZ:0.1";
     TypesProportions  prop1 (Simulation::readTypesProportions(types1, false, 0.2));
-    TypesProportions  test  {{"RS",0.5}, {"IB",0.1}, {"CH",0.1}, {"FS",0.2}, {"LTS", 0.1}};
+    TypesProportions  test  {{"RS",0.3}, {"IB",0.1}, {"CH",0.1}, {"FS",0.2}, {"LTS", 0.1}, {"TC", 0.1}, {"RZ", 0.1}};
     for(const auto& type : prop1)
     {
         EXPECT_EQ(type.second, test.at(type.first));
     }
-    std::string types2 = "CH:0.1,IB:0.1,LTS:0.1";
+    std::string types2 = "CH:0.1,IB:0.1,LTS:0.1,TC:0.1,RZ:0.1";
     TypesProportions  prop2 (Simulation::readTypesProportions(types2, true, 0.3));
     for(const auto& type : prop2)
     {
         EXPECT_NEAR(type.second, test.at(type.first), 0.0000000001);
     }
+    
 }
 
 TEST(Simulation, checkTypes)

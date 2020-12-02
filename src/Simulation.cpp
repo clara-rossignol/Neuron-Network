@@ -132,7 +132,7 @@ void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, boo
 TypesProportions Simulation::readTypesProportions(const std::string& types, bool inhibSet, double inhib)
 {
     std::string key, p;
-    TypesProportions prop{{"RS",0}, {"IB",0}, {"CH",0}, {"FS",0}, {"LTS", 0}};
+    TypesProportions prop{{"RS",0}, {"IB",0}, {"CH",0}, {"FS",0},  {"LTS", 0},{"TC",0}, {"RZ",0}};
     std::stringstream ss(types);
 
     while (std::getline(ss, key, ':'))
