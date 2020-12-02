@@ -2,7 +2,7 @@
 
 ## README
 
-### group 12 (Bardel Lola Maia Lou,De Trogroff Coatallio Constance Laure Marie Géraldine Gabrielle, Preda Alexandra-Elena,Rossignol Clara)
+### group 12 (Bardel Lola Maia Lou, De Trogroff Coatallio Constance Laure Marie Géraldine Gabrielle, Preda Alexandra-Elena, Rossignol Clara)
 
 *************************************************
 
@@ -31,15 +31,16 @@ make
 After building, running and compiling the program. the user can type into the terminal the following commands, depending on the mode he wants to use:
 For the standard mode (i.e. the network will only contain RS and LS neurons), the command is:
 ```
-./NeuronNetwork -t 500 -N 10000 -T "FS:0.2,RS:0.8" -c 20
+./NeuronNetwork -B -t 500 -N 10000 -T "FS:0.2,RS:0.8" -c 20
 ```
 For a more complex network,containing also the other types of neurons (IB,CH,LTS) write the following command:
 ```
-./NeuronNetwork -T 'FS:0.2,IB:0.15,CH:0.15,RS:0.5' -t 1000 -N 10000 -c 40 -L 4
+./NeuronNetwork -B -T 'FS:0.2,IB:0.15,CH:0.15,RS:0.5' -t 1000 -N 10000 -c 40 -L 4
 ```
-,where t is the number of time-steps, N is the number of neurons, T the proportions of each type of neurons as a list.
+,where **t** is the number of time-steps, **N** is the number of neurons, **T** the proportions of each type of neurons as a list.
 (If total is less than 1, it will be completed with RS neurons),
- c is the average connectivity of a neuron, L si the average connections' intensity and i the proportion of inhibitor neurons
+ **c** is the average connectivity of a neuron, **L** is the average connections' intensity and **i** the proportion of inhibitor neurons
+and **C**, **O**, **B** represent the types of network the user can choose from, constant, overdispersed and basic, respectively.
 
 Note that the parameters c, L and i are optional, as they where defalut parameters in our program.
 
