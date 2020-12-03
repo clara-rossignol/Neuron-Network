@@ -90,7 +90,7 @@ void Simulation::run(const double _time)
     
     outf3.open(_OUTFILE_3_);
     if(outf3.bad())
-    throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_3_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_3_));
 
 	sample_header(&outf3);
 	int num(_RNG->uniform_int(0, _size));
