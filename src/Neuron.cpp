@@ -59,7 +59,6 @@ void Neuron::reset()
 {
     membrane_potential=nparams.c;
     recovery_variable+=nparams.d;
-    firing = false;
 }
 
 
