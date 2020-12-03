@@ -82,7 +82,6 @@ TEST(Simulation, checkTypes)
     EXPECT_ANY_THROW(Simulation::readTypesProportions(types1, true, 0.1));
 }
 
-/*
 TEST(Network, simpleConstructor)
 {
     Neuron n1("FS");
@@ -98,6 +97,7 @@ TEST(Network, simpleConstructor)
     // EXPECT_EQ(network.getNeurons().)
 }
 
+/*
 TEST (Network, proportionConstructor)
 {
     Neuron n1("FS"), n2("RS"), n3("CH"), n4("IB"), n5("LTS");
@@ -108,7 +108,8 @@ TEST (Network, proportionConstructor)
     std::string type1 = "FS:0.2,RS:0.2,CH:0.2,IB:0.2,LTS:0.2";
     Network net (net_size, Simulation::readTypesProportions(type1, true, 1));
 
-    EXPECT_EQ(net, net_check);
+    EXPECT_NEAR(net, net_check);
+    EXPECT_EQ(net.getNeurons().size(), net_size);
 }
 */
 
