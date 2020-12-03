@@ -109,8 +109,8 @@ TEST (Network, proportionConstructor)
     Network net (net_size, Simulation::readTypesProportions(type1, true, 1));
 
     EXPECT_EQ(net, net_check);
-}
-*/
+}*/
+
 
 TEST(Network, setConnections)
 {

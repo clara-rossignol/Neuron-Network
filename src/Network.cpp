@@ -7,9 +7,8 @@ Network::Network(size_t s, const TypesProportions& prop)
 {
    for(const auto& type : prop)
    {
-       for(size_t i(0); i<s*type.second; ++i){
+       for(size_t i(0); i<s*type.second; ++i)
            neurons.emplace_back(type.first);
-       }
    }
 }
 
