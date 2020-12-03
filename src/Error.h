@@ -26,6 +26,7 @@ class Error : public std::runtime_error
     const int code;
 };
 
+
 #define _ERROR_(_N, _id) class _N : public Error \
 {\
   public : \
@@ -33,13 +34,12 @@ class Error : public std::runtime_error
     _N(const std::string &s) : Error(s,_id) {} \
 };
 
-
 /// *Specific error codes*
 _ERROR_(TCLAP_ERROR, 10)
 _ERROR_(CFILE_ERROR, 20)
 _ERROR_(OUTPUT_ERROR, 30)
 
-
 #undef _ERROR_
+
 
 #endif // ERROR_H
