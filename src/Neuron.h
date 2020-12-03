@@ -32,10 +32,6 @@ public:
     After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
     */
     void reset();
-
-	/**It will print the membrane potential, the recovery variable and the input of a sample neuron. */
-	std::string print_sample();
-    ///@}
 	/*! membrane_potential getter
 	*/
 	double getMembranePotential() const;

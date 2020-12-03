@@ -73,8 +73,12 @@ void Network::print_params(std::ostream *_outstr) {
 
 
 void Network::print_sample(std::ostream *_outstr, size_t n) {
-        (*_outstr) 	<< neurons[n].print_sample()	 
-					<< std::endl;	
+	std::stringstream ss;
+	ss 	<< neurons[n].getMembranePotential() << '\t'
+		<< neurons[n].getRecoveryVariable() << '\t'
+		<< neurons[n].currentCalculation();
+	(*_outstr) 	<< ss.str()	 
+				<< std::endl;	
 }
 
 

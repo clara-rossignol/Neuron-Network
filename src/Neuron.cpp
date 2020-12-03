@@ -61,15 +61,6 @@ void Neuron::reset()
     recovery_variable+=nparams.d;
 }
 
-std::string Neuron::print_sample()
-{
-	std::stringstream ss;
-	ss  << membrane_potential << '\t'
-		<< recovery_variable << '\t'
-		<< currentCalculation();
-	return ss.str();
-}
-
 void Neuron::setMembranePotential()
 {
     membrane_potential += (0.04*pow(membrane_potential, 2) + 5*membrane_potential + 140 - recovery_variable + currentCalculation())*_DELTA_MBRN_;
