@@ -61,37 +61,6 @@ void Neuron::reset()
     recovery_variable+=nparams.d;
 }
 
-
-std::string Neuron::print_params() const
-{
-	double valence(0);
-	for (auto connect : connections)
-	{
-		valence += connect.intensity;
-	}
-		
-	std::stringstream ss;
-    ss << type << '\t'
-       << nparams.a << '\t'
-       << nparams.b << '\t'
-       << nparams.c << '\t'
-       << nparams.d << '\t'
-       << nparams.inhib << '\t'
-       << connections.size() << '\t'
-       << valence;
-    return ss.str();
-}
-
-std::string Neuron::print_spikes() const 
-{
-    // suggestion : faire un to_string (isFIring())
-	if(isFiring()) {
-		return "1";
-	} else {
-		return "0";
-	}
-}
-
 std::string Neuron::print_sample()
 {
 	std::stringstream ss;
@@ -118,6 +87,16 @@ bool Neuron::isFiring() const
 bool Neuron::isInhibitor() const
 {
     return nparams.inhib;
+}
+
+NParams Neuron::getParameters() const
+{
+	return nparams;
+}
+
+std::string Neuron::getType() const
+{
+	return type;
 }
 
 double Neuron::getMembranePotential() const

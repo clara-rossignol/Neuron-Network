@@ -32,15 +32,7 @@ public:
     After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
     */
     void reset();
-    /*!
-    In order to print the output files, all parametrs will be returned as a string.
-    * 
-    */
-    ///@{
-   /** It will print the parameters of each neuron*/
-    std::string print_params() const;
-    /** It will print the spikes: i.e 1 if the neuron is firing, 0 if it is not.*/
-	std::string print_spikes() const;
+
 	/**It will print the membrane potential, the recovery variable and the input of a sample neuron. */
 	std::string print_sample();
     ///@}
@@ -66,6 +58,14 @@ public:
     Check if a neuron is inhibitory or not
     */
     bool isInhibitor() const;
+	/*!
+	 * Returns the parameters of the neuron
+	*/
+	NParams getParameters() const;
+	/*!
+	 * Returns the type of the neuron
+	 */
+	std::string getType() const; 
     /*!
     It returns  the connections
     */

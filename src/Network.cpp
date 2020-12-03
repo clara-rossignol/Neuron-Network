@@ -1,5 +1,6 @@
 #include "Network.h"
 #include "Random.h"
+#include <sstream>
 
 Network::Network(const std::vector<Neuron>& neurons) : neurons(neurons){}
 
@@ -51,7 +52,21 @@ void Network::setNeuronConnections(double meanIntensity, double meanConnectivity
 void Network::print_params(std::ostream *_outstr) {
     (*_outstr) << "Type\ta\tb\tc\td\tInhibitory\tdegree\tvalence" << std::endl;
     for (auto & neuron : neurons) {
-        (*_outstr) 	<< neuron.print_params()
+		double valence(0);
+		for (auto connect : neuron.getConnections())
+		{
+			valence += connect.intensity;
+			}
+			std::stringstream ss;
+			ss << neuron.getType() << '\t'
+			<< neuron.getParameters().a << '\t'
+			<< neuron.getParameters().b << '\t'
+			<< neuron.getParameters().c << '\t'
+			<< neuron.getParameters().d << '\t'
+			<< neuron.getParameters().inhib << '\t'
+			<< neuron.getConnections().size() << '\t'
+			<< valence;
+        (*_outstr) 	<< ss.str()
 					<< std::endl;
     }
 }
@@ -65,7 +80,7 @@ void Network::print_sample(std::ostream *_outstr, size_t n) {
 
 void Network::print_spikes(std::ostream *_outstr) {
 	for(auto & neuron : neurons) {
-		(*_outstr)  << neuron.print_spikes() << ' ';
+		(*_outstr)  << neuron.isFiring() << ' ';
 }
 		(*_outstr) << std::endl;
 }
