@@ -15,6 +15,7 @@
        /
        */
 
+static int nFS, nRS;
 
 Simulation::Simulation(int argc, char **argv)
 {
@@ -59,6 +60,11 @@ Simulation::Simulation(int argc, char **argv)
             _net = new DispNetwork(_size, readTypesProportions(types, inhib.isSet(), _inhib));
 
         _net->setConnections(_strength, _degree);
+        
+        for(int i(0); i < _size; ++i) {
+			if(_net->getNeurons()[i].getType() == "RS") nRS = i;
+			if(_net->getNeurons()[i].getType() == "FS") nFS = i;			
+		}
 
 } catch(TCLAP::ArgException &e) 
 {
@@ -90,17 +96,18 @@ void Simulation::run(const double _time)
     
     outf3.open(_OUTFILE_3_);
     if(outf3.bad())
+    {
         throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_3_));
+	}
 
-	sample_header(&outf3);
-	int num(_RNG->uniform_int(0, _size));
+	sample_header(&outf3);	
     
     for(size_t i(0); i < _time; ++i) {
 		_net->update();
 		_net->print_spikes(_outf);
 		(*_outf) << i << ' ';
 		(*&outf3) << (i+1) << '\t';
-		_net->print_sample(&outf3, num);
+		_net->print_sample(&outf3, nFS, nRS);
 		}
 		
 	_net->print_params(&outf2);
@@ -111,7 +118,7 @@ void Simulation::run(const double _time)
 }
 
 void Simulation::sample_header(std::ostream *_outstr) {
-	(*_outstr) << "\t\tv\tu\tI" << std::endl;
+	(*_outstr) << "\t\tFS.v\tFS.u\tFS.I\tRS.v\t.RS.u\t.RS.I" << std::endl;
 }
 
 void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)

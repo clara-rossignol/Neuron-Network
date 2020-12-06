@@ -52,7 +52,7 @@ public:
     */
     ///@{
     void print_params(std::ostream *_outstr);
-    void print_sample(std::ostream *_outstr, size_t n);
+    void print_sample(std::ostream *_outstr, size_t nFS, size_t nRS);
     void print_spikes(std::ostream *_outstr);
     ///@}
     /*!
