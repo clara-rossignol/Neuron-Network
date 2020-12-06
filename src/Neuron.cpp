@@ -37,7 +37,7 @@ double Neuron::currentCalculation()
         current += connections[i].intensity * 0.5 * connections[i].sender->isFiring();
     }
 
-    int w(isInhibitor() ? 2 : 5);
+    int w(isInhibitor() ? 2 : 5); //isInhibitor ne sert plus à rien
 	return current +  w*_RNG->normal(0,1);
 }
 

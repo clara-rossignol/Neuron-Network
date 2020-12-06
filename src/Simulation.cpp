@@ -47,7 +47,7 @@ Simulation::Simulation(int argc, char **argv)
         _endtime = maxt.getValue();
         checkInBound(_TIME_TEXT_ , _endtime, _MIN_TIME_);
        _degree = degree.getValue();
-        checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_);
+        checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)_size);
        _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         std::string types(typesProp.getValue());
@@ -118,7 +118,7 @@ void Simulation::run(const double _time)
 }
 
 void Simulation::sample_header(std::ostream *_outstr) {
-	(*_outstr) << "\t\tFS.v\tFS.u\tFS.I\tRS.v\t.RS.u\t.RS.I" << std::endl;
+	(*_outstr) << "\t\tFS.v\tFS.u\tFS.I\tRS.v\tRS.u\tRS.I" << std::endl;
 }
 
 void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)

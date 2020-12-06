@@ -32,6 +32,7 @@ void Network::setNeuronConnections(double meanIntensity, double meanConnectivity
     int number(-1);
     while (number < 0 or number > (int)neurons.size())
         number = _RNG->poisson(meanConnectivity);
+
     std::vector<Connection> inhib;
     std::vector<Connection> excit;
     for(size_t i(0);i < (unsigned int)number ;++i)

@@ -17,7 +17,7 @@
 #define _AVG_NUMBER_ 100
 #define _AVG_PROP_ 0.2
 #define _TIME_ 10
-#define _AVG_CNNCT_ 40
+#define _AVG_CNNCT_ 1
 #define _AVG_INTENSITY_ 4
 
 #define _FIRING_TRESHOLD_ 30
