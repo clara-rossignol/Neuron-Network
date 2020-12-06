@@ -4,7 +4,7 @@
 #include <sstream>
 
 
-Neuron::Neuron(std::string type, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(type)), type(type), n_inhibitory(0)
+Neuron::Neuron(const std::string& type, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(type)), type(type), n_inhibitory(0)
 {
     membrane_potential = nparams.c;
     recovery_variable = nparams.b*membrane_potential;
@@ -106,11 +106,11 @@ std::vector<Connection> Neuron::getConnections() const
 }
 
 void Neuron::setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit) {
-    Neuron::connections.reserve(inhib.size() + excit.size());
+    connections.reserve(inhib.size() + excit.size());
     for (auto & i : inhib)
-        Neuron::connections.emplace_back(i);
+        connections.emplace_back(i);
     for (auto & i : excit)
-        Neuron::connections.emplace_back(i);
+        connections.emplace_back(i);
     n_inhibitory = inhib.size();
 }
 

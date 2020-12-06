@@ -18,7 +18,7 @@ public:
     /*!
     The constructor initializes the neuron
     */
-    Neuron(std::string type, bool isfiring = false);
+    Neuron(const std::string& type, bool isfiring = false);
 
     /*!
     The current is calculated for each neuron
