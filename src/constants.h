@@ -13,32 +13,29 @@
 
 #include "Error.h"
 
-/// * default parameter values *
+
+/// * default parameters values *
 #define _AVG_NUMBER_ 100
 #define _AVG_PROP_ 0.2
 #define _TIME_ 10
 #define _AVG_CNNCT_ 1
 #define _AVG_INTENSITY_ 4
-
 #define _FIRING_TRESHOLD_ 30
 #define _DELTA_MBRN_ 1
 #define _DELTA_RECV_ 0.5
 
 
-/// * parameter limits
+/// * parameter limits *
 #define _MIN_NEURONS_ 2
-//#define _MAX_NEURONS_ 100000000 // should not be bigger than 2147483647
-
+#define _MAX_NEURONS_ 2147483647
 #define _MIN_TIME_ 0
-#define _MAX_TIME_ 1000000000 // need verification
+#define _MAX_TIME_ 1000000000
 #define _MIN_PE_ 0.
 #define _MAX_PE_ 1.
-
 #define _MIN_CONNECTIVITY_ 0.
-//#define _MAX_CONNECTIVITY_ _MAX_NEURONS_ - 1 // can i do that ?
-
+#define _MAX_CONNECTIVITY_ (_MAX_NEURONS_ - 1)
 #define _MIN_INTENSITY_ 0.
-//#define _MAX_INTENSITY_ 100000. // To define
+#define _MAX_INTENSITY_ 100000
 
 
 /// * error handling for TCLAP
@@ -61,11 +58,11 @@
 #define _BASIC_TEXT_ "Basic model of connections"
 #define _CONSTANT_TEXT "Constant model of connections"
 #define _OVERDISPERSED_TEXT "Overdispersed model of connections"
-
 #define _OUTFILE_1_ "spikes"
 #define _OUTFILE_2_ "parameters"
 #define _OUTFILE_3_ "sample_neurons"
 
+/// * neuron parameters *
 struct NParams
 {
     double a, b, c, d;
@@ -74,12 +71,14 @@ struct NParams
 
 class Neuron;
 
+/// * connections are implemented as the neuron connected and the intensity of its connection *
 struct Connection
 {
     const Neuron* sender;
     const double intensity;
 };
 
+/// * all the different neuron types *
 const std::map<std::string, NParams> NeuronTypes{
         {"RS",  {.02, .2,  -65, 8,   false}},
         {"IB",  {.02, .2,  -55, 4,   false}},
