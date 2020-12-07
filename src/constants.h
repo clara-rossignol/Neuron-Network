@@ -62,7 +62,8 @@
 #define _OUTFILE_2_ "parameters"
 #define _OUTFILE_3_ "sample_neurons"
 
-/// * neuron parameters *
+/*! The neuron parameters. *
+ */
 struct NParams
 {
     double a, b, c, d;
@@ -71,14 +72,16 @@ struct NParams
 
 class Neuron;
 
-/// * connections are implemented as the neuron connected and the intensity of its connection *
+/*! Connections are implemented as the neuron connected and the intensity of its connection.
+ */
 struct Connection
 {
     const Neuron* sender;
     const double intensity;
 };
 
-/// * all the different neuron types *
+/*! All the different neuron types 
+ */
 const std::map<std::string, NParams> NeuronTypes{
         {"RS",  {.02, .2,  -65, 8,   false}},
         {"IB",  {.02, .2,  -55, 4,   false}},
@@ -89,6 +92,8 @@ const std::map<std::string, NParams> NeuronTypes{
         {"RZ",  {.1,  .26, -65, 2,   false}},
 };
 
+/*! \typedef The different types and their proportions in the \ref Network.
+ */
 typedef  std::map<std::string, double> TypesProportions;
 
 #endif //GLOBALS_H
