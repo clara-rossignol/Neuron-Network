@@ -55,7 +55,11 @@ void Network::print_params(std::ostream *_outstr) {
 		double valence(0);
 		for (auto connect : neuron.getConnections())
 		{
-			valence += connect.intensity;
+			if(connect.sender->isInhibitor()) {
+				valence -= connect.intensity;
+			} else {
+				valence += connect.intensity;
+			}
 			}
 			std::stringstream ss;
 			ss << neuron.getType() << '\t'
