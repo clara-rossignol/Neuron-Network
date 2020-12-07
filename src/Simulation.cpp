@@ -119,7 +119,7 @@ void Simulation::run(const double _time)
 }
 
 void Simulation::sample_header(std::ostream *_outstr) {
-	(*_outstr) << "\t\tFS.v\tFS.u\tFS.I\tRS.v\tRS.u\tRS.I" << std::endl;
+	(*_outstr) << "\tFS.v\tFS.u\tFS.I\tRS.v\tRS.u\tRS.I" << std::endl;
 }
 
 void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)
