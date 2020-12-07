@@ -42,7 +42,7 @@ For a more complex network,containing also the other types of neurons (IB,CH,LTS
  **c** is the average connectivity of a neuron, **L** is the average connections' intensity and **i** the proportion of inhibitor neurons
 and **C**, **O**, **B** represent the types of network the user can choose from, constant, overdispersed and basic, respectively.
 
-Note that the parameters c, L and i are optional, as they where defalut parameters in our program.
+Note that the parameters c, L and i are optional, as there are default parameters in our program.
 
 *************************************************
 
