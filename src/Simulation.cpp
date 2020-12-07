@@ -15,6 +15,7 @@
        /
        */
 
+//parameters for the ouptut sample_neurons
 static int nFS, nRS;
 
 Simulation::Simulation(int argc, char **argv)
@@ -61,10 +62,10 @@ Simulation::Simulation(int argc, char **argv)
 
         _net->setConnections(_strength, _degree);
         
-        for(int i(0); i < _size; ++i) {
-			if(_net->getNeurons()[i].getType() == "RS") nRS = i;
-			if(_net->getNeurons()[i].getType() == "FS") nFS = i;			
-		}
+        TypesProportions props = readTypesProportions(types, inhib.isSet(), _inhib);
+        //neurons who will be followed in sample_neurons
+        nFS = ((props.at("CH")*_size) + 1);
+        nRS = ((props.at("CH")*_size) + (props.at("FS")*_size) + (props.at("IB")*_size) + (props.at("LTS")*_size) + 1);
 
 } catch(TCLAP::ArgException &e) 
 {
@@ -118,7 +119,7 @@ void Simulation::run(const double _time)
 }
 
 void Simulation::sample_header(std::ostream *_outstr) {
-	(*_outstr) << "\t\tFS.v\tFS.u\tFS.I\tRS.v\tRS.u\tRS.I" << std::endl;
+	(*_outstr) << "\tFS.v\tFS.u\tFS.I\tRS.v\tRS.u\tRS.I" << std::endl;
 }
 
 void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)

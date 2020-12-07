@@ -10,7 +10,8 @@
 
 This is an implementation of the model of E.M. Izhikevich
 ([Simple Model of Spiking Neuron, IEE Trans. Neural Net., 2003] (https://www.izhikevich.org/publications/spikes.pdf)).
-It will simulate a neuron network.
+The model reproduces spiking and burting behaviour of known types of cortical neurons.
+This project will simulate a neuron network.
 
 
 *************************************************
@@ -42,7 +43,7 @@ For a more complex network,containing also the other types of neurons (IB,CH,LTS
  **c** is the average connectivity of a neuron, **L** is the average connections' intensity and **i** the proportion of inhibitor neurons
 and **C**, **O**, **B** represent the types of network the user can choose from, constant, overdispersed and basic, respectively.
 
-Note that the parameters c, L and i are optional, as they where defalut parameters in our program.
+Note that the parameters c, L and i are optional, as there are default parameters in our program.
 
 *************************************************
 
@@ -53,22 +54,21 @@ Here is a short version of how the files should look like:
 
 params:
 ```
-Type	a	b	c	d	Inhibitory
-CH	0.02	0.2	-50	2	0
-CH	0.02	0.2	-50	2	0
-FS	0.0321029	0.242436	-65	2	1
-FS	0.0698489	0.218844	-65	2	1
-IB	0.02	0.2	-55	4	0
-IB	0.02	0.2	-55	4	0
-RS	0.02	0.2	-61.8134	6.72536	0
-RS	0.02	0.2	-59.4786	5.79142	0
-RS	0.02	0.2	-51.292	2.5168	0
-RS	0.02	0.2	-60.826	6.33041	0
-RS	0.02	0.2	-54.9659	3.98635	0
+Type	a	b	c	d	Inhibitory	degree	valence
+FS	0.059701	0.225187	-65	2	1	2	10.3899
+FS	0.0823111	0.211056	-65	2	1	4	18.5921
+RS	0.02	0.2	-61.6766	6.67065	0	2	-4.10385
+RS	0.02	0.2	-64.3488	7.7395	0	1	-6.37576
+RS	0.02	0.2	-57.517	5.00682	0	1	2.82024
+RS	0.02	0.2	-64.9751	7.99004	0	3	10.5649
+RS	0.02	0.2	-63.5046	7.40185	0	0	0
+RS	0.02	0.2	-64.9999	7.99997	0	2	3.36898
+RS	0.02	0.2	-64.8526	7.94103	0	1	-6.90183
+RS	0.02	0.2	-64.1784	7.67137	0	1	5.24519
 ```
+**degree** represents the number of connections to a neuron and **valence** represents the sum of intensities of these connections
 spikes:
-```
-0 0 0 0 0 0 0 0 0 0 0 
+``` 
 0 0 0 0 0 0 0 0 0 0 0 
 1 0 1 0 0 0 0 0 0 0 0 
 2 1 1 0 0 0 0 0 0 0 0 
@@ -76,12 +76,13 @@ spikes:
 4
 ```
 sample_neurons:
-```		v	u	I
-1	-73.4745	-13	-2.92929
-2	-72.0292	-13.0169	3.60879
-3	-76.7062	-13.0308	8.58441
-4	-75.1828	-13.0539	1.98479
-5	-68.8607	-13.0738	-7.77759
+```	
+		FS.v	FS.u	FS.I	RS.v	RS.u	RS.I
+1	-65.4034	-13.0296	4.80055	-66.401	-13	-5.35557
+2	-67.1584	-13.0614	3.21998	-60.1158	-13.0028	-10.7405
+3	-68.7662	-13.1072	0.360254	-59.9355	-12.993	6.00131
+4	-69.5636	-13.1651	-0.325492	-61.5384	-12.9829	-7.72558
+5	-70.4027	-13.2275	-1.3966	-69.6536	-12.9762	-7.89051
 ```
 *************************************************
 
