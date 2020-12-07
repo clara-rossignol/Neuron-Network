@@ -68,8 +68,7 @@ RS	0.02	0.2	-64.1784	7.67137	0	1	5.24519
 ```
 **degree** represents the number of connections to a neuron and **valence** represents the sum of intensities of these connections
 spikes:
-```
-0 0 0 0 0 0 0 0 0 0 0 
+``` 
 0 0 0 0 0 0 0 0 0 0 0 
 1 0 1 0 0 0 0 0 0 0 0 
 2 1 1 0 0 0 0 0 0 0 0 
