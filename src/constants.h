@@ -62,9 +62,9 @@
 #define _CONSTANT_TEXT "Constant model of connections"
 #define _OVERDISPERSED_TEXT "Overdispersed model of connections"
 
-#define _OUTFILE_1_ "spikes"
-#define _OUTFILE_2_ "parameters"
-#define _OUTFILE_3_ "sample_neurons"
+#define _OUTFILE_1_ "../spikes"
+#define _OUTFILE_2_ "../parameters"
+#define _OUTFILE_3_ "../sample_neurons"
 
 struct NParams
 {

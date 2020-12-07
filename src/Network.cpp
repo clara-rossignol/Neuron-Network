@@ -19,6 +19,7 @@ void Network::update()
         neuron.update();
     for(auto& neuron : neurons)
         neuron.setFiring(neuron.isGoingToFire());
+    
 }
 
 void Network::setConnections(double meanIntensity, double meanConnectivity)
