@@ -18,8 +18,8 @@ public:
     /*! \name Initializing
     The constructor initializes the neuron. By default the neuron is not in a firing state.
     * To achieve heterogeneity in our model, if the neuron is either a *regular spiking* (RS) or a *fast spiking* (FS) neuron its 4 parameters \p a, \p b, \p c and \p d are recalculated with the help of a random variable. 
-    * \param type : the type of the neuron
-    * \param isfiring : the firing state of the neuron
+    * \param type (string): the type of the neuron
+    * \param isfiring(bool): the firing state of the neuron
     */
 ///@{
     Neuron(const std::string& type, bool isfiring = false);
@@ -27,7 +27,7 @@ public:
 
     /*!
     The current is calculated for each neuron.
-    * \return current
+    * \return current (double)
     */
     double currentCalculation();
     /*!
@@ -38,10 +38,10 @@ public:
     After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
     */
     void reset();
-	/*! \return membrane_potential
+	/*! \return membrane_potential (double)
 	*/
 	double getMembranePotential() const;
-	/*!  \return recovery_variable
+	/*!  \return recovery_variable (double)
 	*/
 	double getRecoveryVariable() const;
     /*!
@@ -50,28 +50,28 @@ public:
     void setMembranePotential();
     /*!
     The \ref recovery_variable is updated according to the Izhikevich equations.
-    * \param potential
+    * \param potential (double)
     */
     void setRecoveryVariable(double potential);
     /*!
     A neuron is firing if its membrane potential exceeds the firing treshold, 30 mV.
-    * \return true if the neuron is in a firing state, false otherwise
+    * \return true if the neuron is in a firing state, false otherwise (bool)
     */
     bool isFiring() const;
     /*!
-     * \return true if a neuron is inhibitory, false otherwise
+     * \return true if a neuron is inhibitory, false otherwise (bool)
     */
     bool isInhibitor() const;
 	/*!
-	 * \return the parameters of the neuron
+	 * \return the parameters of the neuron (NParams)
 	*/
 	NParams getParameters() const;
 	/*!
-	 * \return the type of the neuron
+	 * \return the type of the neuron (string)
 	 */
 	std::string getType() const; 
     /*!
-     * \return the connections : the neurons connected with the neuron
+     * \return the connections : the neurons connected with the neuron (vector<Connection>)
     */
     std::vector<Connection> getConnections() const;
     /*!
@@ -80,14 +80,13 @@ public:
     void setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit);
     /*!
      * ??????
-     * \param inhib
-     * \param inhib
-     * \param excit
+     * \param inhib (vector<Connection>)
+     * \param excit (vector<Connection>)
     */
     bool isGoingToFire() const;
     /*!
      * Sets the \ref firing.
-     \param fire.
+     \param fire (bool)
     */
     void setFiring(bool fire);
     
