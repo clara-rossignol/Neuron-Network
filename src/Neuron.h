@@ -89,6 +89,8 @@ public:
      \param fire (bool)
     */
     void setFiring(bool fire);
+
+    size_t getNInhibitory() const;
     
     /*! \name Destructor
      */
@@ -129,6 +131,7 @@ private:
     std::vector<Connection> connections;
 
     size_t n_inhibitory;
+
 };
 
 #endif //NEURON_H

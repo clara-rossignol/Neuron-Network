@@ -52,17 +52,11 @@ void Network::print_params(std::ostream *_outstr) {
     for (auto & neuron : neurons)
     {
 		double valence(0);
-		for (auto connect : neuron.getConnections())
-		{
-			if(connect.sender->isInhibitor())
-			{
-				valence -= connect.intensity;
-			}
-			else
-			{
-				valence += connect.intensity;
-			}
-		}
+		for (size_t i(0); i<neuron.getNInhibitory(); ++i)
+				valence -= neuron.getConnections()[i].intensity;
+		for (size_t i(neuron.getNInhibitory()); i<neuron.getConnections().size(); ++i)
+				valence += neuron.getConnections()[i].intensity;
+
 		std::stringstream ss;
 		ss << neuron.getType() << '\t'
 		   << neuron.getParameters().a << '\t'
