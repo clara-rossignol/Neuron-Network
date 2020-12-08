@@ -17,6 +17,7 @@
 /// * default parameters values *
 #define _AVG_NUMBER_ 100
 #define _AVG_PROP_ 0.2
+#define _AVG_OUT_ "NeuronNetwork"
 #define _TIME_ 10
 #define _AVG_CNNCT_ 1
 #define _AVG_INTENSITY_ 4
@@ -51,6 +52,7 @@
 #define _PRGRM_TEXT_ "Simulation of the Izhikevich neuron model"
 #define _NUMBER_TEXT_ "Number of neurons"
 #define _PROP_TEXT_ "Proportion of inhibitor neurons"
+#define _OUT_NAME_ "Output files name (suffix will be added)"
 #define _TIME_TEXT_ "Number of time-steps"
 #define _CNNCT_TEXT_ "Average connectivity of a neuron"
 #define _INTENSITY_TEXT_ "Average connections' intensity"
