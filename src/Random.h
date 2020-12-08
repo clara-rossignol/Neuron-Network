@@ -6,7 +6,8 @@
 #include <algorithm>
 
 /*! \class RandomNumbers
-    \brief It generates random numbers
+    \brief This class generates random numbers.
+    
     This is a random number class based on standard c++-11 generators.
 */
 
@@ -31,12 +32,9 @@ public:
     double exponential(double rate);
 ///@}
 
-//might need to add functions that fill a vector, we'll see
-
 private:
     std::mt19937 rng;
     long int seed;
-
 };
 
 extern RandomNumbers *_RNG;
