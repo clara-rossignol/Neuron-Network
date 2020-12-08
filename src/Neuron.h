@@ -1,41 +1,47 @@
 #ifndef NEURON_H
 #define NEURON_H
-#include "constants.h"
 
+#include "constants.h"
 
 /*!
  * \class Neuron
-   \brief This is a Neuron class in which we create neurons.
+   \brief This is a Neuron class  which generates neurons.
   
-    A neuron is defined by 4 parameters \p a, \p b, \p c, \p d and its inhibitory or excitatory quality.
-    The Neuron types are provided in \ref comstants.h as a map NeuronTypes and identified by a 2 or 3-letter string.
+    A neuron's cellular properties are defined by 4 parameters \p a, \p b, \p c, \p d and its inhibitory or excitatory quality.
+    The Neuron types are provided in \ref constants.h as a map NeuronTypes and identified by a 2 or 3-letter string.
 */
 
 class Neuron
 {
 
 public:
-    /*!
-    The constructor initializes the neuron
+    /*! \name Initializing
+    The constructor initializes the neuron. By default the neuron is not in a firing state.
+    * To achieve heterogeneity in our model, if the neuron is either a *regular spiking* (RS) or a *fast spiking* (FS) neuron its 4 parameters \p a, \p b, \p c and \p d are recalculated with the help of a random variable. 
+    * @param type : the type of the neuron
+    * @param isfiring : the firing state of the neuron
     */
+///@{
     Neuron(const std::string& type, bool isfiring = false);
+///@}
 
     /*!
-    The current is calculated for each neuron
+    The current is calculated for each neuron.
+    * @return current
     */
     double currentCalculation();
     /*!
-    A neuron is updated 
+    A neuron is updated : its \ref membrane_potential and its \ref recovery_variable are updated according to the neuron's firing state i.e. \ref willFire and \ref firing.
     */
     void update();
     /*!
     After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
     */
     void reset();
-	/*! membrane_potential getter
+	/*! @return membrane_potential
 	*/
 	double getMembranePotential() const;
-	/*!  recovery_variable getter
+	/*!  @return recovery_variable
 	*/
 	double getRecoveryVariable() const;
     /*!
@@ -44,62 +50,82 @@ public:
     void setMembranePotential();
     /*!
     The \ref recovery_variable is updated according to the Izhikevich equations.
+    * @param potential
     */
     void setRecoveryVariable(double potential);
     /*!
-    A neuron is firing if its membrane potential exceeds the T, the firing treshold, 30 mV
+    A neuron is firing if its membrane potential exceeds the firing treshold, 30 mV.
+    * @return true if the neuron is in a firing state, false otherwise
     */
     bool isFiring() const;
     /*!
-    Check if a neuron is inhibitory or not
+     * @return true if a neuron is inhibitory, false otherwise
     */
     bool isInhibitor() const;
 	/*!
-	 * Returns the parameters of the neuron
+	 * @return the parameters of the neuron
 	*/
 	NParams getParameters() const;
 	/*!
-	 * Returns the type of the neuron
+	 * @return the type of the neuron
 	 */
 	std::string getType() const; 
     /*!
-    It returns  the connections
+     * @return the connections : the neurons connected with the neuron
     */
     std::vector<Connection> getConnections() const;
-
+    /*!
+     * ??????
+    */
     void setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit);
-
+    /*!
+     * ??????
+     * @param inhib
+     * @param inhib
+     * @param excit
+    */
     bool isGoingToFire() const;
+    /*!
+     * Sets the \ref firing.
+     @param fire.
+    */
     void setFiring(bool fire);
 
     ~Neuron();
 
 private:
-
+	/*! @name Firing state of the neuron
+	 */
+	///@{
     bool willFire;
     bool firing;
+    ///@}
 
     /*! @name Dynamic variables
     */
     ///@{
     double membrane_potential;
     double recovery_variable;
+    double current;
     ///@}
     
     /*! @name Neuron parameters 
-    \p a, \p b, \p c, \p d, and the boolean \p inhib if neuron is inhibitory.
+    \p a, \p b, \p c, \p d, and the boolean \p inhib
     */
     NParams nparams;
     
+    /*! @name Type
+     */
+    ///@{
     std::string type;
+    ///@}
     
     /*! @name Connections
-      * A vector of connections : \p sender, a pointer to a neuron and \p intensity
+      * A vector of connections : \p sender, a pointer to a neuron and the \p intensity of the connection
     */
     std::vector<Connection> connections;
 
     size_t n_inhibitory;
-
 };
 
 #endif //NEURON_H

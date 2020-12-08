@@ -48,6 +48,7 @@ void Neuron::update()
 
     else
     {
+		current = currentCalculation();
         double potential(membrane_potential);
         setMembranePotential();
         setRecoveryVariable(potential);
@@ -129,6 +130,3 @@ Neuron::~Neuron()
     for(auto& c : connections)
         c.sender = nullptr;
 }
-
-
-
