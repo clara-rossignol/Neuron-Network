@@ -3,15 +3,16 @@
 
 #include <string>
 #include <vector>
+
 /*!
  * \class Error
-   \brief This is a class that deals with the errors
+   \brief This is a error handling class.
   
   Each error type has a specific exit code.
   Error messages will be passed by the exception caller.
-  Error with specific code and message can be thrown
-   
+  An Error can be thrown with a specific code and message.
  */
+ 
 class Error : public std::runtime_error 
 {
   public:

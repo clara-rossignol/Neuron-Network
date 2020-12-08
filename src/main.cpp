@@ -11,9 +11,9 @@
 This is an implementation of the model of E.M. Izhikevich
 ([Simple Model of Spiking Neuron, IEE Trans. Neural Net., 2003] (https://www.izhikevich.org/publications/spikes.pdf)).
 
-  @authors  Alexandra-Elena Preda <alexandra-elena.preda@epfl.ch> <br>
-* 			Clara Rossignol <clara.rossignol@epfl.ch> <br>
-* 			Constance Laure Marie Géraldine Gabrielle De Trogoff Coatallio <constance.detrogoff@epfl.ch> <br>
+  @authors  Alexandra-Elena Preda <alexandra-elena.preda@epfl.ch> \n
+* 			Clara Rossignol <clara.rossignol@epfl.ch> \n
+* 			Constance Laure Marie Géraldine Gabrielle De Trogoff Coatallio <constance.detrogoff@epfl.ch> \n
 * 			Lola Maïa Lou Bardel <lola.bardel@epfl.ch>
  
 In order to **open** the project, the user can clone the repository using this command:

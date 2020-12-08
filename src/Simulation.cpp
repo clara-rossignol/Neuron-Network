@@ -14,8 +14,7 @@
        / string("... ")
        /
        */
-
-//parameters for the ouptut sample_neurons
+       
 static int nFS, nRS;
 
 Simulation::Simulation(int argc, char **argv)
@@ -32,6 +31,10 @@ Simulation::Simulation(int argc, char **argv)
         cmd.add(strength);
         TCLAP::ValueArg<double> inhib("i", "inhibitory_neurons", _PROP_TEXT_, false, _AVG_PROP_, "double");
         cmd.add(inhib);
+        TCLAP::ValueArg<std::string> output("o", "output_files_name", _OUT_TEXT_, false, _AVG_OUT_, "string");
+        cmd.add(output);
+        TCLAP::ValueArg<double> thalam("l", "thalamic_input", _THALAM_TEXT_, false, _AVG_THAL_, "double");
+        cmd.add(thalam);
         TCLAP::ValueArg<std::string> typesProp("T", "neurontypes", _TYPES_TEXT_, true, "", "string");
         cmd.add(typesProp);
         TCLAP::SwitchArg basic("B", "basic", _BASIC_TEXT_, false);
@@ -51,8 +54,11 @@ Simulation::Simulation(int argc, char **argv)
         checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)_size);
        _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
+        _output = output.getValue();
+        _thalamic = thalam.getValue();
+        checkInBound(_THALAM_TEXT_, _thalamic, _MIN_THALAM_, _MAX_THALAM_);
         std::string types(typesProp.getValue());
-
+        
         if(basic.getValue())
             _net = new Network(_size, readTypesProportions(types, inhib.isSet(), _inhib));
         else if (constant.getValue())
@@ -66,6 +72,7 @@ Simulation::Simulation(int argc, char **argv)
         //neurons who will be followed in sample_neurons
         nFS = ((props.at("CH")*_size) + 1);
         nRS = ((props.at("CH")*_size) + (props.at("FS")*_size) + (props.at("IB")*_size) + (props.at("LTS")*_size) + 1);
+
 
 } catch(TCLAP::ArgException &e) 
 {
@@ -83,22 +90,22 @@ catch(std::runtime_error const& e)
 void Simulation::run(const double _time)
 {
     std::ofstream outf1, outf2, outf3;
-    outf1.open(_OUTFILE_1_);
+    outf1.open(_output + '_' + _OUTFILE_1_);
     if(outf1.bad()) 
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_1_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' +_OUTFILE_1_));
     
     std::ostream *_outf = &std::cout;
     
     if(outf1.is_open()) _outf = &outf1;
     
-    outf2.open(_OUTFILE_2_);
+    outf2.open(_output + '_' + _OUTFILE_2_);
     if(outf2.bad())
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_2_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' + _OUTFILE_2_));
     
-    outf3.open(_OUTFILE_3_);
+    outf3.open(_output + '_' + _OUTFILE_3_);
     if(outf3.bad())
     {
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ")+_OUTFILE_3_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' + _OUTFILE_3_));
 	}
 
 	sample_header(&outf3);	

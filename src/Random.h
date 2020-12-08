@@ -6,21 +6,22 @@
 #include <algorithm>
 
 /*! \class RandomNumbers
-    \brief It generates random numbers
+    \brief This class generates random numbers.
+    
     This is a random number class based on standard c++-11 generators.
 */
 
 class RandomNumbers {
 
 public:
-/*! @name Initializing
+/*! \name Initializing
   The generator \ref rng is a Mersenne twister *mt19937* engine. 
   A seed *s>0* can be provided, by default it is seeded with a *random_device*.
 */
 ///@{
     RandomNumbers(unsigned long int s=0);
 ///@}
-/*! @name Distributions
+/*! \name Distributions
   These functions return a single number.
 */
 ///@{
@@ -31,12 +32,9 @@ public:
     double exponential(double rate);
 ///@}
 
-//might need to add functions that fill a vector, we'll see
-
 private:
     std::mt19937 rng;
     long int seed;
-
 };
 
 extern RandomNumbers *_RNG;

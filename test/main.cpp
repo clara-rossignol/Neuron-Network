@@ -98,7 +98,6 @@ TEST(Network, simpleConstructor)
     // EXPECT_EQ(network.getNeurons().)
 }
 
-/*
 TEST (Network, proportionConstructor)
 {
     Neuron n1("FS"), n2("RS"), n3("CH"), n4("IB"), n5("LTS");
