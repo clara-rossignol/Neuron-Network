@@ -4,7 +4,7 @@
 #include <sstream>
 
 
-Neuron::Neuron(const std::string& type, bool isfiring) : firing(isfiring),  nparams(NeuronTypes.at(type)), type(type), n_inhibitory(0)
+Neuron::Neuron(const std::string& type, bool isfiring) :  willFire(false), firing(isfiring), nparams(NeuronTypes.at(type)), type(type), n_inhibitory(0)
 {
     membrane_potential = nparams.c;
     recovery_variable = nparams.b*membrane_potential;
@@ -12,12 +12,12 @@ Neuron::Neuron(const std::string& type, bool isfiring) : firing(isfiring),  npar
     if(type == "RS" or type =="FS")
     {
         double coeff(_RNG->uniform_double(0, 1));
-        if (NeuronTypes.at(type).inhib)
+        if (type == "RS")
         {
             nparams.a *= 1 - 0.8 * coeff;
             nparams.b *= 1 + 0.25 * coeff;
         }
-        else
+        else if(type =="FS")
         {
             coeff *= coeff;
             nparams.c *= 1 - 3. / 13 * coeff;
@@ -36,7 +36,7 @@ double Neuron::currentCalculation()
     for (std::size_t i = n_inhibitory; i < connections.size(); ++i)
         current += connections[i].intensity * 0.5 * connections[i].sender->isFiring();
 
-    int w(isInhibitor() ? 2 : 5); //isInhibitor ne sert plus à rien
+    int w(isInhibitor() ? 2 : 5);
 	return current +  w*_RNG->normal(0,1);
 }
 

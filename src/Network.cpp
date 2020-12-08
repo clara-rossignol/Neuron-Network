@@ -19,7 +19,6 @@ void Network::update()
         neuron.update();
     for(auto& neuron : neurons)
         neuron.setFiring(neuron.isGoingToFire());
-    
 }
 
 void Network::setConnections(double meanIntensity, double meanConnectivity)
@@ -44,33 +43,35 @@ void Network::setNeuronConnections(double meanIntensity, double meanConnectivity
         else
             excit.push_back({sender, _RNG ->uniform_double(0,2*meanIntensity) });
     }
-
     neuron.setConnections(inhib, excit);
-
 }
 
 
 void Network::print_params(std::ostream *_outstr) {
     (*_outstr) << "Type\ta\tb\tc\td\tInhibitory\tdegree\tvalence" << std::endl;
-    for (auto & neuron : neurons) {
+    for (auto & neuron : neurons)
+    {
 		double valence(0);
 		for (auto connect : neuron.getConnections())
 		{
-			if(connect.sender->isInhibitor()) {
+			if(connect.sender->isInhibitor())
+			{
 				valence -= connect.intensity;
-			} else {
+			}
+			else
+			{
 				valence += connect.intensity;
 			}
-			}
-			std::stringstream ss;
-			ss << neuron.getType() << '\t'
-			<< neuron.getParameters().a << '\t'
-			<< neuron.getParameters().b << '\t'
-			<< neuron.getParameters().c << '\t'
-			<< neuron.getParameters().d << '\t'
-			<< neuron.getParameters().inhib << '\t'
-			<< neuron.getConnections().size() << '\t'
-			<< valence;
+		}
+		std::stringstream ss;
+		ss << neuron.getType() << '\t'
+		   << neuron.getParameters().a << '\t'
+		   << neuron.getParameters().b << '\t'
+		   << neuron.getParameters().c << '\t'
+		   << neuron.getParameters().d << '\t'
+		   << neuron.getParameters().inhib << '\t'
+		   << neuron.getConnections().size() << '\t'
+		   << valence;
         (*_outstr) 	<< ss.str()
 					<< std::endl;
     }

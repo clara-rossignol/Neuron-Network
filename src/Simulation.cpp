@@ -133,7 +133,6 @@ void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, boo
     else
     {
        throw (TCLAP_ERROR(std::string("error with type proportions")));
-       //throw;
     }
 }
 
