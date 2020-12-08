@@ -31,8 +31,10 @@ Simulation::Simulation(int argc, char **argv)
         cmd.add(strength);
         TCLAP::ValueArg<double> inhib("i", "inhibitory_neurons", _PROP_TEXT_, false, _AVG_PROP_, "double");
         cmd.add(inhib);
-        TCLAP::ValueArg<std::string> output("o", "output_files_name", _OUT_NAME_, false, _AVG_OUT_, "string");
+        TCLAP::ValueArg<std::string> output("o", "output_files_name", _OUT_TEXT_, false, _AVG_OUT_, "string");
         cmd.add(output);
+        TCLAP::ValueArg<double> thalam("l", "thalamic_input", _THALAM_TEXT_, false, _AVG_THAL_, "double");
+        cmd.add(thalam);
         TCLAP::ValueArg<std::string> typesProp("T", "neurontypes", _TYPES_TEXT_, true, "", "string");
         cmd.add(typesProp);
         TCLAP::SwitchArg basic("B", "basic", _BASIC_TEXT_, false);
@@ -53,6 +55,8 @@ Simulation::Simulation(int argc, char **argv)
        _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         _output = output.getValue();
+        _thalamic = thalam.getValue();
+        checkInBound(_THALAM_TEXT_, _thalamic, _MIN_THALAM_, _MAX_THALAM_);
         std::string types(typesProp.getValue());
         
         if(basic.getValue())

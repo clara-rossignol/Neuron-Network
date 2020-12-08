@@ -24,11 +24,10 @@ public:
 /*! \name Initialization
   Simulation takes the command-line options and extracts the following parameters from them:
   * \param _size The total number of neurons in the network
-  * \param _pE The proportion of excitatory neurons
   * \param _endtime The duration of the simulation (in number of steps)
   * \param _degree The average connectivity
-  * \param _intensity The average intensity of connections
-  * \param _strength: average intensity of connections
+  * \param _strength The average intensity of connections
+  * \param _output The name of the output files (a suffix will be added depending on the file)
 */
 
 /*! \name Constructor
@@ -40,8 +39,8 @@ public:
 ///@}
 
     /*!
-      Read a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type.
-      By default, all proportions are set to 0.
+      Read a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type. \n
+      By default, all proportions are set to 0. \n
       Except RS (and FS if the inhibitor proportion is given) all non-specified proportions will remain 0.
       If the the inhibitor proportion is too big compared to all inhibitor types proportions,
       the proportion of FS will be raised accordingly (if it was not specified in the command line)
@@ -50,10 +49,10 @@ public:
       some RS will be added accordingly (if it was not specified in the command line).
       with a second call of /ref checkTypes. If proportions don't match each other, the program will stop
 
-     * \param types : a string such as *IB:0.2,FS:0.3,CH:0.2*
-     * \param inhibSet specify if the inhibitory proportion was given in the command line
-     * \param inhib inhibitor proportion will be used only if *inhibSet* is true
-     * \return the recording of all type proportions
+     * \param types A string such as *IB:0.2,FS:0.3,CH:0.2*
+     * \param inhibSet Specifies if the inhibitory proportion was given in the command line
+     * \param inhib Inhibitor proportion will be used only if *inhibSet* is true
+     * \return The recording of all type proportions
      */
      static TypesProportions readTypesProportions(const std::string& types, bool inhibSet, double inhib);
 
@@ -70,11 +69,13 @@ public:
     static void checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef,  double max_sum);
 
     /*!
-* Runs the simulation through a loop with \ref endtime steps. Writes on the 3 different output files.
+* Runs the simulation through a loop with \ref _endtime steps. Writes on the 3 different output files.
 */
     void run() {run(_endtime);}
     void run(const double);
     
+    /*! Writes the header in the output file *sample_neurons*.
+     */
     static void sample_header(std::ostream *_outstr);
 
 /*! \name Destructor
@@ -90,6 +91,7 @@ private:
   int _size;
   int _endtime;
   double _degree, _strength;
+  double _thalamic;
   std::string _output;
  /*!
      *
