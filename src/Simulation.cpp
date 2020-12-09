@@ -132,7 +132,7 @@ void Simulation::sample_header(std::ostream *_outstr)
 	for (const auto& type : prop)
     {
 	    if(type.second != 0)
-            (*_outstr) <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".I";
+            (*_outstr) <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".u" <<'\t'<<type.first<<".I";
     }
     (*_outstr) << std::endl;
 }
