@@ -109,16 +109,16 @@ void Simulation::run(const double _time)
 	}
 
 	sample_header(&outf3);	
+	
+	_net->print_params(&outf2);
     
     for(size_t i(0); i < _time; ++i) {
 		_net->update();
-		_net->print_spikes(_outf);
 		(*_outf) << i << ' ';
+		_net->print_spikes(_outf);
 		(*&outf3) << (i+1) << '\t';
 		_net->print_sample(&outf3, nFS, nRS);
 		}
-		
-	_net->print_params(&outf2);
 	
 	if(outf1.is_open()) outf1.close();	
 	if(outf2.is_open()) outf2.close();				
