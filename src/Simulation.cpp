@@ -112,7 +112,7 @@ void Simulation::run(const double _time)
 	
 	_net->print_params(&outf2);
     
-    for(size_t i(0); i < _time; ++i) {
+    for(size_t i(0); i <= _time; ++i) {
 		_net->update();
 		(*_outf) << i << ' ';
 		_net->print_spikes(_outf);
