@@ -54,7 +54,7 @@ public:
      * \param inhib Inhibitor proportion will be used only if *inhibSet* is true
      * \return The recording of all type proportions
      */
-     static TypesProportions readTypesProportions(const std::string& types, bool inhibSet, double inhib);
+     void readTypesProportions(const std::string& types, bool inhibSet, double inhib);
 
     /*!
       if *max_sum* is too big compared to all types proportions saved between *beg* and *end*, the proportion of *def*
@@ -76,7 +76,7 @@ public:
     
     /*! Writes the header in the output file *sample_neurons*.
      */
-    static void sample_header(std::ostream *_outstr);
+    void sample_header(std::ostream *_outstr);
 
 /*! \name Destructor
  */
@@ -93,6 +93,7 @@ private:
   double _degree, _strength;
   double _thalamic;
   std::string _output;
+  TypesProportions prop;
  /*!
      *
      * @tparam N
@@ -102,7 +103,7 @@ private:
      * @param max
      */
     template<typename N>
-    void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
+    static void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
     {
         if (x > max or x <min)
         {

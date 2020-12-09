@@ -57,7 +57,7 @@ public:
     void print_params(std::ostream *_outstr);
     /*! Prints the \ref membrane_potential, \ref recovery_variable and \ref current from 1 neuron of each type present in the Network.
      */
-    void print_sample(std::ostream *_outstr, size_t nFS, size_t nRS);
+    void print_sample(std::ostream *_outstr);
     /*! Prints a matrix with N columns (N = number of neurons in the Network) and T lines (T = number of steps in the simulation) with the value 1 if a neuron is firing and 0 otherwise.
      */
     void print_spikes(std::ostream *_outstr);
@@ -80,6 +80,7 @@ protected:
      A set of neurons
      */
     std::vector<Neuron> neurons;
+    std::vector<int> indexes;
 };
 
 #endif //NEURONNETWORK_NETWORK_H

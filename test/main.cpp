@@ -9,7 +9,7 @@
 #include "../src/DispNetwork.h"
 #include "../src/Simulation.h"
 
-RandomNumbers *_RNG = new RandomNumbers();
+RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
 TEST(Neuron, create_neuron)
 {
@@ -56,6 +56,7 @@ TEST(Neuron, current_calculation)
 	EXPECT_NEAR(meanCurrent, 10, 0.5);
 }
 
+/*
 TEST(Simulation, readTypesProportions)
 {  
     std::string types1 = "RS:0.3,FS:0.2,CH:0.1,IB:0.1,LTS:0.1,TC:0.1,RZ:0.1";
@@ -81,7 +82,7 @@ TEST(Simulation, checkTypes)
     std::string types1 = "RS:0.5,FS:0.2,CH:0.1,IB:0.1,LTS:0.1";
     EXPECT_ANY_THROW(Simulation::readTypesProportions(types1, true, 0.1));
 }
-
+*/
 /*
 TEST(Network, simpleConstructor)
 {

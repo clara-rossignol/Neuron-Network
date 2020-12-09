@@ -29,7 +29,7 @@ public:
     The current is calculated for each neuron.
     * \return current (double)
     */
-    double currentCalculation();
+    void currentCalculation();
     /*!
     A neuron is updated : its \ref membrane_potential and its \ref recovery_variable are updated according to the neuron's firing state i.e. \ref willFire and \ref firing.
     */
@@ -91,7 +91,9 @@ public:
     void setFiring(bool fire);
 
     size_t getNInhibitory() const;
-    
+    double getCurrent() const;
+
+
     /*! \name Destructor
      */
     ///@{
@@ -112,6 +114,8 @@ private:
     double membrane_potential;
     double recovery_variable;
     double current;
+
+private:
     ///@}
     
     /*! \name Neuron parameters 

@@ -1,7 +1,6 @@
 #include "constants.h"
 #include "Simulation.h"
 #include "Random.h"
-#include "Neuron.h"
 #include "ConstNetwork.h"
 #include "DispNetwork.h"
 
@@ -15,9 +14,8 @@
        /
        */
        
-static int nFS, nRS;
 
-Simulation::Simulation(int argc, char **argv)
+Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})
 {
    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
@@ -58,20 +56,22 @@ Simulation::Simulation(int argc, char **argv)
         _thalamic = thalam.getValue();
         checkInBound(_THALAM_TEXT_, _thalamic, _MIN_THALAM_, _MAX_THALAM_);
         std::string types(typesProp.getValue());
-        
+
+        readTypesProportions(types, inhib.isSet(), _inhib);
+
         if(basic.getValue())
-            _net = new Network(_size, readTypesProportions(types, inhib.isSet(), _inhib));
+            _net = new Network(_size, prop);
         else if (constant.getValue())
-            _net = new ConstNetwork(_size, readTypesProportions(types, inhib.isSet(), _inhib));
+            _net = new ConstNetwork(_size, prop);
         else
-            _net = new DispNetwork(_size, readTypesProportions(types, inhib.isSet(), _inhib));
+            _net = new DispNetwork(_size, prop);
 
         _net->setConnections(_strength, _degree);
         
-        TypesProportions props = readTypesProportions(types, inhib.isSet(), _inhib);
+      /*  TypesProportions props = readTypesProportions(types, inhib.isSet(), _inhib);
         //neurons who will be followed in sample_neurons
         nFS = ((props.at("CH")*_size) + 1);
-        nRS = ((props.at("CH")*_size) + (props.at("FS")*_size) + (props.at("IB")*_size) + (props.at("LTS")*_size) + 1);
+        nRS = ((props.at("CH")*_size) + (props.at("FS")*_size) + (props.at("IB")*_size) + (props.at("LTS")*_size) + 1); */
 
 
 } catch(TCLAP::ArgException &e) 
@@ -108,14 +108,14 @@ void Simulation::run(const double _time)
         throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' + _OUTFILE_3_));
 	}
 
-	sample_header(&outf3);	
-    
+	sample_header(&outf3);
+
     for(size_t i(0); i < _time; ++i) {
 		_net->update();
 		_net->print_spikes(_outf);
 		(*_outf) << i << ' ';
 		(*&outf3) << (i+1) << '\t';
-		_net->print_sample(&outf3, nFS, nRS);
+		_net->print_sample(&outf3);
 		}
 		
 	_net->print_params(&outf2);
@@ -125,28 +125,32 @@ void Simulation::run(const double _time)
 	if(outf3.is_open()) outf3.close();
 }
 
-void Simulation::sample_header(std::ostream *_outstr) {
-	(*_outstr) << "\tFS.v\tFS.u\tFS.I\tRS.v\tRS.u\tRS.I" << std::endl;
+void Simulation::sample_header(std::ostream *_outstr)
+{
+	//(*_outstr) << "\tFS.v\tFS.u\tFS.I\tRS.v\tRS.u\tRS.I" << std::endl;
+	for (const auto& type : prop)
+    {
+	    if(type.second != 0)
+            (*_outstr) <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".I";
+    }
+    (*_outstr) << std::endl;
 }
 
 void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)
 {
     double sum (0);
-    for (auto p = beg;  p != end ; p++) {
+    for (auto p = beg;  p != end ; p++)
         sum += p->second;
-    }
+
     if(abs(sum - max_sum) <= 0.0001  or  (sum - max_sum <= 0.0001 and !setDef))
         def->second += max_sum - sum;
     else
-    {
        throw (TCLAP_ERROR(std::string("error with type proportions")));
-    }
 }
 
-TypesProportions Simulation::readTypesProportions(const std::string& types, bool inhibSet, double inhib)
+void Simulation::readTypesProportions(const std::string& types, bool inhibSet, double inhib)
 {
     std::string key, p;
-    TypesProportions prop{{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}};
     std::stringstream ss(types);
 
     while (std::getline(ss, key, ':'))
@@ -158,7 +162,6 @@ TypesProportions Simulation::readTypesProportions(const std::string& types, bool
     if(inhibSet)
         checkTypes(prop.find("FS"), prop.find("LTS"), prop.find("FS"), types.find("FS") != std::string::npos, inhib);
     checkTypes(prop.begin(), prop.end(), prop.find("RS"),types.find("RS") != std::string::npos,1);
-    return prop;
 }
 
 Simulation::~Simulation()

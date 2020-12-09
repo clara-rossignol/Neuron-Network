@@ -6,9 +6,17 @@ Network::Network(const std::vector<Neuron>& neurons) : neurons(neurons){}
 
 Network::Network(size_t s, const TypesProportions& prop)
 {
+   int index(0);
    for(const auto& type : prop)
    {
-       for(size_t i(0); i<s*type.second; ++i)
+       size_t numType (s*type.second);
+       if(numType)
+       {
+           index += numType;
+           indexes.push_back(index);
+       }
+
+       for(size_t i(0); i<numType; ++i)
            neurons.emplace_back(type.first);
    }
 }
@@ -71,17 +79,20 @@ void Network::print_params(std::ostream *_outstr) {
     }
 }
 
-
-void Network::print_sample(std::ostream *_outstr, size_t nFS, size_t nRS) {
+void Network::print_sample(std::ostream *_outstr) {
 	std::stringstream ss;
-	ss 	<< neurons[nFS].getMembranePotential() << '\t'
-		<< neurons[nFS].getRecoveryVariable() << '\t'
-		<< neurons[nFS].currentCalculation() << '\t'
-		<< neurons[nRS].getMembranePotential() << '\t'
-		<< neurons[nRS].getRecoveryVariable() << '\t'
-		<< neurons[nRS].currentCalculation();
-	(*_outstr) 	<< ss.str()	 
-				<< std::endl;	
+	for(auto index = indexes.begin(); index < indexes.end()-1; ++index)
+    {
+	    ss <<neurons[*index-1].getMembranePotential() << '\t'
+	       <<neurons[*index-1].getRecoveryVariable() << '\t'
+	       <<neurons[*index-1].getCurrent() << '\t';
+    }
+    ss <<neurons[*(indexes.end()-1)-1].getMembranePotential() << '\t'
+       <<neurons[*(indexes.end()-1)-1].getRecoveryVariable() << '\t'
+       <<neurons[*(indexes.end()-1)-1].getCurrent();
+
+	(*_outstr) 	<< ss.str()
+				<< std::endl;
 }
 
 
