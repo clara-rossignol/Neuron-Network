@@ -26,7 +26,7 @@ Neuron::Neuron(const std::string& type, bool isfiring) : willFire(false),firing(
     }
 }
 
-void Neuron::currentCalculation()
+void Neuron::currentCalculation(double thal_input)
 {
 	double input(0);
 
@@ -37,17 +37,17 @@ void Neuron::currentCalculation()
         input += connections[i].intensity * 0.5 * connections[i].sender->isFiring();
 
     int w(isInhibitor() ? 2 : 5);
-	current =  input +  w*_RNG->normal(0,1);
+	current =  input +  w*thal_input;
 }
 
-void Neuron::update()
+void Neuron::update(double thal_input)
 {
     if(isFiring())
         reset();
 
     else
     {
-		currentCalculation();
+		currentCalculation(thal_input);
         double potential(membrane_potential);
         setMembranePotential();
         setRecoveryVariable(potential);

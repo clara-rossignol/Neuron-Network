@@ -29,11 +29,11 @@ public:
     The current is calculated for each neuron.
     * \return current (double)
     */
-    void currentCalculation();
+    void currentCalculation(double thal_input);
     /*!
     A neuron is updated : its \ref membrane_potential and its \ref recovery_variable are updated according to the neuron's firing state i.e. \ref willFire and \ref firing.
     */
-    void update();
+    void update(double thal_input);
     /*!
     After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
     */
