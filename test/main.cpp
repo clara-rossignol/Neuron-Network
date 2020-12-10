@@ -30,10 +30,10 @@ TEST(Neuron, neuron_types)
 TEST(Neuron, update)
 {
 	Neuron n1("RS");
-	n1.update();
+	n1.update(_AVG_THAL_);
 	EXPECT_EQ(n1.getRecoveryVariable(), -13);
     Neuron n2("FS", true);
-    n2.update();
+    n2.update(_AVG_THAL_);
     EXPECT_EQ(n2.getMembranePotential(), -65);
     EXPECT_EQ(n2.getRecoveryVariable(), -11);
 }
@@ -50,7 +50,7 @@ TEST(Neuron, current_calculation)
         Neuron n2("RS");
         n2.setFiring(true);
         n.setConnections({}, {{&n1,10}, {&n2, 10}});
-        n.currentCalculation();
+        n.currentCalculation(_AVG_THAL_);
         meanCurrent += n.getCurrent();
     }
     meanCurrent /= 100;
