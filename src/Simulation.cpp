@@ -117,7 +117,7 @@ void Simulation::run(const double _time)
     
     for(size_t i(0); i <= _time; ++i)
     {
-		_net->update(_thalamic);
+		_net->update();
 		(*_outf) << i << ' ';
 		_net->print_spikes(_outf);
 		(*&outf3) << (i+1) << '\t';
