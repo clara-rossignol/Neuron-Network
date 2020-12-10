@@ -50,7 +50,8 @@ TEST(Neuron, current_calculation)
         Neuron n2("RS");
         n2.setFiring(true);
         n.setConnections({}, {{&n1,10}, {&n2, 10}});
-        meanCurrent += n.currentCalculation();
+        n.currentCalculation();
+        meanCurrent += n.getCurrent();
     }
     meanCurrent /= 100;
 	EXPECT_NEAR(meanCurrent, 10, 0.5);

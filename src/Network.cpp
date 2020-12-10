@@ -55,7 +55,8 @@ void Network::setNeuronConnections(double meanIntensity, double meanConnectivity
 }
 
 
-void Network::print_params(std::ostream *_outstr) {
+void Network::print_params(std::ostream *_outstr)
+{
     (*_outstr) << "Type\ta\tb\tc\td\tInhibitory\tdegree\tvalence" << std::endl;
     for (auto & neuron : neurons)
     {
@@ -79,7 +80,8 @@ void Network::print_params(std::ostream *_outstr) {
     }
 }
 
-void Network::print_sample(std::ostream *_outstr) {
+void Network::print_sample(std::ostream *_outstr)
+{
 	std::stringstream ss;
 	for(auto index = indexes.begin(); index < indexes.end()-1; ++index)
     {
@@ -96,7 +98,8 @@ void Network::print_sample(std::ostream *_outstr) {
 }
 
 
-void Network::print_spikes(std::ostream *_outstr) {
+void Network::print_spikes(std::ostream *_outstr)
+{
 	for(auto & neuron : neurons)
 	{
 		(*_outstr)  << neuron.isFiring() << ' ';
