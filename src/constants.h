@@ -17,7 +17,7 @@
 #define _AVG_NUMBER_ 100
 #define _AVG_PROP_ 0.2
 #define _AVG_OUT_ "NeuronNetwork"
-#define _AVG_THAL_ 0.5
+#define _AVG_THAL_ _RNG->normal(0,1)
 #define _TIME_ 10
 #define _AVG_CNNCT_ 1.
 #define _AVG_INTENSITY_ 4
@@ -31,8 +31,8 @@
 #define _MIN_TIME_ 0
 #define _MIN_PE_ 0.
 #define _MAX_PE_ 1.
-#define _MIN_THALAM_ 0.
-#define _MAX_THALAM_ 1.
+#define _MIN_THALAM_ (-1/(sqrt(2*M_PI)))
+#define _MAX_THALAM_ (1/(sqrt(2*M_PI)))
 #define _MIN_CONNECTIVITY_ 0.
 #define _MIN_INTENSITY_ 0.
 
