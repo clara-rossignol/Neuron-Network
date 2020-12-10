@@ -50,9 +50,9 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         checkInBound(_TIME_TEXT_ , _endtime, _MIN_TIME_);
        /* Empêche d'avoir un réseau de moins de 20 neurones (je ne comprend pas pk)
           N'affiche pas la bonne raison de l'erreur
+          */
          _degree = degree.getValue();
          checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)_size);
-       */
        _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         _output = output.getValue();
@@ -109,9 +109,8 @@ void Simulation::run(const double _time)
     {
         throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' + _OUTFILE_3_));
 	}
-
-	sample_header(&outf3);	
 	
+	sample_header(&outf3);	
 	_net->print_params(&outf2);
     
     for(size_t i(0); i <= _time; ++i)
