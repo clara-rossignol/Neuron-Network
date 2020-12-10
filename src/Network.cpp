@@ -97,10 +97,11 @@ void Network::print_sample(std::ostream *_outstr) {
 
 
 void Network::print_spikes(std::ostream *_outstr) {
-	for(auto & neuron : neurons) {
+	for(auto & neuron : neurons)
+	{
 		(*_outstr)  << neuron.isFiring() << ' ';
-}
-		(*_outstr) << std::endl;
+    }
+	(*_outstr) << std::endl;
 }
 
 const std::vector<Neuron> &Network::getNeurons() const

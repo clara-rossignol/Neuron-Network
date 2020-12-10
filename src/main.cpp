@@ -1,9 +1,6 @@
 #include "constants.h"
 #include "Random.h"
 #include "Simulation.h"
-#include "Neuron.h"
-#include "Network.h"
-#include <tclap/CmdLine.h>
 #include <chrono>
 
 /*!

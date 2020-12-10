@@ -67,12 +67,6 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
             _net = new DispNetwork(_size, prop);
 
         _net->setConnections(_strength, _degree);
-        
-      /*  TypesProportions props = readTypesProportions(types, inhib.isSet(), _inhib);
-        //neurons who will be followed in sample_neurons
-        nFS = ((props.at("CH")*_size) + 1);
-        nRS = ((props.at("CH")*_size) + (props.at("FS")*_size) + (props.at("IB")*_size) + (props.at("LTS")*_size) + 1); */
-
 
 } catch(TCLAP::ArgException &e) 
 {
@@ -106,10 +100,9 @@ void Simulation::run(const double _time)
     if(outf3.bad())
     {
         throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' + _OUTFILE_3_));
-	}
+    }
 
-	sample_header(&outf3);	
-	
+	sample_header(&outf3);
 	_net->print_params(&outf2);
     
     for(size_t i(0); i <= _time; ++i)
@@ -128,7 +121,6 @@ void Simulation::run(const double _time)
 
 void Simulation::sample_header(std::ostream *_outstr)
 {
-	//(*_outstr) << "\tFS.v\tFS.u\tFS.I\tRS.v\tRS.u\tRS.I" << std::endl;
 	for (const auto& type : prop)
     {
 	    if(type.second != 0)
