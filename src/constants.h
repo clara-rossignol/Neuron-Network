@@ -12,7 +12,6 @@
 #include <cmath>
 
 #include "Error.h"
-#include "Random.h"
 
 /// * default parameters values *
 #define _AVG_NUMBER_ 100
