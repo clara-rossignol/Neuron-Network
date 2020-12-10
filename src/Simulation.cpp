@@ -48,8 +48,11 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         checkInBound(_PROP_TEXT_, _inhib, _MIN_PE_, _MAX_PE_ );
         _endtime = maxt.getValue();
         checkInBound(_TIME_TEXT_ , _endtime, _MIN_TIME_);
-       _degree = degree.getValue();
-        checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)_size);
+       /* Empêche d'avoir un réseau de moins de 20 neurones (je ne comprend pas pk)
+          N'affiche pas la bonne raison de l'erreur
+         _degree = degree.getValue();
+         checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)_size);
+       */
        _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         _output = output.getValue();

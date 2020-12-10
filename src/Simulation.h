@@ -87,7 +87,7 @@ public:
 private: 
 	/*! \name Network
 	 */
-  Network* _net;
+ Network* _net;
   int _size;
   int _endtime;
   double _degree, _strength;
@@ -107,8 +107,12 @@ private:
     {
         if (x > max or x <min)
         {
-            Error::set("Invalid data entered", 1);
+            Error::set(std::string("Invalid data entered. ") + message + std::string(" should be between ") 
+                                    + std::to_string(min) + std::string(" and ") + std::to_string(max), 1);
+            /*
+            Error::set(" Invalid data entered", 1);
             std::cerr << message <<" should be between " << min << "and " << max << std::endl;
+            */
         }
     }
 
