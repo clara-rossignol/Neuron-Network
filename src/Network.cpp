@@ -21,10 +21,10 @@ Network::Network(size_t s, const TypesProportions& prop)
    }
 }
 
-void Network::update()
+void Network::update(double thal)
 {
     for(auto& neuron : neurons)
-        neuron.update();
+        neuron.update(thal);
     for(auto& neuron : neurons)
         neuron.setFiring(neuron.isGoingToFire());
 }

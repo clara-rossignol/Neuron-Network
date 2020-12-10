@@ -30,10 +30,10 @@ TEST(Neuron, neuron_types)
 TEST(Neuron, update)
 {
 	Neuron n1("RS");
-	n1.update();
+	n1.update(_AVG_THAL_);
 	EXPECT_EQ(n1.getRecoveryVariable(), -13);
     Neuron n2("FS", true);
-    n2.update();
+    n2.update(_AVG_THAL_);
     EXPECT_EQ(n2.getMembranePotential(), -65);
     EXPECT_EQ(n2.getRecoveryVariable(), -11);
 }
@@ -50,7 +50,7 @@ TEST(Neuron, current_calculation)
         Neuron n2("RS");
         n2.setFiring(true);
         n.setConnections({}, {{&n1,10}, {&n2, 10}});
-        n.currentCalculation();
+        n.currentCalculation(_AVG_THAL_);
         meanCurrent += n.getCurrent();
     }
     meanCurrent /= 100;
@@ -105,13 +105,26 @@ TEST (Network, proportionConstructor)
     Neuron n1("FS"), n2("RS"), n3("CH"), n4("IB"), n5("LTS");
     std::vector<Neuron> neurons {n1, n2, n3, n4, n5};
     Network net_check (neurons);
-
-    std::size_t net_size (5);
+    unsigned_int FS_count (0), RS_count, CH_count, IB_count, LTS_count (0)
+    std::size_t net_size (10);
     std::string type1 = "FS:0.2,RS:0.2,CH:0.2,IB:0.2,LTS:0.2";
-    Network net (net_size, Simulation::readTypesProportions(type1, true, 1));
 
-    EXPECT_NEAR(net, net_check);
+    Network net1 (net_size, Simulation::readTypesProportions(type1, true, 1));
+
+    std::string string_check;
+    for (size_t i(0), i < net_size, ++i)
+    {
+        string_check +=
+        Deux options : soit une somme des types et on vérifie qu'elle est égale à une autre string
+                        soit des boucles if et des compteurs, avec chaque compteur qui doit avoir une certaine valeur
+    }
+    EXPECT_NEAR(net1, net_check);
     EXPECT_EQ(net.getNeurons().size(), net_size);
+
+
+    std::string type2 = "FS:0.4";
+    std::string type3 = "FS:0.7,RS:0.1,IB:0.2";
+    Network net2 (net_size), Simulation::readTYpesProportions(type2, true, 1);
 }
 */
 

@@ -54,7 +54,6 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         _output = output.getValue();
         _thalamic = thalam.getValue();
-        checkInBound(_THALAM_TEXT_, _thalamic, _MIN_THALAM_, _MAX_THALAM_);
         std::string types(typesProp.getValue());
 
         readTypesProportions(types, inhib.isSet(), _inhib);
@@ -67,6 +66,7 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
             _net = new DispNetwork(_size, prop);
 
         _net->setConnections(_strength, _degree);
+        
 
 } catch(TCLAP::ArgException &e) 
 {
@@ -100,14 +100,15 @@ void Simulation::run(const double _time)
     if(outf3.bad())
     {
         throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' + _OUTFILE_3_));
-    }
+	}
 
-	sample_header(&outf3);
+	sample_header(&outf3);	
+	
 	_net->print_params(&outf2);
     
     for(size_t i(0); i <= _time; ++i)
     {
-		_net->update();
+		_net->update(_thalamic);
 		(*_outf) << i << ' ';
 		_net->print_spikes(_outf);
 		(*&outf3) << (i+1) << '\t';

@@ -13,17 +13,16 @@
 
 #include "Error.h"
 
-
 /// * default parameters values *
 #define _AVG_NUMBER_ 100
 #define _AVG_PROP_ 0.2
 #define _AVG_OUT_ "NeuronNetwork"
-#define _AVG_THAL_ .5
+#define _AVG_THAL_ 1
 #define _TIME_ 10
-#define _AVG_CNNCT_ 1
+#define _AVG_CNNCT_ 1.
 #define _AVG_INTENSITY_ 4
 #define _FIRING_TRESHOLD_ 30
-#define _DELTA_MBRN_ 1
+#define _DELTA_MBRN_ 1.
 #define _DELTA_RECV_ 0.5
 
 
@@ -32,21 +31,9 @@
 #define _MIN_TIME_ 0
 #define _MIN_PE_ 0.
 #define _MAX_PE_ 1.
-#define _MIN_THALAM_ 0.
-#define _MAX_THALAM_ 1.
 #define _MIN_CONNECTIVITY_ 0.
 #define _MIN_INTENSITY_ 0.
 
-
-
-/// * error handling for TCLAP
-/*!
-* 0 : "The number of neurons should be between " << _MIN_NEURONS << "and " << _MAX_NEURONS << endl;
-* 1 : "The number of steps should be between " << _MIN_TIME_ << "and " << _MAX_TIME_ << endl;
-* 2 : "The proportion of excitatory neurons should be between 0 and 1" << endl;
-* 3 : "The maximum number of connectivity should be between " << _MIN_CONNECTIVITY_ << "and " << _MAX_CONNECTIVITY_ << endl;
-* 4 : "The intensity of a connection should be between " << _MIN_INTENSITY_ << "and " << _MAX_INTENSITY_ << endl;
-*/
 
 /// * text messages *
 #define _PRGRM_TEXT_ "Simulation of the Izhikevich neuron model"
@@ -67,7 +54,8 @@
 
 
 
-/*! The neuron parameters. *
+/*! \brief This is how a Neuron's parameters are implemented.
+ * The neuron parameters. *
  */
 struct NParams
 {
@@ -77,7 +65,8 @@ struct NParams
 
 class Neuron;
 
-/*! Connections are implemented as the neuron connected and the intensity of its connection.
+/*! \brief This is how a Neuron's connections are implemented. 
+ * Connections are implemented as the neuron connected and the intensity of its connection.
  */
 struct Connection
 {
@@ -85,7 +74,7 @@ struct Connection
     const double intensity;
 };
 
-/*! All the different neuron types
+/*! All the different neuron types and their parameters.
  */
 const std::map<std::string, NParams> NeuronTypes{
         {"RS",  {.02, .2,  -65, 8,   false}},

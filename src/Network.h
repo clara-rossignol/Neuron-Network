@@ -45,7 +45,7 @@ public:
     /*!
      Sets all neurons behavior during the simulation
      */
-    void update();
+    void update(double thal);
     
     /*! \name Output
      * These methods will print the different output files.
