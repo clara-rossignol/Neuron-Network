@@ -114,8 +114,6 @@ private:
     double membrane_potential;
     double recovery_variable;
     double current;
-
-private:
     ///@}
     
     /*! \name Neuron parameters 
