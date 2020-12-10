@@ -38,16 +38,6 @@
 #define _MIN_INTENSITY_ 0.
 
 
-
-/// * error handling for TCLAP
-/*!
-* 0 : "The number of neurons should be between " << _MIN_NEURONS << "and " << _MAX_NEURONS << endl;
-* 1 : "The number of steps should be between " << _MIN_TIME_ << "and " << _MAX_TIME_ << endl;
-* 2 : "The proportion of excitatory neurons should be between 0 and 1" << endl;
-* 3 : "The maximum number of connectivity should be between " << _MIN_CONNECTIVITY_ << "and " << _MAX_CONNECTIVITY_ << endl;
-* 4 : "The intensity of a connection should be between " << _MIN_INTENSITY_ << "and " << _MAX_INTENSITY_ << endl;
-*/
-
 /// * text messages *
 #define _PRGRM_TEXT_ "Simulation of the Izhikevich neuron model"
 #define _NUMBER_TEXT_ "Number of neurons"
