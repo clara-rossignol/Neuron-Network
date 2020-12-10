@@ -9,13 +9,13 @@ Neuron::Neuron(const std::string& type, bool isfiring) : willFire(false),firing(
     membrane_potential = nparams.c;
     recovery_variable = nparams.b*membrane_potential;
 
-    if (type == "RS")
+    if (type == "FS")
     {
         double coeff(_RNG->uniform_double(0, 1));
         nparams.a *= 1 - 0.8 * coeff;
         nparams.b *= 1 + 0.25 * coeff;
     }
-    else if(type =="FS")
+    else if(type =="RS")
     {
         double coeff(_RNG->uniform_double(0, 1));
         coeff *= coeff;
