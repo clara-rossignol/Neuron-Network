@@ -20,10 +20,10 @@
 #define _AVG_OUT_ "NeuronNetwork"
 #define _AVG_THAL_ 0.5
 #define _TIME_ 10
-#define _AVG_CNNCT_ 1
+#define _AVG_CNNCT_ 1.
 #define _AVG_INTENSITY_ 4
 #define _FIRING_TRESHOLD_ 30
-#define _DELTA_MBRN_ 1
+#define _DELTA_MBRN_ 1.
 #define _DELTA_RECV_ 0.5
 
 
@@ -57,7 +57,8 @@
 
 
 
-/*! The neuron parameters. *
+/*! \brief This is how a Neuron's parameters are implemented.
+ * The neuron parameters. *
  */
 struct NParams
 {
@@ -67,7 +68,8 @@ struct NParams
 
 class Neuron;
 
-/*! Connections are implemented as the neuron connected and the intensity of its connection.
+/*! \brief This is how a Neuron's connections are implemented. 
+ * Connections are implemented as the neuron connected and the intensity of its connection.
  */
 struct Connection
 {
@@ -75,7 +77,7 @@ struct Connection
     const double intensity;
 };
 
-/*! All the different neuron types
+/*! All the different neuron types and their parameters.
  */
 const std::map<std::string, NParams> NeuronTypes{
         {"RS",  {.02, .2,  -65, 8,   false}},
