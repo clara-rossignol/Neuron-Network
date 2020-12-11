@@ -2,17 +2,16 @@
 #define SIMULATION_H
 
 #include "Network.h"
-#include <tclap/CmdLine.h>
 
 /*! \class Simulation
     \brief The Simulation class is the main class in this program. 
-    
-    It constructs the \ref Network \ref _net according to user-specified parameters, and \ref run "runs" the \ref Simulation. \n
-    * Simulation results are three output files: \n
-    * - **spikes** : the firing state of the neurons in the \ref Network in a matrix \n
-    * - **parameters** : the parameters of all the neurons in the \ref Network at the end of the \ref Simulation \n
-    * - **sample_neurons** : the membrane potential, recovery variable and current of one \ref Neuron of each type in the \ref Network throughout the \ref Simulation \n
-    */    
+    It constructs the Network according to user-specified parameters and \ref run "runs" the Simulation. \n
+        
+    Simulation results are printed on three output files: \n
+    * - **spikes**: the firing state of the neurons in the Network in a matrix. \n
+    * - **parameters**: the parameters of all the neurons in the Network at the beginnig of the Simulation. \n
+    * - **sample_neurons**: the membrane potential, recovery variable and current of one Neuron of each type in the Network throughout the Simulation. \n
+    */   
 
 /*! \typedef Iterator : to iterate through a map
  */
@@ -28,23 +27,19 @@ public:
   * \param _degree The average connectivity
   * \param _strength The average intensity of connections
   * \param _output The name of the output files (a suffix will be added depending on the file)
+  * \param _thalamic The standard deviation of thalamic input (for excitatory neurons)
 */
-
-/*! \name Constructor
- */
 ///@{
-	/*!Constructor based on user inputs, takes command-line arguments.
-	 */ 
     Simulation(int, char**);
-
-    // permet uniquement de créer un network basique
+    /*! Permet uniquement de créer un network basique.
+    */
     Simulation(const TypesProportions& prop = {{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}},
-               int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );
-
+               int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );               
+    ~Simulation();
 ///@}
 
     /*!
-      Read a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type. \n
+      Reads a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type. \n
       By default, all proportions are set to 0. \n
       Except RS (and FS if the inhibitor proportion is given) all non-specified proportions will remain 0.
       If the the inhibitor proportion is too big compared to all inhibitor types proportions,
@@ -73,40 +68,34 @@ public:
      */
     static void checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef,  double max_sum);
 
-    /*!
-* Runs the simulation through a loop with \ref _endtime steps. Writes on the 3 different output files.
-*/
+    /*! \name Running the simulation
+     Runs the simulation through a loop with \ref _endtime steps. Writes on the 3 different output files.
+    */
+///@{
     void run() {run(_endtime);}
     void run(double);
-    
+
     /*! Writes the header in the output file *sample_neurons*.
      */
     void sample_header(std::ostream *_outstr);
+///@}
 
     const TypesProportions &getProp() const;
 
-/*! \name Destructor
- */
-///@{
-    ~Simulation();
-///@}
-
 private: 
-	/*! \name Network
-	 */
   Network* _net;
   int _endtime;
   double _thalamic;
   std::string _output;
-  TypesProportions prop;
+  TypesProportions _prop;
 
     /*!
         *
-        * @tparam N
-        * @param message
-        * @param x
-        * @param min
-        * @param max
+        * \tparam N
+        * \param message
+        * \param x
+        * \param min
+        * \param max
         */
     template<typename N>
     static void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
@@ -121,7 +110,6 @@ private:
             */
         }
     }
-
 };
 
 #endif // SIMULATION_H

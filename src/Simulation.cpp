@@ -1,21 +1,19 @@
 #include "constants.h"
 #include "Simulation.h"
-#include "Random.h"
 #include "ConstNetwork.h"
 #include "DispNetwork.h"
 
-///
-/* Gestion des erreurs : plusieurs facons de faire :
+/*! Gestion des erreurs : plusieurs facons de faire :
        / Error::set(type d'erreur, indication d'erreur, code d'erreur)
        / Error::set(type d'erreur + indication d'erreur, code d'erreur) [risque d'être long]
        / Error::set(type d'erreur, code d'erreur) puis cerr << indication d'erreur
        / std::to_string()
        / string("... ")
        /
-       */
+*/
        
 
-Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})
+Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})
 {
    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
@@ -42,7 +40,7 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         cmd.xorAdd(NetworkModels);
         cmd.parse(argc, argv);
 
-        int size = total_n.getValue();
+         int size = total_n.getValue();
         checkInBound(_NUMBER_TEXT_, size,_MIN_NEURONS_);
         double _inhib = inhib.getValue();
         checkInBound(_PROP_TEXT_, _inhib, _MIN_PE_, _MAX_PE_ );
@@ -54,42 +52,36 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         _output = output.getValue();
         _thalamic = thalam.getValue();
+		checkInBound(_THALAM_TEXT_, _thalamic, _MIN_THAL_);
         std::string types(typesProp.getValue());
 
         readTypesProportions(types, inhib.isSet(), _inhib);
 
         if(basic.getValue())
-            _net = new Network(size, prop);
+            _net = new Network(size, _prop);
         else if (constant.getValue())
-            _net = new ConstNetwork(size, prop);
+            _net = new ConstNetwork(size, _prop);
         else
-            _net = new DispNetwork(size, prop);
+            _net = new DispNetwork(size, _prop);
 
         _net->setConnections(_strength, _degree);
-
-} catch(TCLAP::ArgException &e) 
-{
+    } catch(TCLAP::ArgException &e) {
     throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
-}
-catch(std::runtime_error const& e)
-{
+    } catch(std::runtime_error const& e) {
     // Decision de si on fait qqchose là
+    }
 }
-
-   
-}
-
 
 
 Simulation::Simulation(const TypesProportions& prop, int size, int endtime, double degree, double strength, double thalamic,
                        const std::string& output)
-        :  _net(new Network(size, prop)), _endtime(endtime), _thalamic(thalamic), _output(output), prop(prop)
+        :  _net(new Network(size, _prop)), _endtime(endtime), _thalamic(thalamic), _output(output), _prop(prop)
 {
     _net->setConnections(strength, degree);
 }
 
 
-void Simulation::run(const double _time)
+void Simulation::run(const double time)
 {
     std::ofstream outf1, outf2, outf3;
     outf1.open(_output + '_' + _OUTFILE_1_);
@@ -114,7 +106,7 @@ void Simulation::run(const double _time)
 	
 	_net->print_params(&outf2);
     
-    for(size_t i(0); i <= _time; ++i)
+    for(size_t i(0); i <= time; ++i)
     {
 		_net->update(_thalamic);
 		(*_outf) << i << ' ';
@@ -128,15 +120,17 @@ void Simulation::run(const double _time)
 	if(outf3.is_open()) outf3.close();
 }
 
+
 void Simulation::sample_header(std::ostream *_outstr)
 {
-	for (const auto& type : prop)
+	for (const auto& type : _prop)
     {
 	    if(type.second != 0)
             (*_outstr) <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".u" <<'\t'<<type.first<<".I";
     }
     (*_outstr) << std::endl;
 }
+
 
 void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)
 {
@@ -149,6 +143,7 @@ void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, boo
     else
        throw (TCLAP_ERROR(std::string("error with type proportions")));
 }
+
 
 void Simulation::readTypesProportions(const std::string& types, bool inhibSet, double inhib)
 {
@@ -166,10 +161,12 @@ void Simulation::readTypesProportions(const std::string& types, bool inhibSet, d
     checkTypes(prop.begin(), prop.end(), prop.find("RS"),types.find("RS") != std::string::npos,1);
 }
 
+
 const TypesProportions &Simulation::getProp() const
 {
     return prop;
 }
+
 
 Simulation::~Simulation()
 {
