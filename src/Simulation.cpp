@@ -15,7 +15,7 @@
        */
        
 
-Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})
+Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})
 {
    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
@@ -59,11 +59,11 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         readTypesProportions(types, inhib.isSet(), _inhib);
 
         if(basic.getValue())
-            _net = new Network(size, prop);
+            _net = new Network(size, _prop);
         else if (constant.getValue())
-            _net = new ConstNetwork(size, prop);
+            _net = new ConstNetwork(size, _prop);
         else
-            _net = new DispNetwork(size, prop);
+            _net = new DispNetwork(size, _prop);
 
         _net->setConnections(_strength, _degree);
         
@@ -84,7 +84,7 @@ catch(std::runtime_error const& e)
 
 Simulation::Simulation(const TypesProportions& prop, int size, int endtime, double degree, double strength, double thalamic,
                        const std::string& output)
-        :  _net(new Network(size, prop)), _endtime(endtime), _thalamic(thalamic), _output(output), prop(prop)
+        :  _net(new Network(size, _prop)), _endtime(endtime), _thalamic(thalamic), _output(output), _prop(prop)
 {
     _net->setConnections(strength, degree);
 }
@@ -131,7 +131,7 @@ void Simulation::run(const double _time)
 
 void Simulation::sample_header(std::ostream *_outstr)
 {
-	for (const auto& type : prop)
+	for (const auto& type : _prop)
     {
 	    if(type.second != 0)
             (*_outstr) <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".u" <<'\t'<<type.first<<".I";
@@ -159,17 +159,17 @@ void Simulation::readTypesProportions(const std::string& types, bool inhibSet, d
     while (std::getline(ss, key, ':'))
     {
         std::getline(ss, p, ',');
-        prop.at(key) = stod(p);
+        _prop.at(key) = stod(p);
     }
 
     if(inhibSet)
-        checkTypes(prop.find("FS"), prop.find("LTS"), prop.find("FS"), types.find("FS") != std::string::npos, inhib);
-    checkTypes(prop.begin(), prop.end(), prop.find("RS"),types.find("RS") != std::string::npos,1);
+        checkTypes(_prop.find("FS"), _prop.find("LTS"), _prop.find("FS"), types.find("FS") != std::string::npos, inhib);
+    checkTypes(_prop.begin(), _prop.end(), _prop.find("RS"),types.find("RS") != std::string::npos,1);
 }
 
 const TypesProportions &Simulation::getProp() const
 {
-    return prop;
+    return _prop;
 }
 
 Simulation::~Simulation()

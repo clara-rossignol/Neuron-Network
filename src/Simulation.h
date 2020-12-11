@@ -94,7 +94,7 @@ private:
   int _endtime;
   double _thalamic;
   std::string _output;
-  TypesProportions prop;
+  TypesProportions _prop;
 
     /*!
         *
