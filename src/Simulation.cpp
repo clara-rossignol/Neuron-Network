@@ -83,6 +83,13 @@ catch(std::runtime_error const& e)
 }
 
 
+Simulation::Simulation(const TypesProportions& prop, int size, int endtime, double degree, double strength, double thalamic,
+                       const std::string& output)
+        :  _net(new Network(size, prop)), _endtime(endtime), _thalamic(thalamic), _output(output), prop(prop)
+{
+    _net->setConnections(strength, degree);
+}
+
 
 void Simulation::run(const double _time)
 {
@@ -167,5 +174,7 @@ Simulation::~Simulation()
     _net = nullptr;
     std::cout.flush();
 }
+
+
 
 
