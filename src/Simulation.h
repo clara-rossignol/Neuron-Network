@@ -27,18 +27,19 @@ public:
   * \param _degree The average connectivity
   * \param _strength The average intensity of connections
   * \param _output The name of the output files (a suffix will be added depending on the file)
+  * \param _thalamic The standard deviation of thalamic input (for excitatory neurons)
 */
 ///@{
     Simulation(int, char**);
-
-    // permet uniquement de créer un network basique
+    /*! Permet uniquement de créer un network basique.
+    */
     Simulation(const TypesProportions& prop = {{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}},
-               int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );
-
+               int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );               
+    ~Simulation();
 ///@}
 
     /*!
-      Read a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type. \n
+      Reads a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type. \n
       By default, all proportions are set to 0. \n
       Except RS (and FS if the inhibitor proportion is given) all non-specified proportions will remain 0.
       If the the inhibitor proportion is too big compared to all inhibitor types proportions,
@@ -73,19 +74,13 @@ public:
 ///@{
     void run() {run(_endtime);}
     void run(double);
-    
+
     /*! Writes the header in the output file *sample_neurons*.
      */
     void sample_header(std::ostream *_outstr);
 ///@}
 
     const TypesProportions &getProp() const;
-
-/*! \name Destructor
- */
-///@{
-    ~Simulation();
-///@}
 
 private: 
   Network* _net;
