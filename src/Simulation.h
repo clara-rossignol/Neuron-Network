@@ -2,17 +2,16 @@
 #define SIMULATION_H
 
 #include "Network.h"
-#include <tclap/CmdLine.h>
 
 /*! \class Simulation
     \brief The Simulation class is the main class in this program. 
-    
-    It constructs the \ref Network \ref _net according to user-specified parameters, and \ref run "runs" the \ref Simulation. \n
-    * Simulation results are three output files: \n
-    * - **spikes** : the firing state of the neurons in the \ref Network in a matrix \n
-    * - **parameters** : the parameters of all the neurons in the \ref Network at the end of the \ref Simulation \n
-    * - **sample_neurons** : the membrane potential, recovery variable and current of one \ref Neuron of each type in the \ref Network throughout the \ref Simulation \n
-    */    
+    It constructs the Network according to user-specified parameters and \ref run "runs" the Simulation. \n
+        
+    Simulation results are printed on three output files: \n
+    * - **spikes**: the firing state of the neurons in the Network in a matrix. \n
+    * - **parameters**: the parameters of all the neurons in the Network at the beginnig of the Simulation. \n
+    * - **sample_neurons**: the membrane potential, recovery variable and current of one Neuron of each type in the Network throughout the Simulation. \n
+    */   
 
 /*! \typedef Iterator : to iterate through a map
  */
@@ -29,12 +28,7 @@ public:
   * \param _strength The average intensity of connections
   * \param _output The name of the output files (a suffix will be added depending on the file)
 */
-
-/*! \name Constructor
- */
 ///@{
-	/*!Constructor based on user inputs, takes command-line arguments.
-	 */ 
     Simulation(int, char**);
 ///@}
 
@@ -68,15 +62,17 @@ public:
      */
     static void checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef,  double max_sum);
 
-    /*!
-* Runs the simulation through a loop with \ref _endtime steps. Writes on the 3 different output files.
-*/
+    /*! \name Running the simulation
+     Runs the simulation through a loop with \ref _endtime steps. Writes on the 3 different output files.
+    */
+///@{
     void run() {run(_endtime);}
     void run(const double);
     
     /*! Writes the header in the output file *sample_neurons*.
      */
     void sample_header(std::ostream *_outstr);
+///@}
 
 /*! \name Destructor
  */
