@@ -1,5 +1,5 @@
-#ifndef GLOBALS_H
-#define GLOBALS_H
+#ifndef CONSTANTS_H
+#define CONSTANTS_H
 
 #include <array>
 #include <fstream>
@@ -12,6 +12,7 @@
 #include <cmath>
 
 #include "Error.h"
+
 
 /// * default parameters values *
 #define _AVG_NUMBER_ 100
@@ -31,6 +32,7 @@
 #define _MIN_TIME_ 0
 #define _MIN_PE_ 0.
 #define _MAX_PE_ 1.
+#define _MIN_THAL_ 0.
 #define _MIN_CONNECTIVITY_ 0.
 #define _MIN_INTENSITY_ 0.
 
@@ -44,7 +46,7 @@
 #define _TIME_TEXT_ "Number of time-steps"
 #define _CNNCT_TEXT_ "Average connectivity of a neuron"
 #define _INTENSITY_TEXT_ "Average connections' intensity"
-#define _TYPES_TEXT_ "Proportions of each type of neurons as a list like 'IB:0.2,FS:0.3,CH:0.2'. If total is less than 1, it will be completed with RS neurons"
+#define _TYPES_TEXT_ "Proportions of each type of neuron as a list like \"IB:0.2,FS:0.3,CH:0.2\". If total is less than 1, it will be completed with RS neurons"
 #define _BASIC_TEXT_ "Basic model of connections"
 #define _CONSTANT_TEXT "Constant model of connections"
 #define _OVERDISPERSED_TEXT "Overdispersed model of connections"
@@ -53,9 +55,8 @@
 #define _OUTFILE_3_ "sample_neurons"
 
 
-
 /*! \brief This is how a Neuron's parameters are implemented.
- * The neuron parameters. *
+ * The Neuron's parameters and if it is an inhibitory or excitatory Neuron.
  */
 struct NParams
 {
@@ -66,7 +67,7 @@ struct NParams
 class Neuron;
 
 /*! \brief This is how a Neuron's connections are implemented. 
- * Connections are implemented as the neuron connected and the intensity of its connection.
+ * Connections are implemented as the neuron connected and the intensity of the connection.
  */
 struct Connection
 {
@@ -74,7 +75,7 @@ struct Connection
     const double intensity;
 };
 
-/*! All the different neuron types and their parameters.
+/*! All the different Neuron types and their parameters.
  */
 const std::map<std::string, NParams> NeuronTypes{
         {"RS",  {.02, .2,  -65, 8,   false}},
@@ -86,8 +87,8 @@ const std::map<std::string, NParams> NeuronTypes{
         {"RZ",  {.1,  .26, -65, 2,   false}},
 };
 
-/*! \typedef The different types and their proportions in the \ref Network.
+/*! \typedef The different types and their proportions in the Network.
  */
 typedef  std::map<std::string, double> TypesProportions;
 
-#endif //GLOBALS_H
+#endif //CONSTANTS_H
