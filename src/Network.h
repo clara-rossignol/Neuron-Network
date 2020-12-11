@@ -17,10 +17,6 @@ public:
 /*! \name Constructors
  */
 ///@{
-	/*!
-   \param neurons: all neurons that will form the network
-   */
-   Network(const std::vector<Neuron>& neurons);
 
    /*! The network will be completed with
    \param s (size_t): the size of the network
