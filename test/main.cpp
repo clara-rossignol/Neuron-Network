@@ -93,7 +93,7 @@ TEST(Simulation, checkInBound)
 {
     Simulation::checkInBound(std::to_string"test", -4, 5, 10);
     const char * check ("Invalid data entered. test should be between 5 and 10");
-    EXPECT_STRCASEEQ(,check);
+    EXPECT_ANY_THROW();
 }
 */
 /*
@@ -113,40 +113,26 @@ TEST(Network, simpleConstructor)
 }
 */
 
-/*
 TEST (Network, proportionConstructor)
 {
-    
-    Neuron n1("FS"), n2("RS"), n3("CH"), n4("IB"), n5("LTS");
-    std::vector<Neuron> neurons {n1, n2, n3, n4, n5};
-    Network net_check (neurons);
-    unsigned std::int FS_count (0), RS_count, CH_count, IB_count, LTS_count (0);
-    
+    std::size_t size_net (5);
+    // std::string type1 = "FS:0.2,RS:0.2,CH:0.2,IB:0.2,LTS:0.2";
+    TypesProportions proportion ({{"FS",0.2},{"RS",0.2},{"CH",0.2},{"IB",0.2},{"LTS",0.2}});
+    Network net1 (size_net, proportion);
+    int count_FS (0), count_RS (0), count_CH (0), count_IB (0), count_LTS (0);
 
-    std::size_t net_size (5);
-    std::string type1 = "FS:0.2,RS:0.2,CH:0.2,IB:0.2,LTS:0.2";
-
-    Network net1 (net_size, Simulation::readTypesProportions(type1, true, 1));
-
-    std::string string_check;
-    for (size_t i(0); i < net_size; ++i)
-    {
-        string_check += net1.getNeurons()[i].getType() + ",";
-    }
+    if (net1.getNeurons()[0].getType() == "CH") count_CH += 1;        
+    if (net1.getNeurons()[1].getType() == "FS") count_FS += 1;
+    if (net1.getNeurons()[2].getType() == "IB") count_IB += 1;        
+    if (net1.getNeurons()[3].getType() == "LTS") count_LTS += 1;
+    if (net1.getNeurons()[4].getType() == "RS") count_RS += 1;
     
-    const char * c1 = string_check.c_str();
-    // const char * c2 = type1.c_str();
-    EXPECT_STRCASEEQ(c1,"FS,RS,CH,IB,LTS,");
-    // EXPECT_NEAR(net1, net_check);
-    // EXPECT_EQ(net.getNeurons().size(), net_size);
-
-    
-    // std::string type2 = "FS:0.4";
-    // std::string type3 = "FS:0.7,RS:0.1,IB:0.2";
-    // Network net2 (net_size, Simulation::readTYpesProportions(type2, true, 1);
-    
+    EXPECT_EQ(count_CH, 1);
+    EXPECT_EQ(count_FS, 1);
+    EXPECT_EQ(count_IB, 1);
+    EXPECT_EQ(count_LTS, 1);
+    EXPECT_EQ(count_RS, 1);
 }
-*/
 
 TEST(Network, setConnections)
 {
