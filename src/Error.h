@@ -16,12 +16,40 @@
 class Error : public std::runtime_error 
 {
   public:
+  /*! \name Constructors
+ */
+///@{
+	/*!
+   \param c (char): a character
+   \param v (int): the code number, 0 by default
+   */
     Error(const char *c, int v = 0) : std::runtime_error(c), code(v) {}
+    /*!
+   \param s (string): 
+   \param v (int): the code number, 0 by default
+   */
     Error(const std::string &s, int v = 0) : std::runtime_error(s), code(v) {}
+    ///@}
+    /*!
+    It will return the code
+    */
     int value() const {return code;}
-
+     
+    ///@{
+    /*!
+    It will set the error
+    * \param msg (string): the message corresponding to an error
+    * \param autoThrow (bool): it is true by default
+    */
     static void set(const std::string& msg, bool autoThrow = true);
+    /*!
+    It will set the error
+    * \param msg (string): the message corresponding to an error
+    * \param v (int): the code number
+    * \param autoThrow (bool): it is true by default
+    */
     static void set(const std::string& msg, int v, bool autoThrow = true);
+    ///@}
 
   protected:
     const int code;
