@@ -42,15 +42,15 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         cmd.xorAdd(NetworkModels);
         cmd.parse(argc, argv);
 
-        _size = total_n.getValue();
-        checkInBound(_NUMBER_TEXT_, _size,_MIN_NEURONS_);
+         int size = total_n.getValue();
+        checkInBound(_NUMBER_TEXT_, size,_MIN_NEURONS_);
         double _inhib = inhib.getValue();
         checkInBound(_PROP_TEXT_, _inhib, _MIN_PE_, _MAX_PE_ );
         _endtime = maxt.getValue();
         checkInBound(_TIME_TEXT_ , _endtime, _MIN_TIME_);
-       _degree = degree.getValue();
+        double _degree = degree.getValue();
         checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)_size);
-       _strength = strength.getValue();
+        double _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         _output = output.getValue();
         _thalamic = thalam.getValue();
@@ -59,11 +59,11 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         readTypesProportions(types, inhib.isSet(), _inhib);
 
         if(basic.getValue())
-            _net = new Network(_size, prop);
+            _net = new Network(size, prop);
         else if (constant.getValue())
-            _net = new ConstNetwork(_size, prop);
+            _net = new ConstNetwork(size, prop);
         else
-            _net = new DispNetwork(_size, prop);
+            _net = new DispNetwork(size, prop);
 
         _net->setConnections(_strength, _degree);
         
@@ -79,6 +79,9 @@ catch(std::runtime_error const& e)
 
    
 }
+
+}
+
 
 
 void Simulation::run(const double _time)
@@ -164,3 +167,5 @@ Simulation::~Simulation()
     _net = nullptr;
     std::cout.flush();
 }
+
+

@@ -36,6 +36,10 @@ public:
 	/*!Constructor based on user inputs, takes command-line arguments.
 	 */ 
     Simulation(int, char**);
+
+    // permet uniquement de créer un network basique
+    Simulation(int size, int endtime, double degree, double strength, TypesProportions prop, double thalamic = 1, std::string output = "" );
+
 ///@}
 
     /*!
@@ -72,7 +76,7 @@ public:
 * Runs the simulation through a loop with \ref _endtime steps. Writes on the 3 different output files.
 */
     void run() {run(_endtime);}
-    void run(const double);
+    void run(double);
     
     /*! Writes the header in the output file *sample_neurons*.
      */
@@ -87,10 +91,8 @@ public:
 private: 
 	/*! \name Network
 	 */
- Network* _net;
-  int _size;
+  Network* _net;
   int _endtime;
-  double _degree, _strength;
   double _thalamic;
   std::string _output;
   TypesProportions prop;
