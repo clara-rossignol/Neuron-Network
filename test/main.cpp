@@ -121,6 +121,7 @@ TEST (Network, proportionConstructor)
     Network net1 (size_net, proportion);
     int count_FS (0), count_RS (0), count_CH (0), count_IB (0), count_LTS (0);
 
+    // Pourquoi tu ne véfifies pas directement dans un expect si net1.getNeurons()[0].getType() == "CH" ? il n'y aurait plus besoin de compteur !!!
     if (net1.getNeurons()[0].getType() == "CH") count_CH += 1;        
     if (net1.getNeurons()[1].getType() == "FS") count_FS += 1;
     if (net1.getNeurons()[2].getType() == "IB") count_IB += 1;        
