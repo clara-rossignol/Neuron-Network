@@ -42,21 +42,20 @@ To **execute** the program, the user has to write the following commands in the 
 (If total is less than 1, it will be completed with RS neurons),**c** is the average connectivity of a neuron, **L** is the average connections' intensity and **i** the proportion of inhibitor neurons
 and **C**, **O**, **B** represent the types of network the user can choose from, constant, overdispersed and basic, respectively.
 
-Note that the parameters c, L and i are optional, as there are default parameters in our program
+Note that the parameters c, L and i are optional, as there are default parameters in our program.
 */
 
 RandomNumbers *_RNG;
 
 int main(int argc, char **argv) 
 {
-
-    auto t1 = std::chrono::high_resolution_clock::now();
+	auto t1 = std::chrono::high_resolution_clock::now();
     _RNG = new RandomNumbers();
 
     try {
-        Simulation s(argc, argv);
-       s.run();
-    } catch(Error &e) {
+		Simulation s(argc, argv);
+		s.run();
+	} catch(Error &e) {
         std::cerr << e.what() << std::endl;
         return e.value();
     }
