@@ -2,12 +2,12 @@
 //this will be the main that will unite all the tests
 
 #include <gtest/gtest.h>
-#include "../src/Neuron.h"
-#include "../src/Random.h"
-#include "../src/Network.h"
-#include "../src/ConstNetwork.h"
-#include "../src/DispNetwork.h"
-#include "../src/Simulation.h"
+#include "Neuron.h"
+#include "Random.h"
+#include "Network.h"
+#include "ConstNetwork.h"
+#include "DispNetwork.h"
+#include "Simulation.h"
 
 RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
@@ -141,10 +141,10 @@ TEST(Network, setConnections)
     double meanConnectivity(100);
 
     double average(0);
-    std::size_t N = 0;
+    size_t N = 0;
     for (size_t i(0); i<100; ++i)
     {
-        Network net(std::vector<Neuron>(10000, Neuron("RS")));
+        Network net(std::vector<Neuron>(5000, Neuron("RS")));//10000
         net.setConnections(meanIntensity, meanConnectivity);
         double sum(0);
 
@@ -160,7 +160,7 @@ TEST(Network, setConnections)
     average /=(N);
 
     EXPECT_NEAR(meanIntensity, average, 0.01);
-    EXPECT_NEAR(N/(10000*100), 100, 1);
+    EXPECT_NEAR(N/(5000*100), 100, 1);//10000
 }
 
 TEST(ConstNetwork, setConnections)
@@ -182,13 +182,13 @@ TEST(DispNetwork, setConnections)
     std::size_t N = 0;
     for (size_t i(0); i<100; ++i)
     {
-        DispNetwork net(std::vector<Neuron>(10000, Neuron("RS")));
+        DispNetwork net(std::vector<Neuron>(5000, Neuron("RS")));//10000
         net.setConnections(meanIntensity, meanConnectivity);
 
         for(const auto& n : net.getNeurons())
             N += n.getConnections().size();
     }
-    EXPECT_NEAR(N/(10000*100), 100, 1);
+    EXPECT_NEAR(N/(5000*100), 100, 1);//10000
 }
 
 int main(int argc, char **argv) 
