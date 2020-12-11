@@ -90,8 +90,13 @@ public:
      \param fire (bool)
     */
     void setFiring(bool fire);
-
+     /*!
+     *Gets the inhibitory n
+    */
     size_t getNInhibitory() const;
+    /*!
+     * Gets the current
+    */
     double getCurrent() const;
 
 
