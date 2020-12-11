@@ -38,7 +38,7 @@ public:
     Simulation(int, char**);
 
     // permet uniquement de créer un network basique
-    Simulation(const TypesProportions& prop, int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );
+    Simulation(const TypesProportions& prop = {{}}, int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );
 
 ///@}
 
@@ -82,6 +82,8 @@ public:
      */
     void sample_header(std::ostream *_outstr);
 
+    const TypesProportions &getProp() const;
+
 /*! \name Destructor
  */
 ///@{
@@ -96,14 +98,15 @@ private:
   double _thalamic;
   std::string _output;
   TypesProportions prop;
- /*!
-     *
-     * @tparam N
-     * @param message
-     * @param x
-     * @param min
-     * @param max
-     */
+
+    /*!
+        *
+        * @tparam N
+        * @param message
+        * @param x
+        * @param min
+        * @param max
+        */
     template<typename N>
     static void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
     {

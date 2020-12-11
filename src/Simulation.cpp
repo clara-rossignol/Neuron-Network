@@ -49,7 +49,7 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         _endtime = maxt.getValue();
         checkInBound(_TIME_TEXT_ , _endtime, _MIN_TIME_);
         double _degree = degree.getValue();
-        checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)_size);
+        checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)size);
         double _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         _output = output.getValue();
@@ -80,7 +80,6 @@ catch(std::runtime_error const& e)
    
 }
 
-}
 
 
 Simulation::Simulation(const TypesProportions& prop, int size, int endtime, double degree, double strength, double thalamic,
@@ -168,12 +167,18 @@ void Simulation::readTypesProportions(const std::string& types, bool inhibSet, d
     checkTypes(prop.begin(), prop.end(), prop.find("RS"),types.find("RS") != std::string::npos,1);
 }
 
+const TypesProportions &Simulation::getProp() const
+{
+    return prop;
+}
+
 Simulation::~Simulation()
 {
     delete _net;
     _net = nullptr;
     std::cout.flush();
 }
+
 
 
 
