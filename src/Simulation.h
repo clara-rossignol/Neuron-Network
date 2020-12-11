@@ -15,7 +15,7 @@
 
 /*! \typedef Iterator : to iterate through a map
  */
-typedef  std::map<std::string, double>::iterator Iterator ;
+    typedef  std::map<std::string, double>::iterator Iterator ;
 
 class Simulation 
 {
@@ -61,15 +61,15 @@ public:
      void readTypesProportions(const std::string& types, bool inhibSet, double inhib);
 
     /*!
-      if *max_sum* is too big compared to all types proportions saved between *beg* and *end*, the proportion of *def*
-      will be raised accordingly. If proportions don't match each other, the program will stop
+    if *max_sum* is too big compared to all types proportions saved between *beg* and *end*, the proportion of *def*
+    will be raised accordingly. If proportions don't match each other, the program will stop
 
-     * \param beg first neuron type to consider
-     * \param end last neuron type to consider
-     * \param def the proportion that will be modified
-     * \param setDef if *def* proportion was specified in the command line
-     * \param max_sum the maximum value the sum of all proportions can reach
-     */
+    * \param beg first neuron type to consider
+    * \param end last neuron type to consider
+    * \param def the proportion that will be modified
+    * \param setDef if *def* proportion was specified in the command line
+    * \param max_sum the maximum value the sum of all proportions can reach
+    */
     static void checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef,  double max_sum);
 
     /*! \name Running the simulation
@@ -109,10 +109,6 @@ private:
         {
             Error::set(std::string("Invalid data entered. ") + message + std::string(" should be between ") 
                                     + std::to_string(min) + std::string(" and ") + std::to_string(max), 1);
-            /*
-            Error::set(" Invalid data entered", 1);
-            std::cerr << message <<" should be between " << min << "and " << max << std::endl;
-            */
         }
     }
 };
