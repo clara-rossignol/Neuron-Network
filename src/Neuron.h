@@ -5,7 +5,7 @@
 
 /*!
  * \class Neuron
-   \brief This is a Neuron class  which generates neurons.
+   \brief This is a Neuron class which generates neurons.
   
     A neuron's cellular properties are defined by 4 parameters \p a, \p b, \p c, \p d and its inhibitory or excitatory quality.
     The Neuron types are provided in \ref constants.h as a map NeuronTypes and identified by a 2 or 3-letter string.
@@ -26,7 +26,7 @@ public:
 ///@}
 
     /*!
-    The current is calculated for each neuron.
+    The current is calculated for the neuron. Only firing senders influence the calculation.
     * \return current (double)
     */
     void currentCalculation(double thal);
@@ -75,14 +75,15 @@ public:
     */
     std::vector<Connection> getConnections() const;
     /*!
-     * ??????
+     * Creates all connections : connections are first made of inhibitory senders, following by excitatory senders.
+     * The exact position of the last inhibitory neuron is recorded in \ref n_inhibitory
+     * Connections are created in this way to facilitate \ref currentCalculation() and \ref print_params() in Network
+     * \param inhib (vector<Connection>) all inhibitory senders
+     * \param excit (vector<Connection>) all excitatory senders
     */
     void setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit);
-    /*!
-     * ??????
-     * \param inhib (vector<Connection>)
-     * \param excit (vector<Connection>)
-    */
+
+
     bool isGoingToFire() const;
     /*!
      * Sets the \ref firing.

@@ -22,11 +22,13 @@ public:
    */
    Network(const std::vector<Neuron>& neurons);
 
-   /*! The network will be completed with
-   \param s (size_t): the size of the network
-   \param prop (TypesProportions) 
+   /*! A set of neurons of size *size* is created according to proportions given in *prop*.
+   the last position in the network of each type of neurons is recorded in \ref indexes
+   in order to print neuron type specific values in output files.
+   \param size (size_t): the size of the network
+   \param prop (TypesProportions) all proportions corresponding to each type of neurons
    */
-   Network(size_t s, const TypesProportions& prop);
+   Network(size_t size, const TypesProportions& prop);
 
 ///@}
 
@@ -36,11 +38,21 @@ public:
      \param meanConnectivity the mean number of entering connections in one neuron (double)
      */
     virtual void setConnections(double meanIntensity, double meanConnectivity);
-
+    /*!
+     *setNeuronConnections* makes the entering connections for one neuron
+     Creates a set of inhibitory senders and a set of excitatory senders that will be assembled
+     in neuron \ref setConnections. Those two ensembles have been created in order to facilitate
+     \ref currentCalculation in Neuron and \ref print_samples
+     \param meanIntensity the mean intensity of a connection (double)
+     \param meanConnectivity the mean number of entering connections in one neuron (double)
+     \param neuron The neuron for which connections are set
+     */
     virtual void setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron);
 
     /*!
      Sets all neurons behavior during the simulation
+     In order to have all firing neurons influencing the current at the same time,
+     the \ref firing of all neurons is updated separately
      */
     void update(double thal);
     

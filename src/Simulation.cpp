@@ -50,12 +50,11 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH"
         checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)size);
         double _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
-        _output = output.getValue();
         _thalamic = thalam.getValue();
 		checkInBound(_THALAM_TEXT_, _thalamic, _MIN_THAL_);
         std::string types(typesProp.getValue());
-
         readTypesProportions(types, inhib.isSet(), _inhib);
+        _output = output.getValue();
 
         if(basic.getValue())
             _net = new Network(size, _prop);
@@ -77,7 +76,7 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH"
 
 Simulation::Simulation(const TypesProportions& prop, int size, int endtime, double degree, double strength, double thalamic,
                        const std::string& output)
-:  _net(new Network(size, _prop)), _endtime(endtime), _thalamic(thalamic), _output(output), _prop(prop)
+: _prop(prop), _net(new Network(size, _prop)), _endtime(endtime), _thalamic(thalamic), _output(output)
 {
     _net->setConnections(strength, degree);
 }

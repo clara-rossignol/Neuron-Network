@@ -4,12 +4,12 @@
 
 Network::Network(const std::vector<Neuron>& neurons) : neurons(neurons){}
 
-Network::Network(size_t s, const TypesProportions& prop)
+Network::Network(size_t size, const TypesProportions& prop)
 {
    int index(0);
    for(const auto& type : prop)
    {
-       size_t numType (s*type.second);
+       size_t numType (size * type.second);
        if(numType)
        {
            index += numType;
