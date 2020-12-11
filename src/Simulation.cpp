@@ -42,7 +42,7 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
         cmd.xorAdd(NetworkModels);
         cmd.parse(argc, argv);
 
-         int size = total_n.getValue();
+        int size = total_n.getValue();
         checkInBound(_NUMBER_TEXT_, size,_MIN_NEURONS_);
         double _inhib = inhib.getValue();
         checkInBound(_PROP_TEXT_, _inhib, _MIN_PE_, _MAX_PE_ );
@@ -66,7 +66,6 @@ Simulation::Simulation(int argc, char **argv) : prop({{"RS",0}, {"IB",0}, {"CH",
             _net = new DispNetwork(size, prop);
 
         _net->setConnections(_strength, _degree);
-        
 
 } catch(TCLAP::ArgException &e) 
 {
