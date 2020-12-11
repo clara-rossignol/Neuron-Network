@@ -85,6 +85,14 @@ TEST(Simulation, checkTypes)
 }
 */
 /*
+TEST(Simulation, checkInBound)
+{
+    Simulation::checkInBound(std::to_string"test", -4, 5, 10);
+    const char * check ("Invalid data entered. test should be between 5 and 10");
+    EXPECT_STRCASEEQ(,check);
+}
+*/
+/*
 TEST(Network, simpleConstructor)
 {
     Neuron n1("FS");
@@ -99,32 +107,40 @@ TEST(Network, simpleConstructor)
     // Besoin de tester proportions avec constructeur simple ?
     // EXPECT_EQ(network.getNeurons().)
 }
+*/
 
+/*
 TEST (Network, proportionConstructor)
 {
+    
     Neuron n1("FS"), n2("RS"), n3("CH"), n4("IB"), n5("LTS");
     std::vector<Neuron> neurons {n1, n2, n3, n4, n5};
     Network net_check (neurons);
-    unsigned_int FS_count (0), RS_count, CH_count, IB_count, LTS_count (0)
-    std::size_t net_size (10);
+    unsigned std::int FS_count (0), RS_count, CH_count, IB_count, LTS_count (0);
+    
+
+    std::size_t net_size (5);
     std::string type1 = "FS:0.2,RS:0.2,CH:0.2,IB:0.2,LTS:0.2";
 
     Network net1 (net_size, Simulation::readTypesProportions(type1, true, 1));
 
     std::string string_check;
-    for (size_t i(0), i < net_size, ++i)
+    for (size_t i(0); i < net_size; ++i)
     {
-        string_check +=
-        Deux options : soit une somme des types et on vérifie qu'elle est égale à une autre string
-                        soit des boucles if et des compteurs, avec chaque compteur qui doit avoir une certaine valeur
+        string_check += net1.getNeurons()[i].getType() + ",";
     }
-    EXPECT_NEAR(net1, net_check);
-    EXPECT_EQ(net.getNeurons().size(), net_size);
+    
+    const char * c1 = string_check.c_str();
+    // const char * c2 = type1.c_str();
+    EXPECT_STRCASEEQ(c1,"FS,RS,CH,IB,LTS,");
+    // EXPECT_NEAR(net1, net_check);
+    // EXPECT_EQ(net.getNeurons().size(), net_size);
 
-
-    std::string type2 = "FS:0.4";
-    std::string type3 = "FS:0.7,RS:0.1,IB:0.2";
-    Network net2 (net_size), Simulation::readTYpesProportions(type2, true, 1);
+    
+    // std::string type2 = "FS:0.4";
+    // std::string type3 = "FS:0.7,RS:0.1,IB:0.2";
+    // Network net2 (net_size, Simulation::readTYpesProportions(type2, true, 1);
+    
 }
 */
 
@@ -183,7 +199,6 @@ TEST(DispNetwork, setConnections)
     }
     EXPECT_NEAR(N/(10000*100), 100, 1);
 }
-
 
 int main(int argc, char **argv) 
 {
