@@ -159,7 +159,7 @@ TEST(Network, setConnections)
 
     average /=(N);
 
-    EXPECT_NEAR(meanIntensity, average, 0.05);//0.01
+    EXPECT_NEAR(meanIntensity, average, 0.03);//0.01
     EXPECT_NEAR(N/(5000*100), 100, 1);//10000
 }
 
