@@ -36,14 +36,14 @@ For the standard mode (i.e. the network will only contain RS and LS neurons), th
 ```
 For a more complex network,containing also the other types of neurons (IB,CH,LTS) write the following command:
 ```
-./NeuronNetwork -B -T 'FS:0.2,IB:0.15,CH:0.15,RS:0.5' -t 1000 -N 10000 -c 40 -L 4
+./NeuronNetwork -B -T 'FS:0.2,RS:0.3,LTS:0.1,TC:0.1,RZ:0.1,CH:0.1,IB:0.1' -t 1000 -N 10000 -c 40 -L 4
 ```
 ,where **t** is the number of time-steps, **N** is the number of neurons, **T** the proportions of each type of neurons as a list.
 (If total is less than 1, it will be completed with RS neurons),
  **c** is the average connectivity of a neuron, **L** is the average connections' intensity and **i** the proportion of inhibitor neurons
 and **C**, **O**, **B** represent the types of network the user can choose from, constant, overdispersed and basic, respectively.
 
-Note that the parameters c, L and i are optional, as there are default parameters in our program.
+Note that the parameters c, L and i are optional, as they are default parameters in our program.
 
 *************************************************
 
@@ -89,11 +89,11 @@ sample_neurons:
 ## Extensions
 
 For the extensions, we chose to implement the one consisting in different types of network models.
-Until now, we only used a basic model, namely the average connectivity is fixed and each neuron has n-Pois(c) connections.
+Until now, we only used a basic model, namely the average connectivity is fixed and each neuron has n~Pois(c) connections.
 There are however, two more models implemented in this program.
 
 * The constant model: each neuron has exactly c connections.
-* The overdispersed model: each neuron has n_i-Pois(c_i) connections and for each neuron there is a random c_i-Exp(1/c).
+* The overdispersed model: each neuron has n_i~Pois(c_i) connections and for each neuron there is a random c_i~Exp(1/c).
 
 *************************************************
 
