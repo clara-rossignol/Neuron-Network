@@ -40,7 +40,6 @@ void Neuron::currentCalculation(double thal)
 
 void Neuron::update(double thal)
 {
-    std::cout << n_inhibitory << std::endl;
     if(isFiring())
         reset();
 
