@@ -96,6 +96,22 @@ TEST(Simulation, checkInBound)
     EXPECT_ANY_THROW();
 }
 */
+/*
+TEST(Network, simpleConstructor)
+{
+    Neuron n1("FS");
+    Neuron n2("RS");
+    Neuron n3("CH");
+    Neuron n4("IB");
+    Neuron n5("LTS");
+    std::vector<Neuron> neurons {n1, n2, n3, n4, n5};
+    Network net (neurons);
+
+    EXPECT_EQ(net.getNeurons().size(), 5);
+    // Besoin de tester proportions avec constructeur simple ?
+    // EXPECT_EQ(network.getNeurons().)
+}
+*/
 
 TEST (Network, proportionConstructor)
 {
