@@ -88,8 +88,6 @@ public:
 ///@}
 
 private: 
-	/*! \name Network
-	 */
   Network* _net;
   int _endtime;
   double _thalamic;
@@ -98,11 +96,11 @@ private:
 
     /*!
         *
-        * @tparam N
-        * @param message
-        * @param x
-        * @param min
-        * @param max
+        * \tparam N
+        * \param message
+        * \param x
+        * \param min
+        * \param max
         */
     template<typename N>
     static void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
@@ -117,7 +115,6 @@ private:
             */
         }
     }
-
 };
 
 #endif // SIMULATION_H
