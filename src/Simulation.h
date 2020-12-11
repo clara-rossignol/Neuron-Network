@@ -38,7 +38,8 @@ public:
     Simulation(int, char**);
 
     // permet uniquement de créer un network basique
-    Simulation(const TypesProportions& prop = {{}}, int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );
+    Simulation(const TypesProportions& prop = {{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}},
+               int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );
 
 ///@}
 

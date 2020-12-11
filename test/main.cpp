@@ -58,7 +58,7 @@ TEST(Neuron, current_calculation)
 }
 
 
-/*TEST(Simulation, readTypesProportions)
+TEST(Simulation, readTypesProportions)
 {
     Simulation sim;
 
@@ -76,7 +76,7 @@ TEST(Neuron, current_calculation)
         EXPECT_NEAR(type.second, test.at(type.first), 0.0000000001);
     }
     
-}*/
+}
 
 TEST(Simulation, checkTypes)
 {
