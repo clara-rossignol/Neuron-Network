@@ -91,11 +91,11 @@ public:
     */
     void setFiring(bool fire);
      /*!
-     *Gets the inhibitory n
+     *Gets the number of inhibitory neurons
     */
     size_t getNInhibitory() const;
     /*!
-     * Gets the current
+     * Gets the current value
     */
     double getCurrent() const;
 
