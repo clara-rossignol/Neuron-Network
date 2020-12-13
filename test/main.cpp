@@ -38,7 +38,7 @@ TEST(Neuron, neuron_types)
 	EXPECT_EQ(n4.getRecoveryVariable(),-10);
 	
 	Neuron n5("LTS");
-    EXPECT_FALSE(n5.isInhibitor());
+    EXPECT_TRUE(n5.isInhibitor());
     EXPECT_EQ(n5.getMembranePotential(),-65);
 	EXPECT_EQ(n5.getRecoveryVariable(),-16.25);
 	
@@ -82,6 +82,18 @@ TEST(Neuron, current_calculation)
 	EXPECT_NEAR(meanCurrent, 10, 0.5);
 }
 
+TEST(Neuron, setConnections)
+{
+    Neuron n("RS");
+    std::vector<Connection> inhib= {{new Neuron("FS"), 0},
+                                    {new Neuron("FS"), 0}} ;
+    std::vector<Connection> excit ({{new Neuron("RS"), 0},
+                                    {new Neuron("RS"), 0}});
+    n.setConnections(inhib, excit);
+    EXPECT_EQ(n.getNInhibitory(), 2);
+    EXPECT_EQ(n.getConnections().size(), 4);
+
+}
 
 TEST(Simulation, readTypesProportions)
 {
