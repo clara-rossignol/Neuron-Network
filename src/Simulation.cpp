@@ -2,15 +2,6 @@
 #include "Simulation.h"
 #include "ConstNetwork.h"
 #include "DispNetwork.h"
-
-/*! Gestion des erreurs : plusieurs facons de faire :
-       / Error::set(type d'erreur, indication d'erreur, code d'erreur)
-       / Error::set(type d'erreur + indication d'erreur, code d'erreur) [risque d'être long]
-       / Error::set(type d'erreur, code d'erreur) puis cerr << indication d'erreur
-       / std::to_string()
-       / string("... ")
-       /
-*/
        
 
 Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})
@@ -157,8 +148,7 @@ void Simulation::readTypesProportions(const std::string& types, bool inhibSet, d
         _prop.at(key) = stod(p);
     }
 
-    if(inhibSet)
-        checkTypes(_prop.find("FS"), _prop.find("LTS"), _prop.find("FS"), types.find("FS") != std::string::npos, inhib);
+    if(inhibSet) checkTypes(_prop.find("FS"), _prop.find("LTS"), _prop.find("FS"), types.find("FS") != std::string::npos, inhib);
     checkTypes(_prop.begin(), _prop.end(), _prop.find("RS"),types.find("RS") != std::string::npos,1);
 }
 
@@ -175,8 +165,3 @@ Simulation::~Simulation()
     _net = nullptr;
     std::cout.flush();
 }
-
-
-
-
-
