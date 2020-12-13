@@ -26,16 +26,19 @@ public:
     /*!
     Sets the connections.
     @param meanIntensity: the mean intensity of a connection
-    @param meanConnectivity: the mean number of entering connections in one neuron
+    @param meanConnectivity: the mean number of entering connections 
+    in one neuron
     */
     void setConnections(double meanIntensity, double meanConnectivity) override;
     /*!
      Sets
      @param meanIntensity: the mean intensity of a connection
-     @param meanConnectivity: the mean number of entering connections in one neuron
+     @param meanConnectivity: the mean number of entering connections 
+     in one neuron
      @param neuron
      */
-    void setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron) override;
+    void setNeuronConnections(double meanIntensity, 
+    double meanConnectivity, Neuron& neuron) override;
 };
 
 

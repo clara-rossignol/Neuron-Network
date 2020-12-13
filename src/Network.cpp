@@ -2,7 +2,8 @@
 #include "Random.h"
 #include <sstream>
 
-Network::Network(const std::vector<Neuron>& neurons) : _neurons(neurons){}
+Network::Network(const std::vector<Neuron>& neurons) : neurons(neurons)
+{}
 
 Network::Network(size_t size, const TypesProportions& prop)
 {
@@ -13,39 +14,41 @@ Network::Network(size_t size, const TypesProportions& prop)
        if(numType)
        {
            index += numType;
-           _indexes.push_back(index);
+           indexes.push_back(index);
        }
 
        for(size_t i(0); i<numType; ++i)
-           _neurons.emplace_back(type.first);
+           neurons.emplace_back(type.first);
    }
 }
 
 void Network::update(double thal)
 {
-    for(auto& neuron : _neurons)
+    for(auto& neuron : neurons)
         neuron.update(thal);
-    for(auto& neuron : _neurons)
+    for(auto& neuron : neurons)
         neuron.setFiring(neuron.isGoingToFire());
 }
 
-void Network::setConnections(double meanIntensity, double meanConnectivity)
+void Network::setConnections(double meanIntensity, 
+double meanConnectivity)
 {
-    for(auto& neuron : _neurons)
+    for(auto& neuron : neurons)
         setNeuronConnections(meanIntensity, meanConnectivity, neuron);
 }
 
-void Network::setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron)
+void Network::setNeuronConnections(double meanIntensity, 
+double meanConnectivity, Neuron& neuron)
 {
     int number(-1);
-    while (number < 0 or number > (int)_neurons.size())
+    while (number < 0 or number > (int)neurons.size())
         number = _RNG->poisson(meanConnectivity);
 
     std::vector<Connection> inhib;
     std::vector<Connection> excit;
     for(size_t i(0);i < (unsigned int)number ;++i)
     {
-        Neuron* sender = &_neurons[_RNG->uniform_int(0, (int)_neurons.size()-1)];
+        Neuron* sender = &neurons[_RNG->uniform_int(0, (int)neurons.size()-1)];
         if (sender->isInhibitor())
             inhib.push_back({sender, _RNG ->uniform_double(0,2*meanIntensity) });
         else
@@ -55,10 +58,10 @@ void Network::setNeuronConnections(double meanIntensity, double meanConnectivity
 }
 
 
-void Network::print_params(std::ostream *_outstr)
+void Network::printParams(std::ostream *_outstr)
 {
     (*_outstr) << "Type\ta\tb\tc\td\tInhibitory\tdegree\tvalence" << std::endl;
-    for (auto & neuron : _neurons)
+    for (auto & neuron : neurons)
     {
 		double valence(0);
 		for (size_t i(0); i<neuron.getNInhibitory(); ++i)
@@ -80,27 +83,27 @@ void Network::print_params(std::ostream *_outstr)
     }
 }
 
-void Network::print_sample(std::ostream *_outstr)
+void Network::printSample(std::ostream *_outstr)
 {
 	std::stringstream ss;
-	for(auto index = _indexes.begin(); index < _indexes.end()-1; ++index)
+	for(auto index = indexes.begin(); index < indexes.end()-1; ++index)
     {
-	    ss <<_neurons[*index-1].getMembranePotential() << '\t'
-	       <<_neurons[*index-1].getRecoveryVariable() << '\t'
-	       <<_neurons[*index-1].getCurrent() << '\t';
+	    ss << neurons[*index-1].getMembranePotential() << '\t'
+	       << neurons[*index-1].getRecoveryVariable() << '\t'
+	       << neurons[*index-1].getCurrent() << '\t';
     }
-    ss <<_neurons[*(_indexes.end()-1)-1].getMembranePotential() << '\t'
-       <<_neurons[*(_indexes.end()-1)-1].getRecoveryVariable() << '\t'
-       <<_neurons[*(_indexes.end()-1)-1].getCurrent();
+    ss << neurons[*(indexes.end()-1)-1].getMembranePotential() << '\t'
+       << neurons[*(indexes.end()-1)-1].getRecoveryVariable() << '\t'
+       << neurons[*(indexes.end()-1)-1].getCurrent();
 
 	(*_outstr) 	<< ss.str()
 				<< std::endl;
 }
 
 
-void Network::print_spikes(std::ostream *_outstr)
+void Network::printSpikes(std::ostream *_outstr)
 {
-	for(auto & neuron : _neurons)
+	for(auto & neuron : neurons)
 	{
 		(*_outstr)  << neuron.isFiring() << ' ';
     }
@@ -109,10 +112,10 @@ void Network::print_spikes(std::ostream *_outstr)
 
 const std::vector<Neuron> &Network::getNeurons() const
 {
-    return _neurons;
+    return neurons;
 }
 
 const std::vector<int> &Network::getIndexes() const
 {
-	return _indexes;
+	return indexes;
 }
