@@ -34,8 +34,8 @@ public:
 ///@}
 
 private:
-    std::mt19937 rng;
-    long int seed;
+    std::mt19937 _rng;
+    long int _seed;
 };
 
 extern RandomNumbers *_RNG;
