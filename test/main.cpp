@@ -144,7 +144,7 @@ TEST(Network, setConnections)
     size_t N = 0;
     for (size_t i(0); i<100; ++i)
     {
-        Network net(std::vector<Neuron>(5000, Neuron("RS")));
+        Network net(std::vector<Neuron>(5000, Neuron("RS")));//10000
         net.setConnections(meanIntensity, meanConnectivity);
         double sum(0);
 
@@ -159,7 +159,7 @@ TEST(Network, setConnections)
 
     average /=(N);
 
-    EXPECT_NEAR(meanIntensity, average, 0.01);
+    EXPECT_NEAR(meanIntensity, average, 0.03);
     EXPECT_NEAR(N/(5000*100), meanConnectivity, 1);
 }
 
