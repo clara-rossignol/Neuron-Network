@@ -38,7 +38,7 @@ TEST(Neuron, neuron_types)
 	EXPECT_EQ(n4.getRecoveryVariable(),-10);
 	
 	Neuron n5("LTS");
-    EXPECT_FALSE(n5.isInhibitor());
+    EXPECT_TRUE(n5.isInhibitor());
     EXPECT_EQ(n5.getMembranePotential(),-65);
 	EXPECT_EQ(n5.getRecoveryVariable(),-16.25);
 	

@@ -105,15 +105,15 @@ void Simulation::run(const double time)
 
 	sample_header(&outf3);	
 	
-	_net->print_params(&outf2);
+	_net->printParams(&outf2);
     
     for(size_t i(0); i <= time; ++i)
     {
 		_net->update(_thalamic);
 		(*_outf) << i << ' ';
-		_net->print_spikes(_outf);
+		_net->printSpikes(_outf);
 		(*&outf3) << (i+1) << '\t';
-		_net->print_sample(&outf3);
+		_net->printSample(&outf3);
     }
 	
 	if(outf1.is_open()) outf1.close();	
