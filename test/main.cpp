@@ -2,12 +2,12 @@
 //this will be the main that will unite all the tests
 
 #include <gtest/gtest.h>
-#include "Neuron.h"
-#include "Random.h"
-#include "Network.h"
-#include "ConstNetwork.h"
-#include "DispNetwork.h"
-#include "Simulation.h"
+#include "../src/Neuron.h"
+#include "../src/Random.h"
+#include "../src/Network.h"
+#include "../src/ConstNetwork.h"
+#include "../src/DispNetwork.h"
+#include "../src/Simulation.h"
 
 RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
@@ -88,14 +88,13 @@ TEST(Simulation, checkTypes)
     EXPECT_ANY_THROW(sim.readTypesProportions(types1, true, 0.1));
 }
 
-/*
+
 TEST(Simulation, checkInBound)
 {
-    Simulation::checkInBound(std::to_string"test", -4, 5, 10);
-    const char * check ("Invalid data entered. test should be between 5 and 10");
-    EXPECT_ANY_THROW();
+    Simulation sim;
+    EXPECT_ANY_THROW(sim.checkInBound("test", -4, 5, 10));
 }
-*/
+
 /*
 TEST(Network, simpleConstructor)
 {
