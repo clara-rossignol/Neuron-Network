@@ -4,7 +4,10 @@
 #include "DispNetwork.h"
        
 
-Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})
+Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, 
+													   {"CH",0},{"TC",0}, 
+													   {"RZ",0}, {"FS",0},  
+													   {"LTS", 0}})
 {
     bool _basic(false);
     bool _constant(false);
@@ -70,13 +73,14 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH"
     else
         _net = new DispNetwork(_size, _prop);
     _net->setConnections(_strength, _degree);
-
 }
 
 
-Simulation::Simulation(const TypesProportions& prop, int size, int endtime, double degree, double strength, double thalamic,
+Simulation::Simulation(const TypesProportions& prop, int size, int endtime, 
+					   double degree, double strength, double thalamic,
                        const std::string& output)
-: _prop(prop), _net(new Network(size, _prop)), _endtime(endtime), _thalamic(thalamic), _output(output)
+: _prop(prop), _net(new Network(size, prop)), _endtime(endtime), 
+  _thalamic(thalamic), _output(output)
 {
     _net->setConnections(strength, degree);
 }
@@ -87,7 +91,8 @@ void Simulation::run(const double time)
     std::ofstream outf1, outf2, outf3;
     outf1.open(_output + '_' + _OUTFILE_1_);
     if(outf1.bad()) 
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' +_OUTFILE_1_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ") 
+				+ _output + '_' +_OUTFILE_1_));
     
     std::ostream *_outf = &std::cout;
     
@@ -95,15 +100,17 @@ void Simulation::run(const double time)
     
     outf2.open(_output + '_' + _OUTFILE_2_);
     if(outf2.bad())
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' + _OUTFILE_2_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ") 
+				+ _output + '_' + _OUTFILE_2_));
     
     outf3.open(_output + '_' + _OUTFILE_3_);
     if(outf3.bad())
     {
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ") + _output + '_' + _OUTFILE_3_));
+        throw(OUTPUT_ERROR(std::string("Cannot write to file ") 
+				+ _output + '_' + _OUTFILE_3_));
 	}
 
-	sample_header(&outf3);	
+	sampleHeader(&outf3);	
 	
 	_net->printParams(&outf2);
     
@@ -122,23 +129,24 @@ void Simulation::run(const double time)
 }
 
 
-void Simulation::sample_header(std::ostream *_outstr)
+void Simulation::sampleHeader(std::ostream *_outstr)
 {
 	for (const auto& type : _prop)
     {
 	    if(type.second != 0)
-            (*_outstr) <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".u" <<'\t'<<type.first<<".I";
+            (*_outstr) <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".u" 
+					   <<'\t'<<type.first<<".I";
     }
     (*_outstr) << std::endl;
 }
 
 
-void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef ,double max_sum)
+void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, 
+							bool setDef ,double max_sum)
 {
     double sum (0);
     for (auto p = beg;  p != end ; p++)
         sum += p->second;
-
     if(abs(sum - max_sum) <= 0.0001  or  (sum - max_sum <= 0.0001 and !setDef))
         def->second += max_sum - sum;
     else
@@ -158,15 +166,16 @@ void Simulation::readTypesProportions(const std::string& types, bool inhibSet, d
             _prop.at(key) = stod(p);
     }
 
-
     if(inhibSet)
     {
         TypesProportions propInhib = {{*_prop.find("FS")}, {*_prop.find("LTS")}};
-        checkTypes(propInhib.begin(), propInhib.end(), propInhib.find("FS"), types.find("FS") != std::string::npos, inhib);
+        checkTypes(propInhib.begin(), propInhib.end(), propInhib.find("FS"), 
+				   types.find("FS") != std::string::npos, inhib);
         _prop.at("FS") = propInhib.at("FS");
         _prop.at("LTS") = propInhib.at("LTS");
     }
-    checkTypes(_prop.begin(), _prop.end(), _prop.find("RS"),types.find("RS") != std::string::npos,1);
+    checkTypes(_prop.begin(), _prop.end(), _prop.find("RS"),
+			   types.find("RS") != std::string::npos,1);
 }
 
 
@@ -182,8 +191,3 @@ Simulation::~Simulation()
     _net = nullptr;
     std::cout.flush();
 }
-
-
-
-
-
