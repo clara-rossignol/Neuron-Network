@@ -15,7 +15,7 @@ TEST(Neuron, create_neuron)
 {
 	Neuron n1("RS");
 	EXPECT_FALSE(n1.isFiring());
-    Neuron n("RS");
+    Neuron n("FS");
     EXPECT_FALSE(n.isFiring());
 }
 
