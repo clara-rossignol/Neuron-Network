@@ -16,68 +16,73 @@ class Neuron
 
 public:
     /*! \name Initializing
-    The constructor initializes the neuron. By default the neuron is not in a firing state.
-    * To achieve heterogeneity in our model, if the neuron is either a *regular spiking* (RS) or a *fast spiking* (FS) neuron its 4 parameters \p a, \p b, \p c and \p d are recalculated with the help of a random variable. 
-    * \param type (string): the type of the neuron
-    * \param isfiring(bool): the firing state of the neuron
     */
 ///@{
+   /*! The constructor initializes the neuron. By default the neuron is not in a firing state.
+    * To achieve heterogeneity in our model, if the neuron is either a *regular spiking* (RS) or a *fast spiking* (FS) neuron its 4 parameters \p a, \p b, \p c and \p d are recalculated with the help of a random variable. 
+    * \param type: the type of the neuron
+    * \param isfiring: the firing state of the neuron
+    */
     Neuron(const std::string& type, bool isfiring = false);
+    
+     /*! \name Destructor
+     */
+    ~Neuron();
 ///@}
 
     /*!
-    The current is calculated for the neuron. Only firing senders influence the calculation.
+    The _current is calculated for the neuron. Only firing senders influence the calculation.
     * \return current (double)
     */
     void currentCalculation(double thal);
     /*!
-    A neuron is updated : its \ref membrane_potential and its \ref recovery_variable are updated according to the neuron's firing state i.e. \ref willFire and \ref firing.
+    A neuron is updated : its \ref _membranePotential and its \ref _recoveryVariable are updated according to the neuron's firing state i.e. \ref _willFire and \ref _firing.
     */
     void update(double thal);
     /*!
-    After firing, the neuron is reset: \ref membrane_potential is set to \p c, \ref recovery_variable is increased by \p d.
+    After firing, the neuron is reset: \ref _membranePotential is set to \p c, \ref _recoveryVariable is increased by \p d.
     */
     void reset();
-	/*! \return membrane_potential (double)
+	/*! \return _membranePotential (double)
 	*/
 	double getMembranePotential() const;
-	/*!  \return recovery_variable (double)
+	/*!  \return _recoveryVariable (double)
 	*/
 	double getRecoveryVariable() const;
     /*!
-    The \ref membrane_potential is updated according to the Izhikevich equations.
+    The \ref _membranePotential is updated according to the Izhikevich equations.
     */
     void setMembranePotential();
     /*!
-    The \ref recovery_variable is updated according to the Izhikevich equations.
+    The \ref _recoveryVariable is updated according to the Izhikevich equations.
     * \param potential (double)
     */
     void setRecoveryVariable(double potential);
     /*!
-    A neuron is firing if its membrane potential exceeds the firing treshold, 30 mV.
-    * \return true if the neuron is in a firing state, false otherwise (bool)
+    A neuron is firing if its _membranePotential exceeds the firing treshold, 30 mV.
+    * \return true if the neuron is in a firing state, false otherwise
     */
     bool isFiring() const;
     /*!
-     * \return true if a neuron is inhibitory, false otherwise (bool)
+     * \return true if a neuron is inhibitory, false otherwise
     */
     bool isInhibitor() const;
 	/*!
-	 * \return the parameters of the neuron (NParams)
+	 * \return the \ref _nparams parameters of the neuron (NParams)
 	*/
 	NParams getParameters() const;
 	/*!
-	 * \return the type of the neuron (string)
+	 * \return the _type of the neuron
 	 */
 	std::string getType() const; 
     /*!
-     * \return the connections : the neurons connected with the neuron (vector<Connection>)
+     * \return the connections: the neurons connected with the neuron (vector<Connection>)
     */
     std::vector<Connection> getConnections() const;
     /*!
-     * Creates all connections : connections are first made of inhibitory senders, following by excitatory senders.
-     * The exact position of the last inhibitory neuron is recorded in \ref n_inhibitory
-     * Connections are created in this way to facilitate \ref currentCalculation() and \ref print_params() in Network
+     * Creates all connections: connections are first made of inhibitory senders, following by excitatory senders.
+     * The exact position of the last inhibitory neuron is recorded in \ref _nInhibitory
+     * Connections are created in this way to facilitate \ref currentCalculation() and \ref Network::print_params() in Network
      * \param inhib (vector<Connection>) all inhibitory senders
      * \param excit (vector<Connection>) all excitatory senders
     */
@@ -86,7 +91,7 @@ public:
 
     bool isGoingToFire() const;
     /*!
-     * Sets the \ref firing.
+     * Sets the \ref _firing.
      \param fire (bool)
     */
     void setFiring(bool fire);
@@ -95,50 +100,44 @@ public:
     */
     size_t getNInhibitory() const;
     /*!
-     * Gets the current value
+     * Gets the _current value
     */
     double getCurrent() const;
 
-
-    /*! \name Destructor
-     */
-    ///@{
-    ~Neuron();
-    ///@} 
     
 private:
 	/*! \name Firing state of the neuron
 	 */
 	///@{
-    bool willFire;
-    bool firing;
+    bool _willFire;
+    bool _firing;
     ///@}
 
     /*! \name Dynamic variables
     */
     ///@{
-    double membrane_potential;
-    double recovery_variable;
-    double current;
+    double _membranePotential;
+    double _recoveryVariable;
+    double _current;
     ///@}
     
     /*! \name Neuron parameters 
     \p a, \p b, \p c, \p d, and the boolean \p inhib
     */
-    NParams nparams;
+    NParams _nparams;
     
     /*! \name Type
      */
     ///@{
-    std::string type;
+    std::string _type;
     ///@}
     
     /*! \name Connections
       * A vector of connections : \p sender, a pointer to a neuron and the \p intensity of the connection
     */
-    std::vector<Connection> connections;
+    std::vector<Connection> _connections;
 
-    size_t n_inhibitory;
+    size_t _nInhibitory;
 
 };
 
