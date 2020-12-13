@@ -85,13 +85,29 @@ TEST(Neuron, update)
 {
 	Neuron n1("RS");
 	n1.update(_AVG_THAL_);
-	EXPECT_EQ(n1.getRecoveryVariable(), -13);
-    Neuron n2("FS", true);
+	EXPECT_EQ(n1.getRecoveryVariable(),-13);
+    Neuron n2("FS",true);
     n2.update(_AVG_THAL_);
-    EXPECT_EQ(n2.getMembranePotential(), -65);
-    EXPECT_EQ(n2.getRecoveryVariable(), -11);
+    EXPECT_EQ(n2.getMembranePotential(),-65);
+    EXPECT_EQ(n2.getRecoveryVariable(),-11);
+    Neuron n3("IB");
+    n3.update(_AVG_THAL_);
+    EXPECT_EQ(n3.getRecoveryVariable(),-11);
+    Neuron n4("CH",true);
+    n4.update(_AVG_THAL_);
+    EXPECT_EQ(n4.getMembranePotential(),-50);
+    EXPECT_EQ(n4.getRecoveryVariable(),-8);
+    Neuron n5("LTS");
+    n5.update(_AVG_THAL_);
+    EXPECT_EQ(n5.getRecoveryVariable(),-16.25);
+    Neuron n6("TC",true);
+    n6.update(_AVG_THAL_);
+    EXPECT_EQ(n6.getMembranePotential(),-65);
+    EXPECT_EQ(n6.getRecoveryVariable(),-16.2);
+    Neuron n7("RZ");
+    n7.update(_AVG_THAL_);
+    //EXPECT_EQ(n7.getRecoveryVariable(),-16.9);
 }
-
 
 TEST(Neuron, current_calculation)
 {
