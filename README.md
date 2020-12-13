@@ -29,7 +29,7 @@ cd build
 cmake ..
 make
 ```
-After building, running and compiling the program. the user can type into the terminal a command like this typical example :
+After building, running and compiling the program, the user can type into the terminal a command like this typical example :
 ```
 ./NeuronNetwork -B -T 'FS:0.2,IB:0.15,CH:0.15,RS:0.5' -i 0.2 -t 1000 -N 10000 -c 40 -L 4 -l 2
 ```
@@ -77,7 +77,7 @@ or
 
 ## Output
 
-After writing the command in the terminal, the program will generat 3 output files.
+After writing the command in the terminal, the program will generate 3 output files.
 Here is a short version of how the files should look like:
 
 params:
