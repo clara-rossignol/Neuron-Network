@@ -1,5 +1,5 @@
-#ifndef NEURONNETWORK_DISPNETWORK_H
-#define NEURONNETWORK_DISPNETWORK_H
+#ifndef DISPNETWORK_H
+#define DISPNETWORK_H
 
 #include "Network.h"
 /*!
@@ -9,10 +9,11 @@
    This is an extension, representing an overdispersed network:
    for each neuron the connection will be set to an exponential(1/connectivity), where exponential is a method of \ref RandomNumbers.
  */
+ 
 class DispNetwork : public Network
 {
 public:
-	/*! \name Constructors
+	/*! \name Initialization
 	 */
 ///@{
     DispNetwork(size_t s, TypesProportions prop);
@@ -24,11 +25,11 @@ public:
 
     /*!
     Sets the connections, as explained in the description of the class.
-    @param meanIntensity the mean intensity of a connection (double)
-    @param meanConnectivity the mean number of entering connections in one neuron (double)
+    @param meanIntensity: the mean intensity of a connection (double)
+    @param meanConnectivity: the mean number of entering connections in one neuron (double)
     */
     void setConnections(double meanIntensity, double meanConnectivity) override;
 };
 
 
-#endif //NEURONNETWORK_DISPNETWORK_H
+#endif //DISPNETWORK_H
