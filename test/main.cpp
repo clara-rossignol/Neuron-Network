@@ -2,12 +2,13 @@
 //this will be the main that will unite all the tests
 
 #include <gtest/gtest.h>
-#include "Neuron.h"
-#include "Random.h"
-#include "Network.h"
-#include "ConstNetwork.h"
-#include "DispNetwork.h"
-#include "Simulation.h"
+#include "../src/Neuron.h"
+#include "../src/Random.h"
+#include "../src/Network.h"
+#include "../src/ConstNetwork.h"
+#include "../src/DispNetwork.h"
+#include "../src/Simulation.h"
+
 
 RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
@@ -15,7 +16,7 @@ TEST(Neuron, create_neuron)
 {
 	Neuron n1("RS");
 	EXPECT_FALSE(n1.isFiring());
-    Neuron n("RS");
+    Neuron n("FS");
     EXPECT_FALSE(n.isFiring());
 }
 
