@@ -52,10 +52,6 @@ In this manner, for a standard mode, the user can launch the program with only F
 ```
 or
 ```
-./NeuronNetwork -B -t 500 -N 1000  -i 0.3 -T""
-```
-or
-```
 ./NeuronNetwork -B -t 500 -N 1000  -i 0.3 -T "RS:0.7"
 ```
 or
