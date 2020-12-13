@@ -29,21 +29,49 @@ cd build
 cmake ..
 make
 ```
-After building, running and compiling the program. the user can type into the terminal the following commands, depending on the mode he wants to use:
-For the standard mode (i.e. the network will only contain RS and LS neurons), the command is:
+After building, running and compiling the program. the user can type into the terminal a command like this typical example :
 ```
-./NeuronNetwork -B -t 500 -N 10000 -T "FS:0.2,RS:0.8" -c 20
+./NeuronNetwork -B -T 'FS:0.2,IB:0.15,CH:0.15,RS:0.5' -i 0.2 -t 1000 -N 10000 -c 40 -L 4 -l 2
 ```
-For a more complex network,containing also the other types of neurons (IB,CH,LTS) write the following command:
-```
-./NeuronNetwork -B -T 'FS:0.2,RS:0.3,LTS:0.1,TC:0.1,RZ:0.1,CH:0.1,IB:0.1' -t 1000 -N 10000 -c 40 -L 4
-```
-,where **t** is the number of time-steps, **N** is the number of neurons, **T** the proportions of each type of neurons as a list.
-(If total is less than 1, it will be completed with RS neurons),
- **c** is the average connectivity of a neuron, **L** is the average connections' intensity and **i** the proportion of inhibitor neurons
+
+where **t** is the number of time-steps, **N** is the number of neurons, **T** the proportions of each type of neurons as a list
+and **i** the proportion of inhibitory neurons. **c** is the average connectivity of a neuron, **L** is the average connections' intensity
 and **C**, **O**, **B** represent the types of network the user can choose from, constant, overdispersed and basic, respectively.
 
-Note that the parameters c, L and i are optional, as they are default parameters in our program.
+Note that the parameters c, L and i are optional, as they are default parameters in our program. The default parameter for c is 1, for L it
+is 4.
+i is also an optional parameter but if its value is not precised in the command line, the program will run without using any value for i
+
+Concerning the list of proportions, the user can add proportions for all existing types. If he doesn't specify the RS proportion,
+the program will add RS neurons in order  to reach a total proportion of 1. In the same way, if the user doesn't specify the FS proportion
+but did specify the total inhibitor's proportions, the program will add FS neurons in order to reach the total inhibitor's proportions.
+
+In this manner, for a standard mode, the user can launch the program with only FS and RS types in four ways :
+```
+./NeuronNetwork -B -t 500 -N 1000 -T "RS:0.7,FS:0.3"
+```
+or
+```
+./NeuronNetwork -B -t 500 -N 1000  -i 0.3 -T""
+```
+or
+```
+./NeuronNetwork -B -t 500 -N 1000  -i 0.3 -T "RS:0.7"
+```
+or
+```
+./NeuronNetwork -B -t 500 -N 1000 -T "FS:0.3"
+```
+
+For a more complex network, the user can also launch the program with all types of neurons in four ways, but we only specify two as it would be redundant otherwise :
+```
+./NeuronNetwork  -B -t 500 -N 1000 -T "IB:0.2,FS:0.3, CH:0.1, LTS:0.1, RZ:0.1, RS: 0.2"
+```
+or
+```
+./NeuronNetwork  -B -t 500 -N 100 -i 0.4 -T "IB:0.2, CH:0.1, LTS:0.1, RZ:0.1"
+```
+
 
 *************************************************
 
