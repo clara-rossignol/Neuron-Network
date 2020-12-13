@@ -98,23 +98,14 @@ TEST(Simulation, checkInBound)
 TEST (Network, proportionConstructor)
 {
     std::size_t size_net (5);
-    // std::string type1 = "FS:0.2,RS:0.2,CH:0.2,IB:0.2,LTS:0.2";
     TypesProportions proportion ({{"FS",0.2},{"RS",0.2},{"CH",0.2},{"IB",0.2},{"LTS",0.2}});
     Network net1 (size_net, proportion);
-    int count_FS (0), count_RS (0), count_CH (0), count_IB (0), count_LTS (0);
 
-    // Pourquoi tu ne véfifies pas directement dans un expect si net1.getNeurons()[0].getType() == "CH" ? il n'y aurait plus besoin de compteur !!!
-    if (net1.getNeurons()[0].getType() == "CH") count_CH += 1;        
-    if (net1.getNeurons()[1].getType() == "FS") count_FS += 1;
-    if (net1.getNeurons()[2].getType() == "IB") count_IB += 1;        
-    if (net1.getNeurons()[3].getType() == "LTS") count_LTS += 1;
-    if (net1.getNeurons()[4].getType() == "RS") count_RS += 1;
-    
-    EXPECT_EQ(count_CH, 1);
-    EXPECT_EQ(count_FS, 1);
-    EXPECT_EQ(count_IB, 1);
-    EXPECT_EQ(count_LTS, 1);
-    EXPECT_EQ(count_RS, 1);
+    EXPECT_EQ(net1.getNeurons()[0].getType(), "CH");
+    EXPECT_EQ(net1.getNeurons()[1].getType(), "FS");
+    EXPECT_EQ(net1.getNeurons()[2].getType(), "IB");
+    EXPECT_EQ(net1.getNeurons()[3].getType(), "LTS");
+    EXPECT_EQ(net1.getNeurons()[4].getType(), "RS");
 }
 
 TEST (Network, indexes) 
