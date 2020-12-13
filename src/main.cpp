@@ -51,10 +51,6 @@ In this manner, for a standard mode, the user can launch the program with only F
 \endverbatim
 or
 \verbatim
-./NeuronNetwork -B -t 500 -N 1000  -i 0.3 -T""
-\endverbatim
-or
-\verbatim
 ./NeuronNetwork -B -t 500 -N 1000  -i 0.3 -T "RS:0.7"
 \endverbatim
 or
@@ -64,11 +60,11 @@ or
 
 For a more complex network, the user can also launch the program with all types of neurons in four ways, but we only specify two as it would be redundant otherwise :
 \verbatim
-./NeuronNetwork  -B -t 500 -N 1000 -T "IB:0.2,FS:0.3, CH:0.1, LTS:0.1, RZ:0.1, RS: 0.2"
+./NeuronNetwork  -B -t 500 -N 1000 -T "IB:0.2,FS:0.3,CH:0.1,LTS:0.1,RZ:0.1,RS:0.2"
 \endverbatim
 or
 \verbatim
-./NeuronNetwork  -B -t 500 -N 100 -i 0.4 -T "IB:0.2, CH:0.1, LTS:0.1, RZ:0.1"
+./NeuronNetwork  -B -t 500 -N 100 -i 0.4 -T "IB:0.2,CH:0.1,LTS:0.1,RZ:0.1"
 \endverbatim
 */
 
