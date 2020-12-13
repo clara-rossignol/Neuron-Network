@@ -1,39 +1,39 @@
 #include "Random.h"
 
 RandomNumbers::RandomNumbers(unsigned long int s) 
-:seed(s)
+:_seed(s)
 {
-	if (seed == 0) {
+	if (_seed == 0) {
 		std::random_device rd;
-		seed = rd();
+		_seed = rd();
 	}
-	rng.seed(seed);
+	_rng.seed(_seed);
 }
 
 double RandomNumbers::uniform_double(double lower, double upper) {
 	std::uniform_real_distribution<> unif(lower, upper);
-	return unif(rng);
+	return unif(_rng);
 }
 
 int RandomNumbers::uniform_int(double lower, double upper)
 {
     std::uniform_int_distribution<> unif(lower, upper);
-    return unif(rng);
+    return unif(_rng);
 }
 
 double RandomNumbers::normal(double mean, double sd)
 {
 	std::normal_distribution<> norm(mean, sd);
-	return norm(rng);
+	return norm(_rng);
 }
 
 int RandomNumbers::poisson(double mean)
 {
 	std::poisson_distribution<> poiss(mean);
-	return poiss(rng);
+	return poiss(_rng);
 }
 
 double RandomNumbers::exponential(double rate) {
     std::exponential_distribution<double> exp(rate);
-    return exp(rng);
+    return exp(_rng);
 }

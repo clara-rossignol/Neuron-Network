@@ -16,25 +16,28 @@
 class Error : public std::runtime_error 
 {
   public:
-  /*! \name Constructors
+  /*! \name Initialization
  */
 ///@{
 	/*!
    \param c (char): a character
    \param v (int): the code number, 0 by default
    */
-    Error(const char *c, int v = 0) : std::runtime_error(c), code(v) {}
+    Error(const char *c, int v = 0) : std::runtime_error(c), _code(v) {}
+    
     /*!
    \param s (string): 
    \param v (int): the code number, 0 by default
    */
-    Error(const std::string &s, int v = 0) : std::runtime_error(s), code(v) {}
+    Error(const std::string &s, int v = 0) : std::runtime_error(s), _code(v) {}
     ///@}
+    
     /*!
     It will return the code
     */
-    int value() const {return code;}
-     
+    int value() const {return _code;}
+    /*! \name Setting the error
+     */
     ///@{
     /*!
     It will set the error
@@ -52,7 +55,7 @@ class Error : public std::runtime_error
     ///@}
 
   protected:
-    const int code;
+    const int _code;
 };
 
 
@@ -69,6 +72,5 @@ _ERROR_(CFILE_ERROR, 20)
 _ERROR_(OUTPUT_ERROR, 30)
 
 #undef _ERROR_
-
 
 #endif // ERROR_H

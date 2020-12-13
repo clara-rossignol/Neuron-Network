@@ -4,23 +4,23 @@
 #include <sstream>
 
 
-Neuron::Neuron(const std::string& type, bool isfiring) : willFire(false),firing(isfiring), current(0), nparams(NeuronTypes.at(type)),type(type), n_inhibitory(0)
+Neuron::Neuron(const std::string& type, bool isfiring) : _willFire(false),_firing(isfiring), _current(0), _nparams(NeuronTypes.at(type)),_type(type), _nInhibitory(0)
 {
-    membrane_potential = nparams.c;
-    recovery_variable = nparams.b*membrane_potential;
+    _membranePotential = _nparams.c;
+    _recoveryVariable = _nparams.b*_membranePotential;
 
-    if (type == "FS")
+    if (_type == "FS")
     {
         double coeff(_RNG->uniform_double(0, 1));
-        nparams.a *= 1 - 0.8 * coeff;
-        nparams.b *= 1 + 0.25 * coeff;
+        _nparams.a *= 1 - 0.8 * coeff;
+        _nparams.b *= 1 + 0.25 * coeff;
     }
-    else if(type =="RS")
+    else if(_type =="RS")
     {
         double coeff(_RNG->uniform_double(0, 1));
         coeff *= coeff;
-        nparams.c *= 1 - 3. / 13 * coeff;
-        nparams.d *= 1 - 0.75 * coeff;
+        _nparams.c *= 1 - 3. / 13 * coeff;
+        _nparams.d *= 1 - 0.75 * coeff;
     }
 }
 
@@ -28,14 +28,14 @@ void Neuron::currentCalculation(double thal)
 {
 	double input(0);
 
-    for (std::size_t i = 0; i < n_inhibitory; ++i)
-        input -= connections[i].intensity * connections[i].sender->isFiring() ;
+    for (std::size_t i = 0; i < _nInhibitory; ++i)
+        input -= _connections[i].intensity * _connections[i].sender->isFiring() ;
 
-    for (std::size_t i(n_inhibitory); i < connections.size(); ++i)
-        input += connections[i].intensity * 0.5 * connections[i].sender->isFiring();
+    for (std::size_t i(_nInhibitory); i < _connections.size(); ++i)
+        input += _connections[i].intensity * 0.5 * _connections[i].sender->isFiring();
 
     int w(isInhibitor() ? 2 : 5);
-	current =  input +  w*_RNG->normal(0,thal);
+	_current =  input +  w*_RNG->normal(0,thal);
 }
 
 void Neuron::update(double thal)
@@ -46,99 +46,95 @@ void Neuron::update(double thal)
     else
     {
 		currentCalculation(thal);
-        double potential(membrane_potential);
+        double potential(_membranePotential);
         setMembranePotential();
         setRecoveryVariable(potential);
     }
-    willFire = (membrane_potential > _FIRING_TRESHOLD_);
+    _willFire = (_membranePotential > _FIRING_TRESHOLD_);
 }
 
 void Neuron::reset()
 {
-    membrane_potential=nparams.c;
-    recovery_variable+=nparams.d;
+    _membranePotential=_nparams.c;
+    _recoveryVariable+=_nparams.d;
 }
 
 void Neuron::setMembranePotential()
 {
-    membrane_potential += (0.04*pow(membrane_potential, 2) + 5*membrane_potential + 140 - recovery_variable + current)*_DELTA_MBRN_;
+    _membranePotential += (0.04*pow(_membranePotential, 2) + 5*_membranePotential + 140 - _recoveryVariable + _current)*_DELTA_MBRN_;
 }
 void Neuron::setRecoveryVariable(double potential)
 {
-    recovery_variable += (nparams.a*(nparams.b*potential - recovery_variable))*_DELTA_RECV_;
+    _recoveryVariable += (_nparams.a*(_nparams.b*potential - _recoveryVariable))*_DELTA_RECV_;
 }
 
 bool Neuron::isFiring() const
 {
-    return firing;
+    return _firing;
 }
 
 bool Neuron::isInhibitor() const
 {
-    return nparams.inhib;
+    return _nparams.inhib;
 }
 
 NParams Neuron::getParameters() const
 {
-	return nparams;
+	return _nparams;
 }
 
 std::string Neuron::getType() const
 {
-	return type;
+	return _type;
 }
 
 double Neuron::getMembranePotential() const
 {
-    return membrane_potential;
+    return _membranePotential;
 }
 
 double Neuron::getRecoveryVariable() const
 {
-    return recovery_variable;
+    return _recoveryVariable;
 }
 
 std::vector<Connection> Neuron::getConnections() const
 {
-    return connections;
+    return _connections;
 }
 
 void Neuron::setConnections(const std::vector<Connection> &inhib, const std::vector<Connection> &excit)
 {
-    connections.reserve(inhib.size() + excit.size());
+    _connections.reserve(inhib.size() + excit.size());
     for (auto & i : inhib)
-        connections.emplace_back(i);
+        _connections.emplace_back(i);
     for (auto & i : excit)
-        connections.emplace_back(i);
-    n_inhibitory = inhib.size();
+        _connections.emplace_back(i);
+    _nInhibitory = inhib.size();
 }
 
 bool Neuron::isGoingToFire() const
 {
-    return willFire;
+    return _willFire;
 }
 
 void Neuron::setFiring(bool fire)
 {
-    firing = fire;
+    _firing = fire;
 }
 
 size_t Neuron::getNInhibitory() const
 {
-    return n_inhibitory;
+    return _nInhibitory;
 }
 
 double Neuron::getCurrent() const
 {
-    return current;
+    return _current;
 }
 
 Neuron::~Neuron()
 {
-    for(auto& c : connections)
+    for(auto& c : _connections)
         c.sender = nullptr;
 }
-
-
-
-

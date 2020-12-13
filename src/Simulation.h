@@ -21,38 +21,40 @@ class Simulation
 {
 public:
 /*! \name Initialization
-  Simulation takes the command-line options and extracts the following parameters from them:
+ */
+///@{
+/*! Simulation takes the command-line options and extracts the following parameters from them:
   * \param _size The total number of neurons in the network
   * \param _endtime The duration of the simulation (in number of steps)
   * \param _degree The average connectivity
   * \param _strength The average intensity of connections
   * \param _output The name of the output files (a suffix will be added depending on the file)
   * \param _thalamic The standard deviation of thalamic input (for excitatory neurons)
-*/
-///@{
-
-    /*! By default all type proportions are set to 0.
-     *
-     */
+  * \param typesProp Proportions of each type of neuron as a list like "IB:0.2,FS:0.3,CH:0.2": By default all type proportions are set to 0 and if total is less than 1, it will be completed with RS neurons
+  * \param NetworkModels The Network model: basic, constant or overdispersed
+ */
     Simulation(int, char**);
 
-    /*! Simple constructor of Simulation. Do not allow the choice between different Networks model : only a basic Network will be created.
-     * Do not take into account values in command-line.
-    */
+/*! Simple constructor of Simulation. Does not allow the choice between different Networks model : only a basic Network will be created.
+  * Does not take into account values in command-line.
+ */
     Simulation(const TypesProportions& prop = {{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}},
-               int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );               
+               int size = 0, int endtime = 0, double degree = 0, double strength = 0, double thalamic = 1, const std::string& output = "" );
+
+/*! \name Destructor
+ */                         
     ~Simulation();
 ///@}
 
     /*!
-      Reads a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type in \ref _prop. \n
+      Reads a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each proportion corresponding to each type in _prop. \n
       Except RS (and FS if the inhibitor proportion is given) all non-specified proportions will remain 0.
       If the the inhibitor proportion is too big compared to all inhibitor types proportions,
       the proportion of FS will be raised accordingly (if it was not specified in the command line)
-      with a first call of \ref checkTypes. If proportions don't match each other, the program will stop
+      with a first call of \ref checkTypes. If proportions don't match each other, the program will stop.
       After that, in the same way, if the sum of all proportions is smaller than 1,
-      some RS will be added accordingly (if it was not specified in the command line).
-      with a second call of \ref checkTypes. If proportions don't match each other, the program will stop
+      some RS will be added accordingly (if it was not specified in the command line)
+      with a second call of \ref checkTypes. If proportions don't match each other, the program will stop.
 
      * \param types A string such as *IB:0.2,FS:0.3,CH:0.2*
      * \param inhibSet Specifies if the inhibitory proportion was given in the command line
@@ -84,14 +86,9 @@ public:
     void sample_header(std::ostream *_outstr);
 ///@}
 
+    /*! \return Proportions of each type of neuron in the Simulation
+     */
     const TypesProportions &getProp() const;
-
-private:
-    TypesProportions _prop;
-    Network* _net;
-    int _endtime;
-    double _thalamic;
-    std::string _output;
 
 
     /*!
@@ -102,6 +99,7 @@ private:
         * \param min
         * \param max
         */
+
     template<typename N>
     static void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
     {
@@ -110,7 +108,15 @@ private:
             Error::set(std::string("Invalid data entered. ") + message + std::string(" should be between ") 
                                     + std::to_string(min) + std::string(" and ") + std::to_string(max), 1);
         }
-    }
+    } 
+
+private:
+    TypesProportions _prop;
+    Network* _net;
+    int _endtime;
+    double _thalamic;
+    std::string _output;
+
 };
 
 #endif // SIMULATION_H

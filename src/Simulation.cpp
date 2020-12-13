@@ -2,15 +2,6 @@
 #include "Simulation.h"
 #include "ConstNetwork.h"
 #include "DispNetwork.h"
-
-/*! Gestion des erreurs : plusieurs facons de faire :
-       / Error::set(type d'erreur, indication d'erreur, code d'erreur)
-       / Error::set(type d'erreur + indication d'erreur, code d'erreur) [risque d'être long]
-       / Error::set(type d'erreur, code d'erreur) puis cerr << indication d'erreur
-       / std::to_string()
-       / string("... ")
-       /
-*/
        
 
 Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})

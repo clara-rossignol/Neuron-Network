@@ -2,21 +2,65 @@
 //this will be the main that will unite all the tests
 
 #include <gtest/gtest.h>
-#include "Neuron.h"
-#include "Random.h"
-#include "Network.h"
-#include "ConstNetwork.h"
-#include "DispNetwork.h"
-#include "Simulation.h"
+#include "../src/Neuron.h"
+#include "../src/Random.h"
+#include "../src/Network.h"
+#include "../src/ConstNetwork.h"
+#include "../src/DispNetwork.h"
+#include "../src/Simulation.h"
 
 RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
 TEST(Neuron, create_neuron)
 {
 	Neuron n1("RS");
-	EXPECT_FALSE(n1.isFiring());
-    Neuron n("RS");
-    EXPECT_FALSE(n.isFiring());
+	EXPECT_FALSE(n1.isGoingToFire());
+	EXPECT_EQ(n1.getCurrent(),0);
+	EXPECT_EQ(n1.getMembranePotential(),-65);
+	EXPECT_EQ(n1.getRecoveryVariable(),-13);
+	EXPECT_EQ(n1.getNInhibitory(),0);
+	
+    Neuron n2("FS");
+    EXPECT_FALSE(n2.isGoingToFire());
+    EXPECT_EQ(n2.getCurrent(),0);
+    EXPECT_EQ(n2.getMembranePotential(),-65);
+	EXPECT_EQ(n2.getRecoveryVariable(),-13);
+	EXPECT_EQ(n2.getNInhibitory(),0);
+	
+	Neuron n3("IB");
+    EXPECT_FALSE(n3.isGoingToFire());
+    EXPECT_EQ(n3.getCurrent(),0);
+    EXPECT_EQ(n3.getMembranePotential(),-55);
+	EXPECT_EQ(n3.getRecoveryVariable(),-11);
+	EXPECT_EQ(n3.getNInhibitory(),0);
+	
+	Neuron n4("CH");
+    EXPECT_FALSE(n4.isGoingToFire());
+    EXPECT_EQ(n4.getCurrent(),0);
+    EXPECT_EQ(n4.getMembranePotential(),-50);
+	EXPECT_EQ(n4.getRecoveryVariable(),-10);
+	EXPECT_EQ(n4.getNInhibitory(),0);
+	
+	Neuron n5("LTS");
+    EXPECT_FALSE(n5.isGoingToFire());
+    EXPECT_EQ(n5.getCurrent(),0);
+    EXPECT_EQ(n5.getMembranePotential(),-65);
+	EXPECT_EQ(n5.getRecoveryVariable(),-16.25);
+	EXPECT_EQ(n5.getNInhibitory(),0);
+	
+	Neuron n6("TC");
+    EXPECT_FALSE(n6.isGoingToFire());
+    EXPECT_EQ(n6.getCurrent(),0);
+    EXPECT_EQ(n6.getMembranePotential(),-65);
+	EXPECT_EQ(n6.getRecoveryVariable(),-16.25);
+	EXPECT_EQ(n6.getNInhibitory(),0);
+	
+	Neuron n7("RZ");
+    EXPECT_FALSE(n7.isGoingToFire());
+    EXPECT_EQ(n7.getCurrent(),0);
+    EXPECT_EQ(n7.getMembranePotential(),-65);
+    //EXPECT_EQ(n7.getRecoveryVariable(),-16.9);
+	EXPECT_EQ(n7.getNInhibitory(),0);
 }
 
 TEST(Neuron, neuron_types)
@@ -25,19 +69,45 @@ TEST(Neuron, neuron_types)
 	EXPECT_FALSE(n1.isInhibitor());
 	Neuron n2("FS");
 	EXPECT_TRUE(n2.isInhibitor());
+	Neuron n3("IB");
+	EXPECT_FALSE(n3.isInhibitor());
+	Neuron n4("CH");
+	EXPECT_FALSE(n4.isInhibitor());
+	Neuron n5("LTS");
+	EXPECT_TRUE(n5.isInhibitor());
+	Neuron n6("TC");
+	EXPECT_FALSE(n6.isInhibitor());
+	Neuron n7("RZ");
+	EXPECT_FALSE(n7.isInhibitor());
 }
 
 TEST(Neuron, update)
 {
 	Neuron n1("RS");
 	n1.update(_AVG_THAL_);
-	EXPECT_EQ(n1.getRecoveryVariable(), -13);
-    Neuron n2("FS", true);
+	EXPECT_EQ(n1.getRecoveryVariable(),-13);
+    Neuron n2("FS",true);
     n2.update(_AVG_THAL_);
-    EXPECT_EQ(n2.getMembranePotential(), -65);
-    EXPECT_EQ(n2.getRecoveryVariable(), -11);
+    EXPECT_EQ(n2.getMembranePotential(),-65);
+    EXPECT_EQ(n2.getRecoveryVariable(),-11);
+    Neuron n3("IB");
+    n3.update(_AVG_THAL_);
+    EXPECT_EQ(n3.getRecoveryVariable(),-11);
+    Neuron n4("CH",true);
+    n4.update(_AVG_THAL_);
+    EXPECT_EQ(n4.getMembranePotential(),-50);
+    EXPECT_EQ(n4.getRecoveryVariable(),-8);
+    Neuron n5("LTS");
+    n5.update(_AVG_THAL_);
+    EXPECT_EQ(n5.getRecoveryVariable(),-16.25);
+    Neuron n6("TC",true);
+    n6.update(_AVG_THAL_);
+    EXPECT_EQ(n6.getMembranePotential(),-65);
+    EXPECT_EQ(n6.getRecoveryVariable(),-16.2);
+    Neuron n7("RZ");
+    n7.update(_AVG_THAL_);
+    //EXPECT_EQ(n7.getRecoveryVariable(),-16.9);
 }
-
 
 TEST(Neuron, current_calculation)
 {
@@ -88,51 +158,35 @@ TEST(Simulation, checkTypes)
     EXPECT_ANY_THROW(sim.readTypesProportions(types1, true, 0.1));
 }
 
-/*
+
 TEST(Simulation, checkInBound)
 {
-    Simulation::checkInBound(std::to_string"test", -4, 5, 10);
-    const char * check ("Invalid data entered. test should be between 5 and 10");
-    EXPECT_ANY_THROW();
+    Simulation sim;
+    EXPECT_ANY_THROW(sim.checkInBound("test", -4, 5, 10));
 }
-*/
-/*
-TEST(Network, simpleConstructor)
-{
-    Neuron n1("FS");
-    Neuron n2("RS");
-    Neuron n3("CH");
-    Neuron n4("IB");
-    Neuron n5("LTS");
-    std::vector<Neuron> neurons {n1, n2, n3, n4, n5};
-    Network net (neurons);
-
-    EXPECT_EQ(net.getNeurons().size(), 5);
-    // Besoin de tester proportions avec constructeur simple ?
-    // EXPECT_EQ(network.getNeurons().)
-}
-*/
 
 TEST (Network, proportionConstructor)
 {
     std::size_t size_net (5);
-    // std::string type1 = "FS:0.2,RS:0.2,CH:0.2,IB:0.2,LTS:0.2";
     TypesProportions proportion ({{"FS",0.2},{"RS",0.2},{"CH",0.2},{"IB",0.2},{"LTS",0.2}});
     Network net1 (size_net, proportion);
-    int count_FS (0), count_RS (0), count_CH (0), count_IB (0), count_LTS (0);
 
-    // Pourquoi tu ne véfifies pas directement dans un expect si net1.getNeurons()[0].getType() == "CH" ? il n'y aurait plus besoin de compteur !!!
-    if (net1.getNeurons()[0].getType() == "CH") count_CH += 1;        
-    if (net1.getNeurons()[1].getType() == "FS") count_FS += 1;
-    if (net1.getNeurons()[2].getType() == "IB") count_IB += 1;        
-    if (net1.getNeurons()[3].getType() == "LTS") count_LTS += 1;
-    if (net1.getNeurons()[4].getType() == "RS") count_RS += 1;
-    
-    EXPECT_EQ(count_CH, 1);
-    EXPECT_EQ(count_FS, 1);
-    EXPECT_EQ(count_IB, 1);
-    EXPECT_EQ(count_LTS, 1);
-    EXPECT_EQ(count_RS, 1);
+    EXPECT_EQ(net1.getNeurons()[0].getType(), "CH");
+    EXPECT_EQ(net1.getNeurons()[1].getType(), "FS");
+    EXPECT_EQ(net1.getNeurons()[2].getType(), "IB");
+    EXPECT_EQ(net1.getNeurons()[3].getType(), "LTS");
+    EXPECT_EQ(net1.getNeurons()[4].getType(), "RS");
+}
+
+TEST (Network, indexes) 
+{
+	size_t size(20);
+	TypesProportions prop({{"CH",0.2},{"FS",0.4},{"LTS",0.1},{"RS",0.3}});
+	Network net(size, prop);
+	EXPECT_EQ(net.getIndexes()[0],4);
+	EXPECT_EQ(net.getIndexes()[1],12);
+	EXPECT_EQ(net.getIndexes()[2],14);
+	EXPECT_EQ(net.getIndexes()[3],20);
 }
 
 TEST(Network, setConnections)

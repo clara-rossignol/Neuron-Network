@@ -6,12 +6,14 @@
 /*!
   \mainpage Neuron Network
 This is an implementation of the model of E.M. Izhikevich
-([Simple Model of Spiking Neuron, IEE Trans. Neural Net., 2003] (https://www.izhikevich.org/publications/spikes.pdf)).
+([Simple Model of Spiking Neuron, IEE Trans. Neural Net., 2003] (https://www.izhikevich.org/publications/spikes.pdf)). \n
+The model reproduces spiking and burting behaviour of known types of cortical neurons. \n
+This project will simulate a neuron network.
 
-  @authors  Alexandra-Elena Preda <alexandra-elena.preda@epfl.ch> \n
-* 			Clara Rossignol <clara.rossignol@epfl.ch> \n
+  \authors  Lola Maïa Lou Bardel <lola.bardel@epfl.ch> \n
 * 			Constance Laure Marie Géraldine Gabrielle De Trogoff Coatallio <constance.detrogoff@epfl.ch> \n
-* 			Lola Maïa Lou Bardel <lola.bardel@epfl.ch>
+* 			Alexandra-Elena Preda <alexandra-elena.preda@epfl.ch> \n
+* 			Clara Rossignol <clara.rossignol@epfl.ch>
  
 In order to **open** the project, the user can clone the repository using this command:
  \verbatim 
@@ -27,7 +29,7 @@ To **execute** the program, the user has to write the following commands in the 
  make
  \endverbatim
 
- After building, running and compiling the program. the user can type into the terminal a command like this typical example :
+After building, running and compiling the program, the user can type into the terminal a command like this typical example :
 \verbatim
 ./NeuronNetwork -B -T 'FS:0.2,IB:0.15,CH:0.15,RS:0.5' -i 0.2 -t 1000 -N 10000 -c 40 -L 4 -l 2
 \endverbatim
@@ -70,6 +72,7 @@ or
 ./NeuronNetwork  -B -t 500 -N 100 -i 0.4 -T "IB:0.2, CH:0.1, LTS:0.1, RZ:0.1"
 \endverbatim
 */
+
 
 RandomNumbers *_RNG;
 
