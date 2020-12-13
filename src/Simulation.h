@@ -91,14 +91,6 @@ public:
     const TypesProportions &getProp() const;
 
 
-private:
-    TypesProportions _prop;
-    Network* _net;
-    int _endtime;
-    double _thalamic;
-    std::string _output;
-
-
     /*!
         *
         * \tparam N
@@ -107,6 +99,7 @@ private:
         * \param min
         * \param max
         */
+
     template<typename N>
     static void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
     {
@@ -115,7 +108,15 @@ private:
             Error::set(std::string("Invalid data entered. ") + message + std::string(" should be between ") 
                                     + std::to_string(min) + std::string(" and ") + std::to_string(max), 1);
         }
-    }
+    } 
+
+private:
+    TypesProportions _prop;
+    Network* _net;
+    int _endtime;
+    double _thalamic;
+    std::string _output;
+
 };
 
 #endif // SIMULATION_H
