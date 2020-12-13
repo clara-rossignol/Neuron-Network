@@ -6,7 +6,7 @@ DispNetwork::DispNetwork(size_t s, TypesProportions prop) : Network(s, prop) {}
 
 void DispNetwork::setConnections(double meanIntensity, double meanConnectivity)
 {
-    for(auto& neuron : _neurons)
+    for(auto& neuron : neurons)
     {
         double connectivity(_RNG->exponential(1/meanConnectivity)); //vérifier que meanConnectivity différent de 0
         Network::setNeuronConnections(meanIntensity, connectivity, neuron);

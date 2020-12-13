@@ -6,20 +6,21 @@ ConstNetwork::ConstNetwork(size_t s, TypesProportions prop) : Network(s, prop) {
 
 void ConstNetwork::setConnections(double meanIntensity, double meanConnectivity) 
 {
-    for(auto& neuron : _neurons)
+    for(auto& neuron : neurons)
     {
         setNeuronConnections(meanIntensity, meanConnectivity, neuron);
     }
 }
 
-void ConstNetwork::setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron &neuron)
+void ConstNetwork::setNeuronConnections(double meanIntensity, 
+double meanConnectivity, Neuron &neuron)
 {
     std::vector<Connection> inhib;
     std::vector<Connection> excit;
 
     for(size_t i(0);i < meanConnectivity;++i)
     {
-        Neuron* sender = &_neurons[_RNG->uniform_int(0, (int)_neurons.size()-1)];
+        Neuron* sender = &neurons[_RNG->uniform_int(0, (int)neurons.size()-1)];
         if (sender->isInhibitor())
             inhib.push_back({sender, _RNG ->uniform_double(0,2*meanIntensity)  });
         else
