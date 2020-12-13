@@ -160,7 +160,7 @@ TEST(Network, setConnections)
     average /=(N);
 
     EXPECT_NEAR(meanIntensity, average, 0.01);
-    EXPECT_NEAR(N/(5000*100), 100, 1);
+    EXPECT_NEAR(N/(5000*100), meanConnectivity, 1);
 }
 
 TEST(ConstNetwork, setConnections)
@@ -188,7 +188,7 @@ TEST(DispNetwork, setConnections)
         for(const auto& n : net.getNeurons())
             N += n.getConnections().size();
     }
-    EXPECT_NEAR(N/(5000*100), 100, 1);
+    EXPECT_NEAR(N/(5000*100), meanConnectivity, 1);
 }
 
 int main(int argc, char **argv) 
