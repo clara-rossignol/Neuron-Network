@@ -14,9 +14,53 @@ RandomNumbers *_RNG = new RandomNumbers(23948710923);
 TEST(Neuron, create_neuron)
 {
 	Neuron n1("RS");
-	EXPECT_FALSE(n1.isFiring());
-    Neuron n("FS");
-    EXPECT_FALSE(n.isFiring());
+	EXPECT_FALSE(n1.isGoingToFire());
+	EXPECT_EQ(n1.getCurrent(),0);
+	EXPECT_EQ(n1.getMembranePotential(),-65);
+	EXPECT_EQ(n1.getRecoveryVariable(),-13);
+	EXPECT_EQ(n1.getNInhibitory(),0);
+	
+    Neuron n2("FS");
+    EXPECT_FALSE(n2.isGoingToFire());
+    EXPECT_EQ(n2.getCurrent(),0);
+    EXPECT_EQ(n2.getMembranePotential(),-65);
+	EXPECT_EQ(n2.getRecoveryVariable(),-13);
+	EXPECT_EQ(n2.getNInhibitory(),0);
+	
+	Neuron n3("IB");
+    EXPECT_FALSE(n3.isGoingToFire());
+    EXPECT_EQ(n3.getCurrent(),0);
+    EXPECT_EQ(n3.getMembranePotential(),-55);
+	EXPECT_EQ(n3.getRecoveryVariable(),-11);
+	EXPECT_EQ(n3.getNInhibitory(),0);
+	
+	Neuron n4("CH");
+    EXPECT_FALSE(n4.isGoingToFire());
+    EXPECT_EQ(n4.getCurrent(),0);
+    EXPECT_EQ(n4.getMembranePotential(),-50);
+	EXPECT_EQ(n4.getRecoveryVariable(),-10);
+	EXPECT_EQ(n4.getNInhibitory(),0);
+	
+	Neuron n5("LTS");
+    EXPECT_FALSE(n5.isGoingToFire());
+    EXPECT_EQ(n5.getCurrent(),0);
+    EXPECT_EQ(n5.getMembranePotential(),-65);
+	EXPECT_EQ(n5.getRecoveryVariable(),-16.25);
+	EXPECT_EQ(n5.getNInhibitory(),0);
+	
+	Neuron n6("TC");
+    EXPECT_FALSE(n6.isGoingToFire());
+    EXPECT_EQ(n6.getCurrent(),0);
+    EXPECT_EQ(n6.getMembranePotential(),-65);
+	EXPECT_EQ(n6.getRecoveryVariable(),-16.25);
+	EXPECT_EQ(n6.getNInhibitory(),0);
+	
+	Neuron n7("RZ");
+    EXPECT_FALSE(n7.isGoingToFire());
+    EXPECT_EQ(n7.getCurrent(),0);
+    EXPECT_EQ(n7.getMembranePotential(),-65);
+    //EXPECT_EQ(n7.getRecoveryVariable(),-16.9);
+	EXPECT_EQ(n7.getNInhibitory(),0);
 }
 
 TEST(Neuron, neuron_types)
@@ -25,6 +69,16 @@ TEST(Neuron, neuron_types)
 	EXPECT_FALSE(n1.isInhibitor());
 	Neuron n2("FS");
 	EXPECT_TRUE(n2.isInhibitor());
+	Neuron n3("IB");
+	EXPECT_FALSE(n3.isInhibitor());
+	Neuron n4("CH");
+	EXPECT_FALSE(n4.isInhibitor());
+	Neuron n5("LTS");
+	EXPECT_TRUE(n5.isInhibitor());
+	Neuron n6("TC");
+	EXPECT_FALSE(n6.isInhibitor());
+	Neuron n7("RZ");
+	EXPECT_FALSE(n7.isInhibitor());
 }
 
 TEST(Neuron, update)
