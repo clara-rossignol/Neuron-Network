@@ -61,6 +61,9 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH"
         } catch(std::runtime_error const& e)
         {
             // Decision de si on fait qqchose là
+        } catch (std::bad_alloc &ba)
+        {
+            std::cerr << "bad_alloc caught: " << ba.what() << '\n';
         }
 }
 
