@@ -80,6 +80,11 @@ public:
      * \return _neurons (vector<Neuron>)
      */
     const std::vector<Neuron> &getNeurons() const;
+    /*!
+     * It returns the indexes.
+     * \return _indexes (vector<int>)
+     */
+    const std::vector<int> &getIndexes() const;
 
 
 protected:

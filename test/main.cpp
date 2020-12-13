@@ -135,6 +135,17 @@ TEST (Network, proportionConstructor)
     EXPECT_EQ(count_RS, 1);
 }
 
+TEST (Network, indexes) 
+{
+	size_t size(20);
+	TypesProportions prop({{"CH",0.2},{"FS",0.4},{"LTS",0.1},{"RS",0.3}});
+	Network net(size, prop);
+	EXPECT_EQ(net.getIndexes()[0],4);
+	EXPECT_EQ(net.getIndexes()[1],12);
+	EXPECT_EQ(net.getIndexes()[2],14);
+	EXPECT_EQ(net.getIndexes()[3],20);
+}
+
 TEST(Network, setConnections)
 {
     double meanIntensity(100);

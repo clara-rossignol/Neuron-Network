@@ -111,3 +111,8 @@ const std::vector<Neuron> &Network::getNeurons() const
 {
     return _neurons;
 }
+
+const std::vector<int> &Network::getIndexes() const
+{
+	return _indexes;
+}

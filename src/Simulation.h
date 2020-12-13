@@ -53,7 +53,7 @@ public:
       the proportion of FS will be raised accordingly (if it was not specified in the command line)
       with a first call of \ref checkTypes. If proportions don't match each other, the program will stop.
       After that, in the same way, if the sum of all proportions is smaller than 1,
-      some RS will be added accordingly (if it was not specified in the command line).
+      some RS will be added accordingly (if it was not specified in the command line)
       with a second call of \ref checkTypes. If proportions don't match each other, the program will stop.
 
      * \param types A string such as *IB:0.2,FS:0.3,CH:0.2*
