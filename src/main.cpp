@@ -36,7 +36,7 @@ where **t** is the number of time-steps, **N** is the number of neurons, **T** t
 and **i** the proportion of inhibitory neurons. **c** is the average connectivity of a neuron, **L** is the average connections' intensity
 and **C**, **O**, **B** represent the types of network the user can choose from, constant, overdispersed and basic, respectively.
 
-Note that the parameters c, L and i are optional, as they are default parameters in our program. The default parameter for c is 1, for L it
+Note that the parameters c and L are optional, as they are default parameters in our program. The default parameter for c is 1, for L it
 is 4.
 i is also an optional parameter but if its value is not precised in the command line, the program will run without using any value for i
 
@@ -50,7 +50,7 @@ In this manner, for a standard mode, the user can launch the program with only F
 \endverbatim
 or
 \verbatim
-./NeuronNetwork -B -t 500 -N 1000  -i 0.3 -T""
+./NeuronNetwork -B -t 500 -N 1000 -T "FS:0.3"
 \endverbatim
 or
 \verbatim
@@ -58,7 +58,7 @@ or
 \endverbatim
 or
 \verbatim
-./NeuronNetwork -B -t 500 -N 1000 -T "FS:0.3"
+ ./NeuronNetwork -B -t 500 -N 1000  -i 0.3 -T"  "  (with 2 spaces in the string)
 \endverbatim
 
 For a more complex network, the user can also launch the program with all types of neurons in four ways, but we only specify two as it would be redundant otherwise :

@@ -15,7 +15,12 @@
 
 Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH",0},{"TC",0}, {"RZ",0}, {"FS",0},  {"LTS", 0}})
 {
-   try {
+    bool _basic(false);
+    bool _constant(false);
+    double _degree;
+    double _strength;
+    int _size;
+    try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
         TCLAP::ValueArg<int> total_n("N", "neurons", _NUMBER_TEXT_, true, _AVG_NUMBER_, "int");
         cmd.add(total_n);
@@ -40,37 +45,41 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, {"CH"
         cmd.xorAdd(NetworkModels);
         cmd.parse(argc, argv);
 
-        int size = total_n.getValue();
-        checkInBound(_NUMBER_TEXT_, size,_MIN_NEURONS_);
+        _size = total_n.getValue();
+        checkInBound(_NUMBER_TEXT_, _size,_MIN_NEURONS_);
         double _inhib = inhib.getValue();
         checkInBound(_PROP_TEXT_, _inhib, _MIN_PE_, _MAX_PE_ );
         _endtime = maxt.getValue();
         checkInBound(_TIME_TEXT_ , _endtime, _MIN_TIME_);
-        double _degree = degree.getValue();
-        checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)size);
-        double _strength = strength.getValue();
+        _degree = degree.getValue();
+        checkInBound(_CNNCT_TEXT_, _degree, _MIN_CONNECTIVITY_, (double)_size);
+        _strength = strength.getValue();
         checkInBound(_INTENSITY_TEXT_, _strength, _MIN_INTENSITY_);
         _thalamic = thalam.getValue();
 		checkInBound(_THALAM_TEXT_, _thalamic, _MIN_THAL_);
         std::string types(typesProp.getValue());
         readTypesProportions(types, inhib.isSet(), _inhib);
         _output = output.getValue();
+        _basic = basic.getValue();
+        _constant = constant.getValue();
 
-        if(basic.getValue())
-            _net = new Network(size, _prop);
-        else if (constant.getValue())
-            _net = new ConstNetwork(size, _prop);
-        else
-            _net = new DispNetwork(size, _prop);
-
-        _net->setConnections(_strength, _degree);
         } catch(TCLAP::ArgException &e)
         {
             throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
         } catch(std::runtime_error const& e)
         {
+            throw;
             // Decision de si on fait qqchose là
         }
+
+    if(_basic)
+        _net = new Network(_size, _prop);
+    else if (_constant)
+        _net = new ConstNetwork(_size, _prop);
+    else
+        _net = new DispNetwork(_size, _prop);
+    _net->setConnections(_strength, _degree);
+
 }
 
 
@@ -150,15 +159,22 @@ void Simulation::readTypesProportions(const std::string& types, bool inhibSet, d
 {
     std::string key, p;
     std::stringstream ss(types);
-
     while (std::getline(ss, key, ':'))
     {
+        key.erase(std::remove_if(key.begin(), key.end(), isspace), key.end());
         std::getline(ss, p, ',');
-        _prop.at(key) = stod(p);
+        if(!p.empty())
+            _prop.at(key) = stod(p);
     }
 
+
     if(inhibSet)
-        checkTypes(_prop.find("FS"), _prop.find("LTS"), _prop.find("FS"), types.find("FS") != std::string::npos, inhib);
+    {
+        TypesProportions propInhib = {{*_prop.find("FS")}, {*_prop.find("LTS")}};
+        checkTypes(propInhib.begin(), propInhib.end(), propInhib.find("FS"), types.find("FS") != std::string::npos, inhib);
+        _prop.at("FS") = propInhib.at("FS");
+        _prop.at("LTS") = propInhib.at("LTS");
+    }
     checkTypes(_prop.begin(), _prop.end(), _prop.find("RS"),types.find("RS") != std::string::npos,1);
 }
 
