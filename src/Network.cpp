@@ -61,7 +61,7 @@ double meanConnectivity, Neuron& neuron)
 void Network::printParams(std::ostream *_outstr)
 {
     (*_outstr) << "Type\ta\tb\tc\td\tInhibitory\tdegree\tvalence" << std::endl;
-    for (auto & neuron : _neurons)
+    for (auto & neuron : neurons)
     {
 		double valence(0);
 		for (size_t i(0); i<neuron.getNInhibitory(); ++i)
@@ -103,7 +103,7 @@ void Network::printSample(std::ostream *_outstr)
 
 void Network::printSpikes(std::ostream *_outstr)
 {
-	for(auto & neuron : _neurons)
+	for(auto & neuron : neurons)
 		(*_outstr)  << neuron.isFiring() << ' ';
 	(*_outstr) << std::endl;
 }
