@@ -11,6 +11,43 @@
 
 RandomNumbers *_RNG = new RandomNumbers(23948710923);
 
+TEST(Simulation, readTypesProportions)
+{
+    Simulation sim;
+
+    std::string types1 = "RS:0.3,FS:0.2,CH:0.1,IB:0.1,LTS:0.1,TC:0.1,RZ:0.1";
+    sim.readTypesProportions(types1, false, 0.2);
+    TypesProportions  test  {{"RS",0.3}, {"IB",0.1}, {"CH",0.1}, {"FS",0.2}, {"LTS", 0.1}, {"TC", 0.1}, {"RZ", 0.1}};
+    for(const auto& type : sim.getProp())
+    {
+        EXPECT_EQ(type.second, test.at(type.first));
+    }
+    std::string types2 = "CH:0.1,IB:0.1,LTS:0.1,TC:0.1,RZ:0.1";
+    sim.readTypesProportions(types2, true, 0.3);
+    for(const auto& type : sim.getProp())
+    {
+        EXPECT_NEAR(type.second, test.at(type.first), 0.0000000001);
+    }
+
+}
+
+TEST(Simulation, checkTypes)
+{
+    Simulation sim;
+
+    std::string types3 = "RS:1.5,FS:0.2,CH:0.1,IB:0.1,LTS:0.1";
+    EXPECT_ANY_THROW(sim.readTypesProportions(types3, false, 0.3));
+    std::string types1 = "RS:0.5,FS:0.2,CH:0.1,IB:0.1,LTS:0.1";
+    EXPECT_ANY_THROW(sim.readTypesProportions(types1, true, 0.1));
+}
+
+
+TEST(Simulation, checkInBound)
+{
+    Simulation sim;
+    EXPECT_ANY_THROW(sim.checkInBound("test", -4, 5, 10));
+}
+
 TEST(Neuron, neuron_types)
 {
 	Neuron n1("RS");
@@ -64,7 +101,7 @@ TEST(Neuron, update)
     EXPECT_EQ(n2.getRecoveryVariable(), -11);
 }
 
-TEST(Neuron, current_calculation)
+TEST(Neuron, currentCalculation)
 {
     double meanCurrent(0);
     for(size_t i(0); i<100; ++i)
@@ -92,44 +129,6 @@ TEST(Neuron, setConnections)
     n.setConnections(inhib, excit);
     EXPECT_EQ(n.getNInhibitory(), 2);
     EXPECT_EQ(n.getConnections().size(), 4);
-
-}
-
-TEST(Simulation, readTypesProportions)
-{
-    Simulation sim;
-
-    std::string types1 = "RS:0.3,FS:0.2,CH:0.1,IB:0.1,LTS:0.1,TC:0.1,RZ:0.1";
-    sim.readTypesProportions(types1, false, 0.2);
-    TypesProportions  test  {{"RS",0.3}, {"IB",0.1}, {"CH",0.1}, {"FS",0.2}, {"LTS", 0.1}, {"TC", 0.1}, {"RZ", 0.1}};
-    for(const auto& type : sim.getProp())
-    {
-        EXPECT_EQ(type.second, test.at(type.first));
-    }
-    std::string types2 = "CH:0.1,IB:0.1,LTS:0.1,TC:0.1,RZ:0.1";
-    sim.readTypesProportions(types2, true, 0.3);
-    for(const auto& type : sim.getProp())
-    {
-        EXPECT_NEAR(type.second, test.at(type.first), 0.0000000001);
-    }
-    
-}
-
-TEST(Simulation, checkTypes)
-{
-    Simulation sim;
-
-    std::string types3 = "RS:1.5,FS:0.2,CH:0.1,IB:0.1,LTS:0.1";
-    EXPECT_ANY_THROW(sim.readTypesProportions(types3, false, 0.3));
-    std::string types1 = "RS:0.5,FS:0.2,CH:0.1,IB:0.1,LTS:0.1";
-    EXPECT_ANY_THROW(sim.readTypesProportions(types1, true, 0.1));
-}
-
-
-TEST(Simulation, checkInBound)
-{
-    Simulation sim;
-    EXPECT_ANY_THROW(sim.checkInBound("test", -4, 5, 10));
 }
 
 TEST (Network, proportionConstructor)
