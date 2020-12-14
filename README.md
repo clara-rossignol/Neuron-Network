@@ -121,6 +121,15 @@ There are however, two more models implemented in this program.
 
 * The constant model: each neuron has exactly c connections.
 * The overdispersed model: each neuron has n_i~Pois(c_i) connections and for each neuron there is a random c_i~Exp(1/c).
+*************************************************
+
+## Visualisation
+
+In order to better understand the results, the user can write the following command in the terminal:
+```
+Rscript ../RasterPlots.R  NeuronNetwork_spikes NeuronNetwork_sample_neurons NeuronNetwork_parameters
+```
+This will allow the generation 3 plots.
 
 *************************************************
 
