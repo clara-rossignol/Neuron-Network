@@ -118,12 +118,13 @@ public:
 
 
     /*!
-        *
-        * \tparam N
-        * \param message
-        * \param x
-        * \param min
-        * \param max
+     Checks if a parameter given in the command line is not in the valid range of value
+
+        * \tparam N numeric type
+        * \param message :specific message precising which parameter to consider
+        * \param x the paramteter tested
+        * \param min the minimum value the given parameter can reach
+        * \param max the maximum value the given parameter can reach
         */
 
     template<typename N>
