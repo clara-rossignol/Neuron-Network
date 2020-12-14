@@ -81,13 +81,12 @@ int main(int argc, char **argv)
 	auto t1 = std::chrono::high_resolution_clock::now();
     _RNG = new RandomNumbers();
 
-    try {
+    try
+    {
 		Simulation s(argc, argv);
 		s.run();
-	} catch(Error &e) {
-        std::cerr << e.what() << std::endl;
-        return e.value();
-    }
+	} catch(std::runtime_error &e)
+	{}
 
     if (_RNG) delete _RNG;
 

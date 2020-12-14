@@ -55,6 +55,7 @@
 #define _OUTFILE_2_ "parameters"
 #define _OUTFILE_3_ "sample_neurons"
 
+enum errors  {TCLAP_ERROR, PARAM_ERROR ,OUTPUT_ERROR };
 
 /*! \brief This is how a Neuron's parameters are implemented.
  * The Neuron's parameters and if it is an inhibitory or excitatory Neuron.
