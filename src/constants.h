@@ -65,7 +65,7 @@ enum errors  {TCLAP_ERROR, PARAM_ERROR ,OUTPUT_ERROR };
  * \param error_name (enum errors): the code number/error type
  * \param autoThrow (bool): if true (which is by default), throw the error
  */
-static void set(std::string const& msg, errors error_name, bool autoThrow = true)
+inline void set(std::string const& msg, errors error_name, bool autoThrow = true)
 {
     std::string m = std::string("r ") + std::to_string(error_name) + std::string(": ") + msg;
     std::cout << m << std::endl;

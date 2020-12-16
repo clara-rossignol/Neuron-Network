@@ -59,7 +59,7 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0},{"CH",
 
     } catch(TCLAP::ArgException &e)
         {
-            set(e.error() + " " + e.argId(), TCLAP_ERROR, true);
+           set(e.error() + " " + e.argId(), TCLAP_ERROR, true);
         }
 }
 
@@ -79,7 +79,7 @@ void Simulation::run(const double time)
     std::ofstream outf1, outf2, outf3;
     outf1.open(_output + '_' + _OUTFILE_1_);
     if(outf1.bad())
-            set("Cannot write to file " + _output + '_' + _OUTFILE_1_, OUTPUT_ERROR, true);
+           set("Cannot write to file " + _output + '_' + _OUTFILE_1_, OUTPUT_ERROR, true);
     
     std::ostream *_outf = &std::cout;
     
