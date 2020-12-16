@@ -12,8 +12,6 @@
 #include <cmath>
 #include <tclap/CmdLine.h>
 
-#include "Error.h"
-
 
 /// * default parameters values *
 #define _AVG_NUMBER_ 100
@@ -55,7 +53,25 @@
 #define _OUTFILE_2_ "parameters"
 #define _OUTFILE_3_ "sample_neurons"
 
+
+/*! \brief Enumeration of the various errors that can be encountered in the program. 
+ * Used in the static function set.
+ */
 enum errors  {TCLAP_ERROR, PARAM_ERROR ,OUTPUT_ERROR };
+
+/*!
+ * It will set the error
+ * \param msg (string): the message corresponding to an error
+ * \param error_name (enum errors): the code number/error type
+ * \param autoThrow (bool): if true (which is by default), throw the error
+ */
+static void set(std::string const& msg, errors error_name, bool autoThrow = true)
+{
+    std::string m = std::string("r ") + std::to_string(error_name) + std::string(": ") + msg;
+    std::cout << m << std::endl;
+    if (autoThrow)
+        throw std::runtime_error(m);
+}
 
 /*! \brief This is how a Neuron's parameters are implemented.
  * The Neuron's parameters and if it is an inhibitory or excitatory Neuron.

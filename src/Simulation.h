@@ -128,12 +128,14 @@ public:
         */
 
     template<typename N>
-    static void checkInBound( const std::string& message, N x, N min = std::numeric_limits<N>::min(), N max = std::numeric_limits<N>::max())
+    static void checkInBound( const std::string& message, 
+                              N x, N min = std::numeric_limits<N>::min(), 
+                              N max = std::numeric_limits<N>::max())
     {
         if (x > max or x <min)
         {
-            Error::set(std::string("Invalid data entered. ") + message + std::string(" should be between ") 
-                                    + std::to_string(min) + std::string(" and ") + std::to_string(max), 1);
+            set("Invalid data entered. " + message + " should be between " + std::to_string(min) 
+                    + " and " + std::to_string(max), PARAM_ERROR, true);
         }
     } 
 
