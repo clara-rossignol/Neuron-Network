@@ -16,7 +16,6 @@ set(SOURCE_FILES
 	src/Simulation.cpp
 	src/ConstNetwork.cpp
 	src/DispNetwork.cpp
-	src/Error.cpp
 	)
 set(PROG_NAME "NeuronNetwork")
 
