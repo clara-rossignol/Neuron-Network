@@ -61,9 +61,7 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0},
 
     } catch(TCLAP::ArgException &e)
         {
-            //throw(TCLAP_ERROR("Error: " + e.error() + " " + e.argId()));
-            //il ne faudra plus mettre Error:: une fois que la classe error sera supprimée
-            Error::set(e.error() + " " + e.argId(), TCLAP_ERROR, true);
+            set(e.error() + " " + e.argId(), TCLAP_ERROR, true);
         }
 }
 
@@ -82,25 +80,20 @@ void Simulation::run(const double time)
 {
     std::ofstream outf1, outf2, outf3;
     outf1.open(_output + '_' + _OUTFILE_1_);
-    /*if(outf1.bad())
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ")
-				+ _output + '_' +_OUTFILE_1_));*/
+    if(outf1.bad())
+            set("Cannot write to file " + _output + '_' + _OUTFILE_1_, OUTPUT_ERROR, true);
     
     std::ostream *_outf = &std::cout;
     
     if(outf1.is_open()) _outf = &outf1;
     
     outf2.open(_output + '_' + _OUTFILE_2_);
-    /*if(outf2.bad())
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ")
-				+ _output + '_' + _OUTFILE_2_));*/
-    
+    if(outf2.bad())
+            set("Cannot write to file " + _output + '_' + _OUTFILE_3_, OUTPUT_ERROR, true);
+
     outf3.open(_output + '_' + _OUTFILE_3_);
-    /*if(outf3.bad())
-    {
-        throw(OUTPUT_ERROR(std::string("Cannot write to file ")
-				+ _output + '_' + _OUTFILE_3_));
-	}*/
+    if(outf3.bad())
+            set("Cannot write to file " + _output + '_' + _OUTFILE_3_, OUTPUT_ERROR, true);
 
 	sampleHeader(&outf3);	
 	
@@ -142,8 +135,7 @@ void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def,
     if(abs(sum - max_sum) <= 0.0001  or  (sum - max_sum <= 0.0001 and !setDef))
         def->second += max_sum - sum;
     else
-        Error::set("error with type proportions", true);
-       //throw (TCLAP_ERROR(std::string("error with type proportions")));
+        set("error with type proportions", TCLAP_ERROR, true);
 }
 
 
