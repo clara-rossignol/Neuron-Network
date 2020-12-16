@@ -17,11 +17,11 @@ public:
 	/*! \name Initialization
 	 */
 ///@{
-    DispNetwork(size_t s, TypesProportions prop);
-/** Initialises the network with neurons
-   @param neurons: a set of neurons (vector<Neuron>)
+    /*! Initialize the networl as explained in the description of the class
+   * \param size: the size of the network
+   * \param prop: all proportions corresponding to each type of neurons
    */
-    DispNetwork(const std::vector<Neuron> &neurons);
+    DispNetwork(size_t s, TypesProportions prop);
 ///@}
 
     /*!

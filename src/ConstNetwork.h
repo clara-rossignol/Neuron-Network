@@ -16,11 +16,12 @@ public:
 /*! \name Initialization
  */
 ///@{
-	ConstNetwork(size_t s, TypesProportions prop);
-  /** Initialises the network with neurons
-   @param neurons: a set of neurons
+  /** Initialises the network as explained in the description of the class
+   @param s: size of the network, number of neurons
+   @param prop : the proportions of each type of neurons
    */
-    ConstNetwork(const std::vector<Neuron> &neurons); 
+	ConstNetwork(size_t s, TypesProportions prop);
+
 ///@}
 
     /*!

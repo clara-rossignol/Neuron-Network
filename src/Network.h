@@ -17,11 +17,6 @@ public:
 /*! \name Initialization
  */
 ///@{
-  /*!
-   * \param neurons: all neurons that will form the network
-   */
-   Network(const std::vector<Neuron>& neurons);
-
   /*! A set of neurons of size *size* is created according 
    * to proportions given in *prop*. 
    * The last position in the network of each type of neurons is
