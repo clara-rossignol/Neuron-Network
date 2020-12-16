@@ -4,10 +4,8 @@
 #include "DispNetwork.h"
        
 
-Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0}, 
-                                                       {"CH",0},{"TC",0},
-													   {"RZ",0}, {"FS",0},  
-													   {"LTS", 0}})
+Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0},{"CH",0},{"TC",0},
+                                                          {"RZ",0}, {"FS",0}, {"LTS", 0}})
 {
     try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
