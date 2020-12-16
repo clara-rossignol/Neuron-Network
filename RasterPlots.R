@@ -66,4 +66,4 @@ if (length(args) > 2) {
     }
 }
 
-#! Rscript RasterPlots.R _spikes.txt _sample_neurons _parameters
+#! Rscript ../RasterPlots.R NeuronNetwork_spikes NeuronNetwork_sample_neurons NeuronNetwork_parameters
