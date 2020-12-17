@@ -2,9 +2,6 @@
 #include "Random.h"
 #include <sstream>
 
-Network::Network(const std::vector<Neuron>& neurons) : neurons(neurons)
-{}
-
 Network::Network(size_t size, const TypesProportions& prop)
 {
    int index(0);

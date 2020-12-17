@@ -1,7 +1,6 @@
 #include "ConstNetwork.h"
 #include "Random.h"
 
-ConstNetwork::ConstNetwork(const std::vector<Neuron> &neurons) : Network(neurons) {}
 ConstNetwork::ConstNetwork(size_t s, TypesProportions prop) : Network(s, prop) {}
 
 void ConstNetwork::setConnections(double meanIntensity, double meanConnectivity) 

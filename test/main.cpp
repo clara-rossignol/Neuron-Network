@@ -162,9 +162,11 @@ TEST(Network, setConnections)
 
     double average(0);
     size_t N = 0;
+    size_t size (5000); //10000 (?)
+    TypesProportions prop ({{"RS",1}});
     for (size_t i(0); i<100; ++i)
     {
-        Network net(std::vector<Neuron>(5000, Neuron("RS")));//10000
+        Network net(size, prop);
         net.setConnections(meanIntensity, meanConnectivity);
         double sum(0);
 
@@ -187,7 +189,9 @@ TEST(ConstNetwork, setConnections)
 {
     double meanIntensity(100);
     double meanConnectivity(100);
-    ConstNetwork net(std::vector<Neuron>(3, Neuron("RS")));
+    size_t size (3);
+    TypesProportions prop ({{"RS",1}});
+    ConstNetwork net(size, prop);
     net.setConnections(meanIntensity, meanConnectivity);
     for(const auto& n : net.getNeurons() )
     {
@@ -200,9 +204,11 @@ TEST(DispNetwork, setConnections)
     double meanIntensity(100);
     double meanConnectivity(100);
     std::size_t N = 0;
+    size_t size (5000);
+    TypesProportions prop ({{"RS",1}});
     for (size_t i(0); i<100; ++i)
     {
-        DispNetwork net(std::vector<Neuron>(5000, Neuron("RS")));
+        DispNetwork net (size, prop);
         net.setConnections(meanIntensity, meanConnectivity);
 
         for(const auto& n : net.getNeurons())
