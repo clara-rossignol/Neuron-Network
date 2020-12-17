@@ -133,7 +133,7 @@ This will allow the generation 3 plots.
 
 *************************************************
 
-## Final note:
+## Final note
 In order to see an explicit description of every class, method and attribute, the user can type make doc in the terminal.
 This will create a doc file based on the comments of every class. The user can then open the doc file-> html-> annoted.html.
 This will open a web page that contains a detailed explanation of each class.
