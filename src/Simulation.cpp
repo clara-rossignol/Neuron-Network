@@ -1,11 +1,11 @@
-#include "constants.h"
+#include "utility.h"
 #include "Simulation.h"
 #include "ConstNetwork.h"
 #include "DispNetwork.h"
        
 
-Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0},{"CH",0},{"TC",0},
-                                                          {"RZ",0}, {"FS",0}, {"LTS", 0}})
+Simulation::Simulation(int argc, char **argv) : _props({{"RS", 0}, {"IB", 0}, {"CH", 0}, {"TC", 0},
+                                                        {"RZ", 0}, {"FS", 0}, {"LTS", 0}})
 {
     try {
         TCLAP::CmdLine cmd(_PRGRM_TEXT_);
@@ -35,7 +35,7 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0},{"CH",
         int _size = total_n.getValue();
         checkInBound(_NUMBER_TEXT_, _size, _MIN_NEURONS_);
         double _inhib = inhib.getValue();
-        checkInBound(_PROP_TEXT_, _inhib, _MIN_PE_, _MAX_PE_);
+        checkInBound(_PROP_TEXT_, _inhib, _MIN_PROP_, _MAX_PROP_);
         _endtime = maxt.getValue();
         checkInBound(_TIME_TEXT_, _endtime, _MIN_TIME_);
         double _degree = degree.getValue();
@@ -49,11 +49,11 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0},{"CH",
         _output = output.getValue();
 
         if (basic.getValue())
-            _net = new Network(_size, _prop);
+            _net = new Network(_size, _props);
         else if (constant.getValue())
-            _net = new ConstNetwork(_size, _prop);
+            _net = new ConstNetwork(_size, _props);
         else
-            _net = new DispNetwork(_size, _prop);
+            _net = new DispNetwork(_size, _props);
         _net->setConnections(_strength, _degree);
 
 
@@ -67,7 +67,7 @@ Simulation::Simulation(int argc, char **argv) : _prop({{"RS",0}, {"IB",0},{"CH",
 Simulation::Simulation(const TypesProportions& prop, int size, int endtime, 
 					   double degree, double strength, double thalamic,
                        const std::string& output)
-: _prop(prop), _net(new Network(size, prop)), _endtime(endtime), 
+: _props(prop), _net(new Network(size, prop)), _endtime(endtime),
   _thalamic(thalamic), _output(output)
 {
     _net->setConnections(strength, degree);
@@ -114,7 +114,7 @@ void Simulation::run(const double time)
 
 void Simulation::sampleHeader(std::ostream *_outstr)
 {
-	for (const auto& type : _prop)
+	for (const auto& type : _props)
     {
 	    if(type.second != 0)
             (*_outstr) <<'\t'<<type.first<<".v" <<'\t'<<type.first<<".u" 
@@ -124,14 +124,14 @@ void Simulation::sampleHeader(std::ostream *_outstr)
 }
 
 
-void Simulation::checkTypes(Iterator beg, Iterator end, const Iterator& def, 
-							bool setDef ,double max_sum)
+void Simulation::checkMatchingProportions(Iterator beg, Iterator end, const Iterator& def,
+                                          bool setDef , double maxSum)
 {
     double sum (0);
     for (auto p = beg;  p != end ; p++)
         sum += p->second;
-    if(abs(sum - max_sum) <= 0.0001  or  (sum - max_sum <= 0.0001 and !setDef))
-        def->second += max_sum - sum;
+    if(abs(sum - maxSum) <= 0.0001 or (sum - maxSum <= 0.0001 and !setDef))
+        def->second += maxSum - sum;
     else
         set("error with type proportions", TCLAP_ERROR, true);
 }
@@ -146,25 +146,27 @@ void Simulation::readTypesProportions(const std::string& types, bool inhibSet, d
         key.erase(std::remove_if(key.begin(), key.end(), isspace), key.end());
         std::getline(ss, p, ',');
         if(!p.empty())
-            _prop.at(key) = stod(p);
+            _props.at(key) = stod(p);
     }
+    for (const auto& prop : _props)
+        checkInBound("The proportions", prop.second, _MIN_PROP_, _MAX_PROP_);
 
     if(inhibSet)
     {
-        TypesProportions propInhib = {{*_prop.find("FS")}, {*_prop.find("LTS")}};
-        checkTypes(propInhib.begin(), propInhib.end(), propInhib.find("FS"), 
-				   types.find("FS") != std::string::npos, inhib);
-        _prop.at("FS") = propInhib.at("FS");
-        _prop.at("LTS") = propInhib.at("LTS");
+        TypesProportions propInhib = {{*_props.find("FS")}, {*_props.find("LTS")}};
+        checkMatchingProportions(propInhib.begin(), propInhib.end(), propInhib.find("FS"),
+                                 types.find("FS") != std::string::npos, inhib);
+        _props.at("FS") = propInhib.at("FS");
+        _props.at("LTS") = propInhib.at("LTS");
     }
-    checkTypes(_prop.begin(), _prop.end(), _prop.find("RS"),
-			   types.find("RS") != std::string::npos,1);
+    checkMatchingProportions(_props.begin(), _props.end(), _props.find("RS"),
+                             types.find("RS") != std::string::npos, 1);
 }
 
 
 const TypesProportions &Simulation::getProp() const
 {
-    return _prop;
+    return _props;
 }
 
 

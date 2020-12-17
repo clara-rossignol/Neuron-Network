@@ -1,6 +1,6 @@
 #include "Neuron.h"
 #include "Random.h"
-#include "constants.h"
+#include "utility.h"
 #include <sstream>
 
 

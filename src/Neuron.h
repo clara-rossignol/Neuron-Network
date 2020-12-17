@@ -1,7 +1,7 @@
 #ifndef NEURON_H
 #define NEURON_H
 
-#include "constants.h"
+#include "utility.h"
 
 /*!
  * \class Neuron

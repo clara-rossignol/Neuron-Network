@@ -2,7 +2,7 @@
 #define NETWORK_H
 
 #include "Neuron.h"
-#include "constants.h"
+#include "utility.h"
 
 /*!
  * \class Network

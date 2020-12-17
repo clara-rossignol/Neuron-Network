@@ -38,8 +38,8 @@ public:
      in one neuron
      @param neuron
      */
-    void setNeuronConnections(double meanIntensity, 
-    double meanConnectivity, Neuron& neuron) override;
+    void setNeuronConnections(double meanIntensity, double meanConnectivity,
+                              Neuron& neuron) override;
 };
 
 

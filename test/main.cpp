@@ -31,7 +31,7 @@ TEST(Simulation, readTypesProportions)
 
 }
 
-TEST(Simulation, checkTypes)
+TEST(Simulation, checkMatchingProportions)
 {
     Simulation sim;
 
@@ -48,7 +48,7 @@ TEST(Simulation, checkInBound)
     EXPECT_ANY_THROW(sim.checkInBound("test", -4, 5, 10));
 }
 
-TEST(Neuron, neuron_types)
+TEST(Neuron, neuronTypes)
 {
 	Neuron n1("RS");
 	EXPECT_FALSE(n1.isGoingToFire());
@@ -161,12 +161,12 @@ TEST(Network, setConnections)
     double meanConnectivity(100);
 
     double average(0);
-    size_t N = 0;
-    size_t size (5000); //10000 (?)
-    TypesProportions prop ({{"RS",1}});
+    size_t N(0);
+    size_t size (5000);
+
     for (size_t i(0); i<100; ++i)
     {
-        Network net(size, prop);
+        Network net(size, {{"RS",1}});
         net.setConnections(meanIntensity, meanConnectivity);
         double sum(0);
 
@@ -182,16 +182,14 @@ TEST(Network, setConnections)
     average /=(N);
 
     EXPECT_NEAR(meanIntensity, average, 0.03);
-    EXPECT_NEAR(N/(5000*100), meanConnectivity, 1);
+    EXPECT_NEAR(N/(size*100), meanConnectivity, 1);
 }
 
 TEST(ConstNetwork, setConnections)
 {
     double meanIntensity(100);
     double meanConnectivity(100);
-    size_t size (3);
-    TypesProportions prop ({{"RS",1}});
-    ConstNetwork net(size, prop);
+    ConstNetwork net(3, {{"RS",1}});
     net.setConnections(meanIntensity, meanConnectivity);
     for(const auto& n : net.getNeurons() )
     {
@@ -203,18 +201,19 @@ TEST(DispNetwork, setConnections)
 {
     double meanIntensity(100);
     double meanConnectivity(100);
-    std::size_t N = 0;
+
+    size_t N(0);
     size_t size (5000);
-    TypesProportions prop ({{"RS",1}});
+
     for (size_t i(0); i<100; ++i)
     {
-        DispNetwork net (size, prop);
+        DispNetwork net (size, {{"RS",1}});
         net.setConnections(meanIntensity, meanConnectivity);
 
         for(const auto& n : net.getNeurons())
             N += n.getConnections().size();
     }
-    EXPECT_NEAR(N/(5000*100), meanConnectivity, 1);
+    EXPECT_NEAR(N/(size*100), meanConnectivity, 1);
 }
 
 int main(int argc, char **argv) 

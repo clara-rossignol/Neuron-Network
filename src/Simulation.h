@@ -18,9 +18,6 @@
 							the Network throughout the Simulation. \n
     */   
 
-/*! \typedef Iterator : to iterate through a map
- */
-    typedef  std::map<std::string, double>::iterator Iterator ;
 
 class Simulation 
 {
@@ -63,18 +60,18 @@ public:
 
     /*!
       Reads a string such as *IB:0.2,FS:0.3,CH:0.2* and saves each 
-      proportion corresponding to each type in _prop. \n
+      proportion corresponding to each type in _props. \n
       Except RS (and FS if the inhibitor proportion is given) all 
       non-specified proportions will remain 0.
       If the the inhibitor proportion is too big compared to all 
       inhibitor types proportions, the proportion of FS will be raised 
       accordingly (if it was not specified in the command line) with a 
-      first call of \ref checkTypes. 
+      first call of \ref checkMatchingProportions.
       If proportions don't match each other, the program will stop.
       After that, in the same way, if the sum of all proportions is 
       smaller than 1, some RS will be added accordingly (if it was not 
       specified in the command line) with a second call of 
-      \ref checkTypes. If proportions don't match each other, 
+      \ref checkMatchingProportions. If proportions don't match each other,
       the program will stop.
 
      * \param types A string such as *IB:0.2,FS:0.3,CH:0.2*
@@ -97,7 +94,7 @@ public:
     * \param setDef if *def* proportion was specified in the command line
     * \param maxSum the maximum value the sum of all proportions can reach
     */
-    static void checkTypes(Iterator beg, Iterator end, const Iterator& def, bool setDef,  double maxSum);
+    static void checkMatchingProportions(Iterator beg, Iterator end, const Iterator& def, bool setDef, double maxSum);
 
     /*! \name Running the simulation
      Runs the simulation through a loop with \ref _endtime steps. 
@@ -119,14 +116,12 @@ public:
 
     /*!
      Checks if a parameter given in the command line is not in the valid range of value
-
         * \tparam N numeric type
         * \param message :specific message precising which parameter to consider
         * \param x the paramteter tested
         * \param min the minimum value the given parameter can reach
         * \param max the maximum value the given parameter can reach
         */
-
     template<typename N>
     static void checkInBound( const std::string& message, 
                               N x, N min = std::numeric_limits<N>::min(), 
@@ -141,7 +136,7 @@ public:
 
 
 private:
-    TypesProportions _prop;
+    TypesProportions _props;
     Network* _net;
     int _endtime;
     double _thalamic;

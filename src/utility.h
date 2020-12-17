@@ -1,5 +1,5 @@
-#ifndef CONSTANTS_H
-#define CONSTANTS_H
+#ifndef UTILITY_H
+#define UTILITY_H
 
 #include <array>
 #include <fstream>
@@ -29,9 +29,9 @@
 /// * parameter limits *
 #define _MIN_NEURONS_ 2
 #define _MIN_TIME_ 0
-#define _MIN_PE_ 0.
-#define _MAX_PE_ 1.
 #define _MIN_THAL_ 0.
+#define _MIN_PROP_ 0.
+#define _MAX_PROP_ 1.
 #define _MIN_CONNECTIVITY_ 0.
 #define _MIN_INTENSITY_ 0.
 
@@ -67,7 +67,7 @@ enum errors  {TCLAP_ERROR, PARAM_ERROR ,OUTPUT_ERROR };
  */
 inline void set(std::string const& msg, errors error_name, bool autoThrow = true)
 {
-    std::string m = std::string("r ") + std::to_string(error_name) + std::string(": ") + msg;
+    std::string m = std::string("Error ") + std::to_string(error_name) + std::string(": ") + msg;
     std::cout << m << std::endl;
     if (autoThrow)
         throw std::runtime_error(m);
@@ -109,4 +109,8 @@ const std::map<std::string, NParams> NeuronTypes{
  */
 typedef  std::map<std::string, double> TypesProportions;
 
-#endif //CONSTANTS_H
+/*! \typedef Iterator : to iterate through a map
+ */
+typedef  std::map<std::string, double>::iterator Iterator ;
+
+#endif //UTILITY_H
