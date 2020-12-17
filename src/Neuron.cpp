@@ -44,7 +44,8 @@ void Neuron::currentCalculation(double thal)
 
 void Neuron::update(double thal)
 {
-    if(isFiring()) reset();
+    if(isFiring())
+        reset();
     else
     {
 		currentCalculation(thal);
