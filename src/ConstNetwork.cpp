@@ -10,9 +10,7 @@ void ConstNetwork::setConnections(double meanIntensity, double meanConnectivity)
         setNeuronConnections(meanIntensity, meanConnectivity, neuron);
     }
 }
-
-void ConstNetwork::setNeuronConnections(double meanIntensity, 
-double meanConnectivity, Neuron &neuron)
+void ConstNetwork::setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron &neuron)
 {
     std::vector<Connection> inhib;
     std::vector<Connection> excit;

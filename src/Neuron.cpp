@@ -9,23 +9,21 @@ firing(isFiring), current(0), nParams(NeuronTypes.at(type)),type(type),
 nInhibitory(0)
 {
     
-      membranePotential = nParams.c;
-    recoveryVariable = nParams.b*membranePotential;
+    membranePotential = _INIT_POT_;
 
     if (type == "FS")
     {
-        double coeff(_RNG->uniform_double(0, 1));
+        const double coeff(_RNG->uniform_double(0, 1));
         nParams.a *= 1 - 0.8 * coeff;
         nParams.b *= 1 + 0.25 * coeff;
     }
     else if(type =="RS")
     {
-        double coeff(_RNG->uniform_double(0, 1));
-        coeff *= coeff;
+        const double coeff(pow(_RNG->uniform_double(0, 1), 2));
         nParams.c *= 1 - 3. / 13 * coeff;
         nParams.d *= 1 - 0.75 * coeff;
     }
-    
+    recoveryVariable = nParams.b * membranePotential;
 }
 
 void Neuron::currentCalculation(double thal)
@@ -51,7 +49,7 @@ void Neuron::update(double thal)
     else
     {
 		currentCalculation(thal);
-        double potential(membranePotential);
+        const double potential(membranePotential);
         setMembranePotential();
         setRecoveryVariable(potential);
     }
@@ -73,8 +71,7 @@ void Neuron::setMembranePotential()
 
 void Neuron::setRecoveryVariable(double potential)
 {
-    recoveryVariable += (nParams.a*(nParams.b*potential 
-						- recoveryVariable))*_DELTA_RECV_;
+    recoveryVariable += (nParams.a*(nParams.b*potential - recoveryVariable))*_DELTA_RECV_;
 }
 
 bool Neuron::isFiring() const

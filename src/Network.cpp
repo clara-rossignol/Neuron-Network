@@ -4,7 +4,7 @@
 
 Network::Network(size_t size, const TypesProportions& prop)
 {
-   int index(0);
+   size_t index(0);
    for(const auto& type : prop)
    {
        size_t numType (size * type.second);
@@ -34,16 +34,17 @@ double meanConnectivity)
         setNeuronConnections(meanIntensity, meanConnectivity, neuron);
 }
 
-void Network::setNeuronConnections(double meanIntensity,
-double meanConnectivity, Neuron& neuron)
+void Network::setNeuronConnections(double meanIntensity, double meanConnectivity, Neuron& neuron)
 {
     int number(-1);
     while (number < 0 or number > (int)neurons.size())
         number = _RNG->poisson(meanConnectivity);
 
+    // By separating the neurons between inhibitory and excitatory ones we can
+    // speed up significantly the method current_calculation in Neuron
     std::vector<Connection> inhib;
     std::vector<Connection> excit;
-    for(size_t i(0);i < (unsigned int)number ;++i)
+    for(size_t i(0);i < (size_t)number ;++i)
     {
         Neuron* sender = &neurons[_RNG->uniform_int(0, (int)neurons.size()-1)];
         if (sender->isInhibitor())
