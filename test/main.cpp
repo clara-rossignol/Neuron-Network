@@ -48,54 +48,37 @@ TEST(Simulation, checkInBound)
     EXPECT_ANY_THROW(sim.checkInBound("test", -4, 5, 10));
 }
 
-TEST(Neuron, neuronTypes)
-{
-	Neuron n1("RS");
-	EXPECT_TRUE("RS"==n1.getType());
-	EXPECT_FALSE(n1.isGoingToFire());
-	EXPECT_FALSE(n1.isFiring());
-    EXPECT_EQ(n1.getCurrent(),0);
-	EXPECT_EQ(n1.getMembranePotential(),-65);
-	EXPECT_EQ(n1.getRecoveryVariable(),-13);
-    EXPECT_EQ(n1.getNInhibitory(),0);
+TEST(Neuron, neuronTypes) {
+    Neuron n1("RS");
+    EXPECT_TRUE("RS" == n1.getType());
+    EXPECT_FALSE(n1.isGoingToFire());
+    EXPECT_FALSE(n1.isFiring());
+    EXPECT_EQ(n1.getCurrent(), 0);
+    EXPECT_EQ(n1.getNInhibitory(), 0);
     EXPECT_FALSE(n1.isInhibitor());
-	
+
     Neuron n2("FS");
-    EXPECT_TRUE("FS"==n2.getType());
+    EXPECT_TRUE("FS" == n2.getType());
     EXPECT_TRUE(n2.isInhibitor());
-    EXPECT_EQ(n2.getMembranePotential(),-65);
-	EXPECT_EQ(n2.getRecoveryVariable(),-13);
-	
-	
-	Neuron n3("IB");
-	EXPECT_TRUE("IB"==n3.getType());
+
+    Neuron n3("IB");
+    EXPECT_TRUE("IB" == n3.getType());
     EXPECT_FALSE(n3.isInhibitor());
-    EXPECT_EQ(n3.getMembranePotential(),-55);
-	EXPECT_EQ(n3.getRecoveryVariable(),-11);
-	
-	Neuron n4("CH");
-	EXPECT_TRUE("CH"==n4.getType());
+    Neuron n4("CH");
+    EXPECT_TRUE("CH" == n4.getType());
     EXPECT_FALSE(n4.isInhibitor());
-    EXPECT_EQ(n4.getMembranePotential(),-50);
-	EXPECT_EQ(n4.getRecoveryVariable(),-10);
-	
-	Neuron n5("LTS");
-	EXPECT_TRUE("LTS"==n5.getType());
+
+    Neuron n5("LTS");
+    EXPECT_TRUE("LTS" == n5.getType());
     EXPECT_TRUE(n5.isInhibitor());
-    EXPECT_EQ(n5.getMembranePotential(),-65);
-	EXPECT_EQ(n5.getRecoveryVariable(),-16.25);
-	
-	Neuron n6("TC");
-	EXPECT_TRUE("TC"==n6.getType());
+
+    Neuron n6("TC");
+    EXPECT_TRUE("TC" == n6.getType());
     EXPECT_FALSE(n6.isInhibitor());
-    EXPECT_EQ(n6.getMembranePotential(),-65);
-	EXPECT_EQ(n6.getRecoveryVariable(),-16.25);
-	
-	Neuron n7("RZ");
-	EXPECT_TRUE("RZ"==n7.getType());
+
+    Neuron n7("RZ");
+    EXPECT_TRUE("RZ" == n7.getType());
     EXPECT_FALSE(n7.isInhibitor());
-    EXPECT_EQ(n7.getMembranePotential(),-65);
-    EXPECT_DOUBLE_EQ(n7.getRecoveryVariable(),-16.9);
 }
 
 TEST(Neuron, update)
@@ -106,7 +89,6 @@ TEST(Neuron, update)
     Neuron n2("FS", true);
     n2.update(_AVG_THAL_);
     EXPECT_EQ(n2.getMembranePotential(), -65);
-    EXPECT_EQ(n2.getRecoveryVariable(), -11);
 }
 
 TEST(Neuron, currentCalculation)
