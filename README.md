@@ -129,11 +129,11 @@ In order to better understand the results, the user can write the following comm
 ```
 Rscript ../RasterPlots.R  NeuronNetwork_spikes NeuronNetwork_sample_neurons NeuronNetwork_parameters
 ```
-This will allow the generation 3 plots.
+This will allow the generation of 3 plots that can be found in the build folder under the names *Rplot001.pdf,Rplot002.pdf,Rplot003.pdf* .
 
 *************************************************
 
-## Final note:
+## Final note
 In order to see an explicit description of every class, method and attribute, the user can type make doc in the terminal.
 This will create a doc file based on the comments of every class. The user can then open the doc file-> html-> annoted.html.
 This will open a web page that contains a detailed explanation of each class.
