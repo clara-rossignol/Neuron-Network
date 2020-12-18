@@ -9,8 +9,6 @@ firing(isFiring), current(0), nParams(NeuronTypes.at(type)),type(type),
 nInhibitory(0)
 {
     membranePotential = nParams.c;
-    recoveryVariable = nParams.b*membranePotential;
-
     if (type == "FS")
     {
         double coeff(_RNG->uniform_double(0, 1));
@@ -24,6 +22,7 @@ nInhibitory(0)
         nParams.c *= 1 - 3. / 13 * coeff;
         nParams.d *= 1 - 0.75 * coeff;
     }
+    recoveryVariable = nParams.b*membranePotential;
 }
 
 void Neuron::currentCalculation(double thal)
