@@ -8,7 +8,7 @@ Neuron::Neuron(const std::string& type, bool isFiring) : willFire(false),
 firing(isFiring), current(0), nParams(NeuronTypes.at(type)),type(type), 
 nInhibitory(0)
 {
-    membranePotential = nParams.c;
+    membranePotential = _INIT_POT_;
     if (type == "FS")
     {
         double coeff(_RNG->uniform_double(0, 1));

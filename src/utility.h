@@ -22,6 +22,7 @@
 #define _AVG_CNNCT_ 1.
 #define _AVG_INTENSITY_ 4
 #define _FIRING_TRESHOLD_ 30
+#define _INIT_POT_ -65;
 #define _DELTA_MBRN_ 1.
 #define _DELTA_RECV_ 0.5
 
